@@ -1,6 +1,8 @@
 import { TfIdf } from "natural";
 import { Question } from "../data/questionnaire";
 
+export type PresentationSlide = SlideItem[] | SlideSummary | typeof presentationAISummary
+
 type SlideType = 'title slide' | 'bullet points' | 'chart' | 'timeline' | 'profiles' | 'map' | 'diagram';
 type ChartType = 'pie chart' | 'line chart';
 
@@ -150,6 +152,48 @@ export const presentationSlideData: SlideItem[] = [
     }
 ];
 
+// Pre-generated and statically delivered
+// Model: OpenAI o4-mini (standard parameters + low reasoning effort)
+export const presentationAISummary = {
+    overview: "TechInnovate delivered a strong Q2 with 15% YoY revenue growth to $78.5 M, margin expansion, and cloud/AI momentum driving performance.",
+    metrics: {
+        revenue: "78.5 M USD (+15% YoY)",
+        operatingMargin: "23.4% (+2.1 pts QoQ)",
+        newEnterpriseCustomers: 42,
+        cloudGrowth: "28%",
+        aiPlatformLaunch: "May 2023"
+    },
+    revenueDistribution: {
+        cloudServices: "42%",
+        enterpriseSolutions: "30%",
+        consumerProducts: "18%",
+        professionalServices: "10%"
+    },
+    strategicInitiatives: [
+        "Enhance AI Platform capabilities by Q4",
+        "Achieve 15% APAC growth by year‑end",
+        "Complete DataSecure Inc. acquisition in September",
+        "Launch next‑gen Enterprise Suite in November",
+        "Improve operating margin to 25% by Q4"
+    ],
+    revenueForecast: [
+        { quarter: "Q3 2023", projectedRevenue: "85.3 M USD" },
+        { quarter: "Q4 2023", projectedRevenue: "94.7 M USD" }
+    ],
+    keyInsights: [
+        "Cloud & AI contribute over 40% of total revenue, underscoring strategic focus.",
+        "Margin gains reflect improved operational efficiency and disciplined cost management.",
+        "Targeted M&A and regional expansion will underpin second‑half growth."
+    ],
+    nextSteps: [
+        "Execute and monitor strategic initiatives",
+        "Finalize acquisition integration plans",
+        "Track APAC market progress",
+        "Prepare go‑to‑market for year‑end spending surge"
+    ]
+};
+
+// Dynamically generated (programmatic) summary based on text extraction
 export function summarizeSlides(
     slides: SlideItem[]
 ): SlideSummary {

@@ -1,5 +1,8 @@
 import { TfIdf } from "natural";
 
+export type MeetingTranscript = TranscriptItem[] | TranscriptSummary | typeof meetingAISummary
+
+
 interface TranscriptItem {
     id: number;
     time: string;         // e.g. "00:00:23"
@@ -84,6 +87,42 @@ export const meetingTranscriptData: TranscriptItem[] = [
     }
 ];
 
+// Pre-generated and statically delivered
+// Model: OpenAI o4-mini (standard parameters + low reasoning effort)
+export const meetingAISummary = {
+    overview: "During the weekly product development meeting, the team confirmed Q3 priorities—dashboard redesign and enhanced notifications—postponed the collaborative editing feature to Q4, and committed to resolving performance bottlenecks to stay on track for a July 30 release.",
+    themes: [
+        {
+            category: "Feature Prioritization",
+            focus: ["Dashboard redesign", "Notification system", "Deferring collaborative editing to Q4"]
+        },
+        {
+            category: "Performance Optimization",
+            focus: ["Database query tuning", "Mobile image processing improvements"]
+        },
+        {
+            category: "Release Planning",
+            focus: ["Assessing impact on July 30 timeline", "Dependency on API vendor response"]
+        }
+    ],
+    keyInsights: [
+        "User feedback strongly favors dashboard and notification enhancements over rushed collaboration features.",
+        "Postponing complex features reduces risk of negative reception.",
+        "Core performance fixes are achievable within two weeks plus one week of QA."
+    ],
+    actionItems: [
+        { owner: "Emma Rodriguez", task: "Resolve performance bottlenecks and liaise with external API vendor" },
+        { owner: "Alex Kim", task: "Complete and hand off dashboard redesign" },
+        { owner: "Priya Patel", task: "Revise Q3 roadmap to reflect updated priorities" },
+        { owner: "David Wilson", task: "Prepare extended QA plan for new features" }
+    ],
+    nextMeeting: {
+        date: "Next Tuesday",
+        goal: "Review progress on performance fixes, dashboard redesign, and notification rollout"
+    }
+};
+
+// Dynamically generated (programmatic) summary based on text extraction
 export function summarizeTranscripts(
     items: TranscriptItem[]
 ): TranscriptSummary {

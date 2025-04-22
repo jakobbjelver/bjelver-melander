@@ -1,8 +1,10 @@
 import { Question } from "../data/questionnaire";
 import { TfIdf, PorterStemmer } from 'natural';
 
+export type EmailInbox = EmailItem[] | EmailProgrammaticSummary | typeof emailInboxAISummarization
+
 // Define the structure of an email item
-interface EmailOriginal {
+interface EmailItem {
     id: number;
     sender: string;
     email: string;
@@ -35,7 +37,7 @@ interface EmailProgrammaticSummary {
     dateRange: { first: string; last: string };
 }
 
-export const emailInboxData: EmailOriginal[] = [
+export const emailInboxData: EmailItem[] = [
     {
         id: 1,
         sender: "Sarah Johnson",
@@ -175,7 +177,8 @@ export const emailInboxData: EmailOriginal[] = [
     }
 ];
 
-export function summarizeEmails(emails: EmailOriginal[]): EmailProgrammaticSummary {
+// Dynamically generated (programmatic) summary based on text extraction
+export function summarizeEmails(emails: EmailItem[]): EmailProgrammaticSummary {
     // 1. Aggregate text
     const docs = emails
         .filter(e => !e.irrelevant)
@@ -244,27 +247,29 @@ export function summarizeEmails(emails: EmailOriginal[]): EmailProgrammaticSumma
     };
 }
 
+// Pre-generated and statically delivered
+// Model: OpenAI o4-mini (standard parameters + low reasoning effort)
 export const emailInboxAISummarization = {
     overview: "The inbox features urgent client requests, routine operational notices, collaborative document updates, and a large volume of low‑value notifications that may be distracting.",
     themes: [
-      { name: "Client Action Items", count: 2, urgency: "high" },
-      { name: "Operational Notifications", count: 2, urgency: "medium" },
-      { name: "Collaboration Updates", count: 1, urgency: "medium" },
-      { name: "Irrelevant/Promotional", count: 5, urgency: "low" }
+        { name: "Client Action Items", count: 2, urgency: "high" },
+        { name: "Operational Notifications", count: 2, urgency: "medium" },
+        { name: "Collaboration Updates", count: 1, urgency: "medium" },
+        { name: "Irrelevant/Promotional", count: 5, urgency: "low" }
     ],
     keyInsights: [
-      "Two high‑priority client deliverables require same‑day responses to keep projects on track.",
-      "Mandatory training and expense approvals support compliance and payroll processes but are lower urgency.",
-      "Team document edits need timely review to maintain marketing strategy momentum.",
-      "A significant share of notifications is low‑value, increasing inbox clutter and distraction."
+        "Two high‑priority client deliverables require same‑day responses to keep projects on track.",
+        "Mandatory training and expense approvals support compliance and payroll processes but are lower urgency.",
+        "Team document edits need timely review to maintain marketing strategy momentum.",
+        "A significant share of notifications is low‑value, increasing inbox clutter and distraction."
     ],
     actionItems: [
-      "Respond to the Henderson project extension and contract review requests by EOD.",
-      "Confirm attendance for tomorrow’s compliance training session.",
-      "Review and comment on the updated Q3 Marketing Strategy document.",
-      "Filter out or unsubscribe from promotional and irrelevant notifications."
+        "Respond to the Henderson project extension and contract review requests by EOD.",
+        "Confirm attendance for tomorrow’s compliance training session.",
+        "Review and comment on the updated Q3 Marketing Strategy document.",
+        "Filter out or unsubscribe from promotional and irrelevant notifications."
     ]
-  };
+};
 
 export const emailInboxTests: Question[] = [
     {

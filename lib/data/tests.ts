@@ -1,4 +1,5 @@
-import { contentSources } from '../db/schema';
+import { contentLengths, contentSources } from '../db/schema';
+import { Stimuli, stimuli } from '../stimuli';
 import { pushNotificationsData, pushNotificationsTests } from '../stimuli/pushNotifications';
 import { Question } from './questionnaire'; // reuse Question type
 
@@ -52,17 +53,23 @@ function getAssignedSource(testSlug: TestSlug, sourceOrder: number): 'Original' 
     return undefined; // Item not found in any set
 }
 
-export async function getTestContent(testSlug: TestSlug, sourceOrder: number, length: string): Promise<{ contentData: any } | null> {
+export function getTestContent(testSlug: TestSlug, sourceOrder: number, length: string): Stimuli | null {
     console.log(`Getting content for: test=${testSlug}, sourceOrder=${sourceOrder}, length=${length}`);
 
     const source = getAssignedSource(testSlug, sourceOrder)
 
-    switch (testSlug) {
-        case (TestSlug.PUSH_NOTIFICATIONS):
-            return { contentData: [{}] };
-        default:
-            return null
+    if(!source || !testSlug) {
+        console.error("")
+        return null
     }
+
+    let testContent = stimuli[testSlug][source]
+
+    if(source == contentSources.Original && length == contentLengths.Shorter && Array.isArray(testContent)) {
+        testContent.filter(c => !c.irrelevant)
+    }
+
+    return testContent
 }
 
 export async function getTestQuestions(testSlug: TestSlug): Promise<Question[]> {

@@ -1,6 +1,8 @@
 import { TfIdf } from "natural";
 import { Question } from "../data/questionnaire";
 
+export type ProductListing = ProductItem[] | ProductSummary | typeof productAISummary
+
 interface ProductItem {
     id: number;
     productName: string;
@@ -176,6 +178,65 @@ export const productListingData: ProductItem[] = [
     }
 ];
 
+// Pre-generated and statically delivered
+// Model: OpenAI o4-mini (standard parameters + low reasoning effort)
+export const productAISummary = {
+  overview: "Five in‑stock wireless audio products span premium over‑ear, studio, sport, bass‑enhanced earbuds, and kid‑safe headphones—offering 10–28% discounts, strong ratings, and fast delivery options.",
+  themes: [
+    {
+      category: "Over‑Ear Headphones",
+      items: [
+        { id: 1, name: "SoundWave Pro", focus: "Noise‑canceling, 30h battery" },
+        { id: 3, name: "AirFlex Studio", focus: "Hi‑Res audio, ANC, studio grade" }
+      ]
+    },
+    {
+      category: "Wireless Earbuds",
+      items: [
+        { id: 2, name: "UltraBass", focus: "Enhanced bass, 24h battery" },
+        { id: 4, name: "SportFit", focus: "IPX7 waterproof, heart‑rate monitor" }
+      ]
+    },
+    {
+      category: "Kids Headphones",
+      items: [
+        { id: 5, name: "KidSafe", focus: "85 dB limit, durable, 20h battery" }
+      ]
+    }
+  ],
+  pricingInsights: {
+    averageDiscount: "20%",
+    maxDiscount: { id: 1, discount: "28% off" },
+    priceRange: { min: "$49.99", max: "$199.99" }
+  },
+  ratingsOverview: {
+    averageRating: 4.58,
+    highestRated: { id: 3, rating: 4.8 },
+    mostReviewed: { id: 4, reviews: 3542 }
+  },
+  shippingDelivery: {
+    freeShippingOn: [1,2,3,5],
+    deliveryWindows: {
+      fastest: { id: 2, eta: "1–2 business days" },
+      longest: { id: 3, eta: "3–5 business days" }
+    }
+  },
+  keyInsights: [
+    "Premium models (IDs 1 & 3) command top ratings and feature advanced ANC/Hi‑Res audio.",
+    "SportFit earbuds (ID 4) drive highest engagement but trail on overall rating.",
+    "Average discount of 20% makes mid‑range and kid‑safe options very affordable.",
+    "Free shipping applies to 4 of 5 items, boosting purchase appeal."
+  ],
+  recommendations: [
+    { useCase: "Immersive Listening", pick: { id: 3, name: "AirFlex Studio" } },
+    { useCase: "Travel & Commute", pick: { id: 1, name: "SoundWave Pro" } },
+    { useCase: "Workout & Sports", pick: { id: 4, name: "SportFit" } },
+    { useCase: "Budget Bass", pick: { id: 2, name: "UltraBass" } },
+    { useCase: "Kids Safety", pick: { id: 5, name: "KidSafe" } }
+  ]
+};
+
+// Dynamically generated (programmatic) summary based on text extraction
 export function summarizeProducts(
     items: ProductItem[]
   ): ProductSummary {
