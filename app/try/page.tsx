@@ -18,9 +18,11 @@ interface PageProps {
 
 export default async function Page({ searchParams }: PageProps) {
     // dynamic route value
-    const { source, length, test } = await searchParams
+    const { source: initSource, length: initLength, test: initTest } = await searchParams
 
-    console.log('query', searchParams, { source, length, test })
+    const source = initSource || ContentSources.Original
+    const length = initLength || ContentLengths.Longer
+    const test = initTest || TestSlugs.EMAIL_INBOX
 
     const content = getTestContent(test, source, length)
 

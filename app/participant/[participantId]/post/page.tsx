@@ -16,7 +16,7 @@ export default async function PostQuestionnairePage({ params }: PostQuestionnair
   const questions = getPostQuestionnaireQuestions(); // Fetch post-questions
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <div className="max-w-3xl mx-auto space-y-6 p-5">
       <h1 className="text-2xl font-bold">Post-Experiment Questionnaire</h1>
       <p>Please answer the following questions reflecting on the tasks you just completed.</p>
 

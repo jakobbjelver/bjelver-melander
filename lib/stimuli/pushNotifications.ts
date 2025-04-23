@@ -3,6 +3,8 @@ import 'server-only' // Add this at the very top
 import { SentenceTokenizer, TfIdf, WordTokenizer } from "natural";
 import { Question } from "../data/questionnaire";
 import { NotificationAISummary, NotificationItem, NotificationProgrammaticSummary } from "@/types/stimuli";
+import { ContentLengths } from '@/types/test';
+import { filterStimuliByLength } from '../utils';
 
 export const pushNotificationsData: NotificationItem[] = [
   {
@@ -107,12 +109,66 @@ export const pushNotificationsData: NotificationItem[] = [
   }
 ];
 
-export const notificationProgrammaticSummary = summarizeNotifications(pushNotificationsData)
+export const pushNotificationsData2: NotificationItem[] = [
+  {
+    id: 1,
+    app: "ChatConnect",
+    title: "New message from Sarah",
+    message: "Are we still meeting tomorrow at 2pm?",
+    timestamp: "10:24 AM",
+    priority: "medium",
+    category: "message",
+    unread: true
+  },
+  {
+    id: 2,
+    app: "Calendar",
+    title: "Meeting Reminder",
+    message: "Team Weekly Sync in 15 minutes (Conference Room B)",
+    timestamp: "11:45 AM",
+    priority: "high",
+    category: "reminder",
+    unread: true
+  },
+  {
+    id: 3,
+    app: "FoodDelivery",
+    title: "Your order has arrived",
+    message: "Your order #4592 has been delivered to your door",
+    timestamp: "12:30 PM",
+    priority: "medium",
+    category: "delivery",
+    unread: false
+  },
+  {
+    id: 4,
+    app: "WeatherAlert",
+    title: "Severe Weather Warning",
+    message: "Flash flood warning in your area until 8PM tonight",
+    timestamp: "2:15 PM",
+    priority: "high",
+    category: "alert",
+    unread: true
+  },
+  {
+    id: 5,
+    app: "SocialConnect",
+    title: "Birthday Reminder",
+    message: "Alex's birthday is tomorrow! Don't forget to send wishes.",
+    timestamp: "3:00 PM",
+    priority: "low",
+    category: "social",
+    unread: true
+  },
+];
+
+export const pushNotificationsDataShorter: NotificationItem[] = filterStimuliByLength(pushNotificationsData, ContentLengths.Shorter) as NotificationItem[]
+export const pushNotificationsDataLonger: NotificationItem[] = filterStimuliByLength(pushNotificationsData, ContentLengths.Longer) as NotificationItem[]
 
 // Dynamically generated (programmatic) summary based on text extraction
-function summarizeNotifications(items: NotificationItem[]): NotificationProgrammaticSummary {
-  // Filter out irrelevant notifications
-  const relevant = items.filter(item => !item.irrelevant);
+export function summarizeNotifications(items: NotificationItem[]): NotificationProgrammaticSummary {
+  // Filter out irrelevant notifications - NOPE
+  const relevant = items;
   const unread = relevant.filter(item => item.unread);
   const high = relevant.filter(item => item.priority === 'high');
 
@@ -195,11 +251,11 @@ function summarizeNotifications(items: NotificationItem[]): NotificationProgramm
 
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
-export const notificationAISummary: NotificationAISummary = {
+export const notificationAISummaryLonger: NotificationAISummary = {
   totalItems: 10,
-  unreadCount: 5,
+  unreadCount: 4,
   highPriorityCount: 2,
-  relevantItems: 5,
+  relevantItems: 4,
   categoryBreakdown: {
     message: 1,
     reminder: 1,
@@ -213,17 +269,54 @@ export const notificationAISummary: NotificationAISummary = {
   },
   keyHighlights: {
     upcomingEvents: [
-      { app: "Calendar", note: "Team Weekly Sync in 15 min" },
-      { app: "SocialConnect", note: "Alex’s birthday tomorrow" }
+      { app: "ChatConnect", note: "Meeting scheduled tomorrow at 2 PM" },
+      { app: "Calendar", note: "Team sync starts in 15 minutes" },
+      { app: "SocialConnect", note: "Alex's birthday is tomorrow" }
     ],
     urgentAlerts: [
-      { app: "WeatherAlert", note: "Flash flood warning until 8 PM" }
+      { app: "WeatherAlert", note: "Flash flood warning until 8 PM" }
     ],
     pendingMessages: [
-      { app: "ChatConnect", note: "New message from Sarah" }
+      { app: "ChatConnect", note: "Unread message asking to confirm tomorrow’s meeting" }
     ]
   },
-  summaryText: "You have 10 notifications (5 unread), including 2 high‑priority alerts and reminders. Immediate attention needed for a flood warning, an upcoming team sync, and a message from Sarah. Other updates cover deliveries, birthdays, and system notices."
+  summaryText: `
+You have 10 notifications across multiple apps, with 4 unread and 2 marked high‑priority.  
+Key events include tomorrow’s meeting and Alex’s birthday, and a flash flood warning demands immediate attention.  
+A pending chat from Sarah awaits your confirmation.  
+Other updates cover delivery status, system alerts, news highlights, and health goals.
+  `
+};
+
+export const notificationAISummaryShorter: NotificationAISummary = {
+  totalItems: 5,
+  unreadCount: 4,
+  highPriorityCount: 2,
+  relevantItems: 4,
+  categoryBreakdown: {
+    message: 1,
+    reminder: 1,
+    delivery: 1,
+    alert: 1,
+    social: 1,
+    system: 0,
+    entertainment: 0,
+    news: 0,
+    health: 0
+  },
+  keyHighlights: {
+    upcomingEvents: [
+      { app: "Calendar", note: "Team Weekly Sync starts in 15 minutes (Conference Room B)" },
+      { app: "SocialConnect", note: "Alex's birthday is tomorrow" }
+    ],
+    urgentAlerts: [
+      { app: "WeatherAlert", note: "Flash flood warning remains in effect until 8 PM" }
+    ],
+    pendingMessages: [
+      { app: "ChatConnect", note: "Confirm your 2 PM meeting tomorrow" }
+    ]
+  },
+  summaryText: "You have 5 notifications, 4 of which are unread and 2 marked as high priority. Upcoming events include a team sync in 15 minutes and Alex’s birthday tomorrow. A flash flood warning is active until 8 PM. Don’t forget to confirm your meeting time with Sarah."
 };
 
 export const pushNotificationsTests: Question[] = [
@@ -232,14 +325,15 @@ export const pushNotificationsTests: Question[] = [
     text: "Based on your notifications, what requires your immediate attention and response?",
     type: 'multipleChoice',
     options: [
-      "Respond to Sarah about tomorrow's meeting time",
-      "Prepare for the team meeting happening in 15 minutes",
+      "Respond to Sarah about tomorrow’s meeting time",
       "Check that your food delivery arrived correctly",
       "Prepare for potential flooding in your area",
-      "Buy a birthday gift for Alex"
+      "Buy a birthday gift for Alex",
+      "Prepare for the team meeting",
+      "None of the above"
     ],
     multipleCorrectAnswers: false,
-    // correctAnswerIndex: 1  // The team meeting is highest priority and most imminent
+    // correctAnswerIndex: 4  // The team meeting is highest priority and most imminent
   },
   {
     id: `push-notifications_comprehension`, // Original ID kept
@@ -247,13 +341,14 @@ export const pushNotificationsTests: Question[] = [
     type: 'multipleChoice',
     options: [
       "You have an upcoming meeting with a team member named Sarah",
+      "Your phone battery is critically low",
       "There is a severe weather alert active in your area",
       "Your food order has been delivered",
       "You have a friend with an upcoming birthday",
-      "Your phone battery is critically low",
-      "You have a system update that needs to be installed"
+      "You have a system update that needs to be installed",
+      "None of the above"
     ],
     multipleCorrectAnswers: true,
-    // correctAnswerIndices: [1, 2, 3]  // Weather alert, food delivery, and birthday are accurate
+    // correctAnswerIndices: [2, 3, 4]  // Weather alert, food delivery, and birthday are accurate
   },
 ];

@@ -39,6 +39,10 @@ export default async function ContentPage({ params }: ContentPageProps) {
     throw new Error (`Content for this test/group combination not found: test: ${testSlug}, source: ${source}, length: ${participant.assignedLength}`)
   }
 
+  console.log("Source: ", source)
+  console.log("Length: ", participant.assignedLength)
+  console.log("Test: ", testSlug)
+
   return (
     <div className="w-full max-w-4xl mx-auto space-y-4 flex flex-col items-center">
       <TestContentDisplay source={source} testSlug={testSlug} contentData={content} />

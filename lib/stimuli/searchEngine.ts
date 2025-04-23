@@ -1,6 +1,8 @@
 import { SentenceTokenizer, TfIdf, WordTokenizer } from "natural";
 import { Question } from "../data/questionnaire";
 import { SearchAISummary, SearchProgrammaticSummary, SearchResultItem } from "@/types/stimuli";
+import { filterStimuliByLength } from "../utils";
+import { ContentLengths } from "@/types/test";
 
 export const searchEngineQuery = "what is climate change";
 
@@ -113,12 +115,15 @@ export const searchEngineData: SearchResultItem[] = [
   }
 ];
 
+export const searchEngineDataShorter: SearchResultItem[] = filterStimuliByLength(searchEngineData, ContentLengths.Shorter) as SearchResultItem[]
+export const searchEngineDataLonger: SearchResultItem[] = filterStimuliByLength(searchEngineData, ContentLengths.Longer) as SearchResultItem[]
+
 // Dynamically generated (programmatic) summary based on text extraction
 export function summarizeSearchResults(
   items: SearchResultItem[]
 ): SearchProgrammaticSummary {
-  // 1. Filter out irrelevant results
-  const relevant = items.filter(i => !i.irrelevant);
+  // 1. Filter out irrelevant results - NOPE
+  const relevant = items;
   const totalItems = items.length;
   const relevantItems = relevant.length;
 
@@ -193,17 +198,54 @@ export function summarizeSearchResults(
   };
 }
 
+export const searchResultsAISummaryLonger: SearchAISummary = {
+  topic: "Comprehensive Climate Change Resources",
+  overview: "This collection offers a multifaceted view of climate change, covering scientific fundamentals, interactive data visualizations, policy and mitigation strategies, and cultural perspectives from travel guides to climate fiction.",
+  keyThemes: [
+    "Scientific explanations and long‑term climate trends",
+    "Interactive data and visualized impacts",
+    "Policy actions and individual mitigation strategies",
+    "Educational and multimedia content",
+    "Cultural and literary interpretations"
+  ],
+  formatCounts: {
+    article: 3,
+    interactive: 1,
+    report: 1,
+    video: 1
+  },
+  sources: [
+    "Climate Science Organization",
+    "Global Data Institute",
+    "Environmental Action Network",
+    "IPCC - Official Site",
+    "EduStream",
+    "Tech Review Magazine",
+    "Science History Institute",
+    "Travel Magazine",
+    "Education Guide",
+    "Literary Journal Quarterly"
+  ],
+  latestUpdate: "Updated monthly",
+  citationStats: {
+    totalItems: 10,
+    average: 982.4,
+    range: [423, 1872]
+  },
+  multimediaIncluded: true
+};
+
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
-export const searchResultsAISummary: SearchAISummary = {
-  topic: "Climate Change Resources",
-  overview: "A curated set of up‑to‑date, evidence‑based materials covering the fundamentals of climate science, interactive impact data, mitigation strategies at policy and personal levels, and expert assessments.",
+export const searchResultsAISummaryShorter: SearchAISummary = {
+  topic: "Climate Change",
+  overview: "A concise synthesis of authoritative resources covering the science, impacts, mitigation strategies, policy implications, and myth‑busting explanations of climate change, presented through articles, data visualizations, official reports, and expert lectures.",
   keyThemes: [
-    "Science overview and drivers",
-    "Interactive visualizations of impacts",
-    "Policy and individual mitigation tactics",
-    "Authoritative climate assessment",
-    "Myth‑busting educational content"
+    "Scientific foundations and long‑term atmospheric trends",
+    "Observed and projected environmental impacts",
+    "Policy‑level and individual mitigation strategies",
+    "Interactive data visualization of key indicators",
+    "Clarification of common misconceptions"
   ],
   formatCounts: {
     article: 2,
@@ -215,13 +257,13 @@ export const searchResultsAISummary: SearchAISummary = {
     "Climate Science Organization",
     "Global Data Institute",
     "Environmental Action Network",
-    "IPCC",
+    "IPCC - Official Site",
     "EduStream"
   ],
-  latestUpdate: "June 2023",
+  latestUpdate: "Updated monthly",
   citationStats: {
     totalItems: 5,
-    average: 982,
+    average: 982.4,
     range: [423, 1872]
   },
   multimediaIncluded: true
@@ -229,32 +271,35 @@ export const searchResultsAISummary: SearchAISummary = {
 
 export const searchEngineTests: Question[] = [
   {
-    id: "search-engine_accuracy",
-    text: "Based on these search results, what should you consult if you need the most authoritative and up-to-date scientific information to cite in a policy paper about climate change impacts?",
+    id: "search-engine_accuracy", // Kept the original ID
+    text: "Based on the general types of relevant resources listed, what seems to be the primary way information about climate change is presented in these results?", // Actionable decision: Guides user on what kind of format to expect/seek. Focuses on the GIST of formats.
     type: 'multipleChoice',
     options: [
-      "The comprehensive guide from Climate Science Organization",
-      "The interactive data visualization from Global Data Institute",
-      "The mitigation strategies article from Environmental Action Network",
-      "The latest IPCC report summary",
-      "The video lecture series by Dr. Miranda Chen"
+      "Official reports and summaries.", // Plausible (Item 4 exists) but not primary
+      "Interactive data visualizations.", // Plausible (Item 2 exists) but not primary
+      "Explanatory articles and video lectures.", // Correct GIST (Items 1, 3, 5 are the most numerous types)
+      "Personal blogs and opinion essays.", // Incorrect based on data, but plausible without it
+      "Travel guides focusing on climate zones.", // Incorrect based on data (irrelevant), but plausible without it
+      "None of the above",
+      "I don't know" // Retained as per original structure, though not explicitly requested for revision.
     ],
     multipleCorrectAnswers: false,
-    // correctAnswerIndex: 3  // The IPCC report is the most authoritative source with the highest citation count
+    // correctAnswerIndex: 2 // Option C reflects the main types in relevant data (articles, video)
   },
   {
-    id: "search-engine_comprehension",
-    text: "Which of the following statements are accurate based on the search results provided?",
+    id: "search-engine_comprehension", // Kept the original ID
+    text: "Which general themes related to climate change appear to be covered across the relevant search results?", // Comprehension/Memory: Tests recall of topics covered in the relevant items.
     type: 'multipleChoice',
     options: [
-      "There are resources that include visual representations of climate data",
-      "Human activities have been identified as the main driver of climate change since the 1800s",
-      "The most recent IPCC report was published in February 2023",
-      "There are resources specifically addressing climate change mitigation strategies",
-      "All the search results focus exclusively on scientific aspects of climate change",
-      "The search results include content published more than 5 years ago"
+      "Historical weather patterns before the industrial revolution.", // Plausible topic, but not explicitly covered in relevant snippets
+      "The observable effects and impacts.", // Covered (Item 2)
+      "Debates on climate change's actual impact.", // NOOO (Item 3)
+      "Findings from major climate research bodies.", // Covered (Item 4)
+      "The basic definition and science of climate change.", // Covered (Item 1, 5)
+      "None of the above",
+      "I don't know" // Retained as per original structure.
     ],
     multipleCorrectAnswers: true,
-    // correctAnswerIndices: [0, 1, 2, 3]  // Visual data, human activities as drivers, IPCC date, and mitigation strategies are accurate
+    // correctAnswerIndices: [1, 3, 4] // Options B, D, E reflect themes
   }
 ];

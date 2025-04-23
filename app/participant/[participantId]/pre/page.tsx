@@ -16,7 +16,7 @@ export default async function PreQuestionnairePage({ params }: PreQuestionnaireP
   const questions = getPreQuestionnaireQuestions();
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <div className="max-w-3xl mx-auto space-y-6 p-5">
       <h1 className="text-2xl font-bold">Pre-Experiment Questionnaire</h1>
       <p>Please answer the following questions based on your current views.</p>
 

@@ -51,21 +51,15 @@ export function getAssignedSource(testSlug: TestSlugs, sourceOrder: number): Con
     return undefined; // Item not found in any set
 }
 
-export function getTestContent(testSlug: TestSlugs, source: ContentSources, length: string): Stimuli | null {
+export function getTestContent(testSlug: TestSlugs, source: ContentSources, length: ContentLengths): Stimuli | null {
     console.log(`Getting content for: test=${testSlug}, sourceOrder=${source}, length=${length}`);
 
-    if(!source || !testSlug) {
+    if(!source || !testSlug || !length) {
         console.error("")
         return null
     }
 
-    let testContent = stimuli[testSlug][source]
-
-    if(source == ContentSources.Original && length == ContentLengths.Shorter && Array.isArray(testContent)) {
-        testContent.filter(c => !c.irrelevant) // TODO: Fix this
-    }
-
-    return testContent
+    return stimuli[testSlug][source][length]
 }
 
 export async function getTestQuestions(testSlug: TestSlugs): Promise<Question[]> {

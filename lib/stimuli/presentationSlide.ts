@@ -1,6 +1,8 @@
 import { SentenceTokenizer, TfIdf, WordTokenizer } from "natural";
 import { Question } from "../data/questionnaire";
 import { SlideAISummary, SlideItem, SlideProgrammaticSummary } from "@/types/stimuli";
+import { ContentLengths } from "@/types/test";
+import { filterStimuliByLength } from "../utils";
 
 export const presentationSlideData: SlideItem[] = [
     {
@@ -120,6 +122,83 @@ export const presentationSlideData: SlideItem[] = [
     }
 ];
 
+export const presentationAISummaryLonger: SlideAISummary = {
+  period: "Q2 2023",
+  company: "TechInnovate Corporation",
+  performance: {
+    totalRevenue: 78.5,
+    currencyUnit: "M USD",
+    yoyGrowthPercent: 15,
+    operatingMarginPercent: 23.4,
+    newEnterpriseCustomers: 42,
+    cloudDivisionGrowthPercent: 28,
+    aiPlatformLaunchMonth: "May"
+  },
+  revenueByDivision: {
+    cloudServices: 42,
+    enterpriseSolutions: 30,
+    consumerProducts: 18,
+    professionalServices: 10,
+    unit: "%"
+  },
+  strategicInitiatives: [
+    "Enhance AI Platform capabilities by Q4",
+    "Expand APAC presence for 15% growth by year‑end",
+    "Finalize DataSecure Inc. acquisition in September",
+    "Deploy next‑gen Enterprise Solutions suite in November",
+    "Raise operating margin to 25% by Q4"
+  ],
+  forecast: {
+    Q3: 85.3,
+    Q4: 94.7,
+    currencyUnit: "M USD",
+    keyDrivers: [
+      "Holiday season demand",
+      "Enterprise year‑end budget spend"
+    ]
+  }
+};
+
+export const presentationAISummaryShorter: SlideAISummary = {
+    period: "Q2 2023",
+    company: "TechInnovate Corporation",
+    performance: {
+      totalRevenue: 78.5,
+      currencyUnit: "$M",
+      yoyGrowthPercent: 15,
+      operatingMarginPercent: 23.4,
+      newEnterpriseCustomers: 42,
+      cloudDivisionGrowthPercent: 28,
+      aiPlatformLaunchMonth: "May"
+    },
+    revenueByDivision: {
+      cloudServices: 42,
+      enterpriseSolutions: 30,
+      consumerProducts: 18,
+      professionalServices: 10,
+      unit: "%"
+    },
+    strategicInitiatives: [
+      "Expand AI Platform capabilities by Q4",
+      "Increase APAC market presence with 15% growth target",
+      "Complete acquisition of DataSecure Inc. in September",
+      "Launch next‑gen Enterprise Solution suite in November",
+      "Improve operating margin to 25% by Q4"
+    ],
+    forecast: {
+      Q3: 85.3,
+      Q4: 94.7,
+      currencyUnit: "$M",
+      keyDrivers: [
+        "Holiday season demand",
+        "Enterprise year‑end budget spending"
+      ]
+    }
+  };
+
+export const presentationSlideDataShorter: SlideItem[] = filterStimuliByLength(presentationSlideData, ContentLengths.Shorter) as SlideItem[]
+export const presentationSlideDataLonger: SlideItem[] = filterStimuliByLength(presentationSlideData, ContentLengths.Longer) as SlideItem[]
+
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
 export const presentationAISummary: SlideAISummary = {
@@ -160,8 +239,8 @@ export const presentationAISummary: SlideAISummary = {
 export function summarizeSlides(
     items: SlideItem[]
 ): SlideProgrammaticSummary {
-    // 1. Filter out irrelevant slides
-    const relevant = items.filter(s => !s.irrelevant);
+    // 1. Filter out irrelevant slides - NOPE
+    const relevant = items;
     const total = items.length;
     const count = relevant.length;
 
@@ -244,32 +323,31 @@ export function summarizeSlides(
 
 export const presentationSlideTests: Question[] = [
     {
-        id: "presentation-slide_accuracy",
-        text: "Based on this presentation, which strategic action should investors expect to impact the company's security offerings most directly in the near future?",
-        type: 'multipleChoice',
-        options: [
-            "The expansion of the AI Platform capabilities",
-            "Increasing presence in the APAC market",
-            "The acquisition of DataSecure Inc.",
-            "Launching the next generation of Enterprise Solution suite",
-            "Improving the operating margin to 25%"
-        ],
-        multipleCorrectAnswers: false,
-        // correctAnswerIndex: 2  // The DataSecure acquisition is specifically noted to enhance security offerings
+      id: "presentation-slide_accuracy",
+      text: "After reviewing the company's presentation, which of the following best supports their stated priorities?",
+      type: 'multipleChoice',
+      options: [
+        "Advance the outlined growth and innovation initiatives",
+        "Reassess detailed revenue segmentation before deciding",
+        "Concentrate resources on a single business area",
+        "Hold off on new strategies pending market changes",
+        "None of the above"
+      ],
+      multipleCorrectAnswers: false,
+      // correctAnswerIndex: 0
     },
     {
-        id: "presentation-slide_comprehension",
-        text: "Which of the following statements are accurate based on the presentation slides?",
-        type: 'multipleChoice',
-        options: [
-            "The company's revenue increased by 15% compared to the same quarter last year",
-            "Cloud Services represents less than 40% of the company's revenue",
-            "The company expects Q4 revenue to exceed $90 million",
-            "The AI Platform was launched in the previous quarter (Q1)",
-            "The company added more than 40 new enterprise customers in Q2",
-            "The operating margin decreased compared to Q1"
-        ],
-        multipleCorrectAnswers: true,
-        // correctAnswerIndices: [0, 2, 4]  // 15% YoY increase, Q4 projection >$90M, and >40 new enterprise customers
+      id: "presentation-slide_comprehension",
+      text: "Which option best captures the overall emphasis of the slides?",
+      type: 'multipleChoice',
+      options: [
+        "A detailed review of past milestones without future outlook",
+        "A technical deep dive into the product ecosystem only",
+        "A focus on corporate social responsibility outcomes",
+        "An upward revenue forecast and strategic next actions",
+        "None of the above"
+      ],
+      multipleCorrectAnswers: true,
+      // correctAnswerIndices: [3]
     }
-];
+  ];

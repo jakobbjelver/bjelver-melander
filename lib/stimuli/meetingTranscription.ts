@@ -1,6 +1,8 @@
 import { TranscriptAISummary, TranscriptItem, TranscriptProgrammaticSummary } from "@/types/stimuli";
 import { SentenceTokenizer, TfIdf, WordTokenizer } from "natural";
 import { Question } from "../data/questionnaire";
+import { ContentLengths } from "@/types/test";
+import { filterStimuliByLength } from "../utils";
 
 export const meetingTranscriptData: TranscriptItem[] = [
     {
@@ -70,30 +72,85 @@ export const meetingTranscriptData: TranscriptItem[] = [
     }
 ];
 
+export const meetingTranscriptDataShorter: TranscriptItem[] = filterStimuliByLength(meetingTranscriptData, ContentLengths.Shorter) as TranscriptItem[]
+export const meetingTranscriptDataLonger: TranscriptItem[] = filterStimuliByLength(meetingTranscriptData, ContentLengths.Longer) as TranscriptItem[]
+
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
-export const meetingAISummary: TranscriptAISummary = {
-    topic: "Q3 product development meeting",
+export const meetingAISummaryLonger: TranscriptAISummary = {
+    topic: "Weekly Product Development Meeting: Q3 Release Planning & Performance Review",
     goals: [
-        "Finalize Q3 feature list",
-        "Resolve performance issues",
-        "Confirm July 30 release readiness"
+        "Finalize the feature list for the Q3 release.",
+        "Address performance issues reported by beta testers.",
+        "Assess impact on the July 30th release date."
     ],
     decisions: [
-        "Postpone collaborative editing to Q4"
+        "Postpone the collaborative editing feature to Q4.",
+        "Prioritize the redesigned dashboard, enhanced notification system, and performance fixes for the Q3 release."
     ],
     priorities: [
-        "Dashboard redesign",
-        "Notification system enhancements",
-        "Performance optimizations"
+        "Redesigned Dashboard",
+        "Enhanced Notification System",
+        "Performance Issues (Database Queries, Image Processing, Third-Party API)"
     ],
     actionItems: [
-        { owner: "Emma Rodriguez", task: "Tackle performance bottlenecks and coordinate with API vendor" },
-        { owner: "Alex Kim", task: "Complete the dashboard redesign" },
-        { owner: "Priya Patel", task: "Update the Q3 product roadmap" },
-        { owner: "David Wilson", task: "Prepare extended QA for the prioritized features" }
+        {
+            owner: "Emma Rodriguez",
+            task: "Address performance bottlenecks and contact the third-party API vendor."
+        },
+        {
+            owner: "Alex Kim",
+            task: "Finalize the dashboard redesign."
+        },
+        {
+            owner: "Priya Patel",
+            task: "Update the Q3 roadmap to reflect the revised priorities."
+        },
+        {
+            owner: "David Wilson",
+            task: "Prepare for extended QA testing on the prioritized features."
+        }
     ],
-    targetRelease: "July 30",
+    targetRelease: "July 30th",
+    nextMeeting: "Next Tuesday"
+};
+
+export const meetingAISummaryShorter: TranscriptAISummary = {
+    topic: "Weekly Product Development Meeting",
+    goals: [
+        "Finalize feature list for the Q3 release",
+        "Address performance issues reported by beta testers",
+        "Determine if still on track for July 30th release date"
+    ],
+    decisions: [
+        "Postpone collaborative editing feature to Q4 due to mixed user feedback and implementation complexity.",
+        "Prioritize the redesigned dashboard and enhanced notification system for the Q3 release.",
+        "Focus on fixing reported performance issues as part of the Q3 scope."
+    ],
+    priorities: [
+        "Redesigned dashboard",
+        "Enhanced notification system",
+        "Performance issue resolution"
+    ],
+    actionItems: [
+        {
+            owner: "Emma",
+            task: "Address performance bottlenecks and contact the API vendor."
+        },
+        {
+            owner: "Alex Kim",
+            task: "Finalize the dashboard redesign."
+        },
+        {
+            owner: "Priya Patel",
+            task: "Update the Q3 roadmap to reflect the changes."
+        },
+        {
+            owner: "David's team",
+            task: "Prepare for extended QA on the prioritized Q3 features."
+        }
+    ],
+    targetRelease: "July 30th",
     nextMeeting: "Next Tuesday"
 };
 
@@ -101,8 +158,8 @@ export const meetingAISummary: TranscriptAISummary = {
 export function summarizeTranscripts(
     items: TranscriptItem[]
 ): TranscriptProgrammaticSummary {
-    // 1. Filter out irrelevant utterances
-    const relevant = items.filter(i => !i.irrelevant);
+    // 1. Filter out irrelevant utterances - NOPE
+    const relevant = items;
     const totalItems = items.length;
     const relevantItems = relevant.length;
 
@@ -182,31 +239,31 @@ export function summarizeTranscripts(
 export const meetingTranscriptTests: Question[] = [
     {
         id: "meeting-transcription_accuracy",
-        text: "Based on the meeting transcript, what action was decided regarding the collaborative editing feature?",
+        text: "What primary course of action did the team agree on during the meeting?",
         type: 'multipleChoice',
         options: [
-            "Prioritize it for the Q3 release",
-            "Simplify its implementation for Q3",
-            "Start more user testing on it",
-            "Postpone it to the Q4 release",
-            "Redesign it completely based on user feedback"
+            "Develop and test new experimental features",
+            "Extend the project timeline significantly",
+            "Prioritize core functionality and performance improvements",
+            "Outsource development to third-party vendors",
+            "None of the above"
         ],
         multipleCorrectAnswers: false,
-        // correctAnswerIndex: 3  // Postpone to Q4 was the consensus decision mentioned multiple times in relevant sections (IDs 3, 4, 5, 10).
+        // correctAnswerIndex: 2
     },
     {
         id: "meeting-transcription_comprehension",
-        text: "Which of the following statements are accurate based *only* on the relevant parts of the meeting transcript?",
+        text: "Which of the following statements accurately reflect the discussion's outcomes?",
         type: 'multipleChoice',
         options: [
-            "The team agreed to postpone the collaborative editing feature.", // Accurate (IDs 4, 5, 10)
-            "The redesigned dashboard is a planned feature for the upcoming release.", // Accurate (IDs 3, 4, 10)
-            "Performance issues were discussed as a key topic for the meeting.", // Accurate (IDs 1, 4, 5, 10)
-            "User testing provided feedback on potential feature improvements.", // Accurate (ID 3)
-            "A target release date of July 30th was mentioned.", // Accurate (IDs 1, 5)
-            "The project manager confirmed the July 30th release date is definite." // Inaccurate - only mentioned as a target date, not confirmed as definite in relevant sections (ID 1, 5)
+            "The team decided to delay less critical features",
+            "They chose to focus on performance and core functionality",
+            "Responsibilities for follow-up tasks were assigned to team members",
+            "A target timeframe for the next release was mentioned",
+            "A complete overhaul of the project plan was agreed upon",
+            "None of the above"
         ],
         multipleCorrectAnswers: true,
-        // correctAnswerIndices: [0, 1, 2, 3, 4]
+        // correctAnswerIndices: [0, 1, 2, 3]
     }
 ];

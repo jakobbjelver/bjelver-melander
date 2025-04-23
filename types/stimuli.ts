@@ -1,3 +1,5 @@
+export type StimuliItem = EmailItem[] | TranscriptItem[] | PracticeItem[] | SlideItem[] | ProductItem[] | SearchResultItem[] | NotificationItem[]
+
 export type EmailInbox = EmailItem[] | EmailProgrammaticSummary | EmailAISummary
 
 export interface EmailAISummary {

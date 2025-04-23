@@ -1,6 +1,8 @@
 import { SentenceTokenizer, TfIdf, WordTokenizer } from "natural";
 import { Question } from "../data/questionnaire";
 import { ProductAISummary, ProductItem, ProductProgrammaticSummary } from "@/types/stimuli";
+import { filterStimuliByLength } from "../utils";
+import { ContentLengths } from "@/types/test";
 
 export const productListingData: ProductItem[] = [
   {
@@ -152,38 +154,106 @@ export const productListingData: ProductItem[] = [
 
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
-export const productAISummary = {
-  itemCount: 5,
-  brands: ["AudioTech", "BassKing", "SoundMaster", "FitTech", "SafeSound"],
-  categories: [
-    "Over-ear Noise-Cancelling",
-    "Studio Headphones",
-    "Wireless In-Ear",
-    "Sport Earbuds",
-    "Kids Headphones"
+export const productAISummaryLonger: ProductAISummary = {
+  itemCount: 10,
+  brands: [
+    "AudioTech",
+    "BassKing",
+    "SoundMaster",
+    "FitTech",
+    "SafeSound",
+    "PowerConnect",
+    "OptixPro",
+    "TechProtect"
   ],
-  priceRange: { min: 49.99, max: 199.99, currency: "USD" },
-  averageRating: 4.58,
-  discountRange: { min: 10, max: 28, unit: "%" },
-  batteryLifeHours: { min: 8, max: 30 },
+  categories: [
+    "Headphones",
+    "Earbuds",
+    "Speakers",
+    "Cables",
+    "Charging Accessories",
+    "Photo Accessories",
+    "Laptop Accessories"
+  ],
+  priceRange: {
+    min: 14.99,
+    max: 199.99,
+    currency: "USD"
+  },
+  averageRating: 4.46,
+  discountRange: {
+    min: 10,
+    max: 29,
+    unit: "%"
+  },
+  batteryLifeHours: {
+    min: 8,
+    max: 30
+  },
   keyFeatures: [
-    "Active Noise Cancellation",
-    "Water Resistance",
-    "Volume Limiting",
-    "Heart Rate Monitor",
-    "Voice Assistant Support"
+    "Active noise cancellation",
+    "Long battery life",
+    "Fast charging support",
+    "Water & sweat resistance",
+    "Volume limiting for safety",
+    "Wireless charging capability",
+    "Durable, portable design"
   ],
   shippingOptions: {
-    free: 4,
-    paid: 1,
+    free: 6,
+    paid: 4,
     typicalEstimate: "2-3 business days"
   }
 };
 
+export const productAISummaryShorter: ProductAISummary = {
+  itemCount: 5,
+  brands: ["AudioTech", "BassKing", "SoundMaster", "FitTech", "SafeSound"],
+  categories: [
+    "Over‑ear Headphones",
+    "Wireless Earbuds",
+    "Studio Headphones",
+    "Sport Earbuds",
+    "Kids Headphones"
+  ],
+  priceRange: {
+    min: 49.99,
+    max: 199.99,
+    currency: "USD"
+  },
+  averageRating: 4.58,
+  discountRange: {
+    min: 10,
+    max: 28,
+    unit: "%"
+  },
+  batteryLifeHours: {
+    min: 8,
+    max: 30
+  },
+  keyFeatures: [
+    "Active noise cancellation",
+    "Extended battery life",
+    "Water‑resistant performance",
+    "Enhanced bass technology",
+    "Volume limiting for safe listening",
+    "Built‑in heart rate monitoring",
+    "Detachable cable option"
+  ],
+  shippingOptions: {
+    free: 4,
+    paid: 1,
+    typicalEstimate: "2‑3 business days"
+  }
+};
+
+export const productListingDataShorter: ProductItem[] = filterStimuliByLength(productListingData, ContentLengths.Shorter) as ProductItem[]
+export const productListingDataLonger: ProductItem[] = filterStimuliByLength(productListingData, ContentLengths.Longer) as ProductItem[]
+
 // Dynamically generated (programmatic) summary based on text extraction
 export function summarizeProducts(items: ProductItem[]): ProductProgrammaticSummary {
-  // 1. Filter out irrelevant products
-  const relevant = items.filter(item => !item.irrelevant);
+  // 1. Filter out irrelevant products - NOPE
+  const relevant = items;
   const inStockCount = relevant.filter(item => item.inStock).length;
   const freeShippingCount = relevant.filter(item => item.freeShipping).length;
   const averageRating = parseFloat(
@@ -250,31 +320,39 @@ export function summarizeProducts(items: ProductItem[]): ProductProgrammaticSumm
 export const productListingTests: Question[] = [
   {
     id: "product-listing_accuracy",
-    text: "Based on these products, which should you purchase if you need headphones for intense workout sessions that can withstand sweat and rain?",
+    text: "Considering the audio products listed, if you are looking for a product that is currently being sold for less than its original price, what is generally true?",
     type: 'multipleChoice',
     options: [
-      "SoundWave Pro Wireless Headphones",
-      "UltraBass Wireless Earbuds",
-      "AirFlex Studio Headphones",
-      "SportFit Wireless Earbuds",
-      "KidSafe Wireless Headphones"
+      "Only the most expensive audio products are discounted.",
+      "You will likely find discounts available across the audio product selection.",
+      "Discounts are only offered on earbuds, not headphones.",
+      "Finding a discounted audio product is unlikely based on this list.",
+      "None of the above"
     ],
     multipleCorrectAnswers: false,
-    // correctAnswerIndex: 3  // SportFit has IPX7 waterproof rating and is designed for athletes
+    // Correct Answer Logic: All relevant audio products (1-5) show a discount.
+    // correctAnswerIndex: 1
   },
   {
     id: "product-listing_comprehension",
-    text: "Which of the following statements are accurate based on the product listings?",
+    text: "Which of the following general statements are accurate descriptions of the listed audio products?",
     type: 'multipleChoice',
     options: [
-      "All the headphone products offer some form of discount from their original price",
-      "The AirFlex Studio Headphones have the highest customer rating",
-      "Free shipping is available for all wireless headphone products",
-      "The UltraBass Wireless Earbuds come in multiple color options",
-      "The KidSafe headphones feature technology specifically designed for child safety",
-      "The SportFit Wireless Earbuds include a heart rate monitoring feature"
+      "All the audio items listed are available to buy right now.",
+      "The audio products represent offerings from multiple different brands.",
+      "Every audio product listed is either headphones, earbuds or speakers.",
+      "Information about customer satisfaction (ratings) is provided for all audio items.",
+      "All audio items offer free shipping.",
+      "None of the above"
     ],
     multipleCorrectAnswers: true,
-    // correctAnswerIndices: [0, 1, 4, 5]  // All discounted, AirFlex highest rating, KidSafe child safety, SportFit heart monitor
+    // Correct Answer Logic (Relevant Items 1-5):
+    // 0: True (inStock is true for all).
+    // 1: True (AudioTech, BassKing, SoundMaster, FitTech, SafeSound).
+    // 2: False (All are headphones or earbuds, NOT speakers).
+    // 3: True (All have ratings).
+    // 4: False (SportFit does not have free shipping).
+    // 5: False.
+    // correctAnswerIndices: [0, 1, 3]
   }
 ];

@@ -1,8 +1,10 @@
 import { EmailAISummary, EmailItem, EmailProgrammaticSummary } from "@/types/stimuli";
 import { Question } from "../data/questionnaire";
 import { TfIdf, WordTokenizer, SentenceTokenizer } from 'natural';
+import { ContentLengths } from "@/types/test";
+import { filterStimuliByLength } from "../utils";
 
-export const emailInboxData: EmailItem[] = [
+const emailInboxData: EmailItem[] = [
     {
         id: 1,
         sender: "Sarah Johnson",
@@ -142,12 +144,14 @@ export const emailInboxData: EmailItem[] = [
     }
 ];
 
+export const emailInboxDataShorter: EmailItem[] = filterStimuliByLength(emailInboxData, ContentLengths.Shorter) as EmailItem[]
+export const emailInboxDataLonger: EmailItem[] = filterStimuliByLength(emailInboxData, ContentLengths.Longer) as EmailItem[]
+
 // Dynamically generated (programmatic) summary based on text extraction
 export function summarizeEmails(items: EmailItem[]): EmailProgrammaticSummary {
-    // 1. Filter out irrelevant emails
-    const relevant = items.filter(e => !e.irrelevant);
+    // 1. Filter out irrelevant emails - NOPE
+    const relevant = items;
     const totalItems = items.length;
-    const relevantItems = relevant.length;
 
     // 2. Compute simple stats
     const unread = relevant.filter(e => !e.read);
@@ -211,7 +215,7 @@ export function summarizeEmails(items: EmailItem[]): EmailProgrammaticSummary {
         extractive,
         meta: {
             totalItems,
-            relevantItems,
+            relevantItems: 5,
             unreadCount: unread.length,
             highPriorityCount: highPriority.length,
             attachmentCount: withAttachment.length,
@@ -253,17 +257,75 @@ export const emailInboxAISummarization: EmailAISummary = {
     irrelevantCount: 4
 };
 
+export const emailAISummaryLonger: EmailAISummary = {
+    overview: "**2 urgent action items** await your attention, alongside scheduled commitments and a variety of status updates.",
+    pendingRequests: {
+        count: 2,
+        items: [
+            {
+                subject: "Project Deadline Extension Request",
+                sender: "Sarah Johnson"
+            },
+            {
+                subject: "Contract Review – URGENT",
+                sender: "Michael Chen",
+                deadline: "EOD today"
+            }
+        ]
+    },
+    upcomingCommitments: {
+        trainingSession: true,
+        tripConfirmation: true
+    },
+    statusUpdates: [
+        "Expense report #EXP-2023-0429 approved; reimbursement will arrive with your next paycheck.",
+        "Q3 Marketing Strategy document updated by Alex Rodriguez.",
+        "Morning news digest delivered with today’s top headlines.",
+        "Security alert: please update your password after one year of use."
+    ],
+    irrelevantCount: 2
+}
+
+export const emailAISummaryShorter: EmailAISummary = {
+    overview: "**2 high-priority requests** for a project deadline extension and urgent contract review. A **mandatory training session** is scheduled for tomorrow. You also have notifications about an approved expense report and updates to the Q3 marketing strategy document.",
+    pendingRequests: {
+        count: 2,
+        items: [
+            {
+                subject: "Project Deadline Extension Request",
+                sender: "Sarah Johnson"
+            },
+            {
+                subject: "Contract Review - URGENT",
+                sender: "Michael Chen",
+                deadline: "EOD today"
+            }
+        ]
+    },
+    upcomingCommitments: {
+        trainingSession: true,
+        tripConfirmation: false
+    },
+    statusUpdates: [
+        "Expense report #EXP-2023-0429 has been approved for reimbursement.",
+        "Q3 Marketing Strategy document has been updated with new edits."
+    ],
+    irrelevantCount: 1
+}
+
 export const emailInboxTests: Question[] = [
     {
         id: "email-inbox_accuracy",
-        text: "Based on your emails, which task should you prioritize to complete today?",
+        text: "Based on the email inbox, which task should you prioritize to complete today?",
         type: 'multipleChoice',
         options: [
             "Extend the deadline for the Henderson project",
             "Prepare for the HR training session",
             "Review and provide feedback on the revised contract",
             "Check your approved expense report details",
-            "Review the updated Q3 Marketing Strategy document"
+            "Review the updated Q3 Marketing Strategy document",
+            "None of the above",
+            "I don't know"
         ],
         multipleCorrectAnswers: false,
         // correctAnswerIndex: 2  // The contract review is needed by EOD today
@@ -278,7 +340,9 @@ export const emailInboxTests: Question[] = [
             "Your expense report has been rejected and needs revision",
             "You need to provide feedback on a contract by the end of today",
             "You have an upcoming flight to Boston",
-            "All your emails have been read"
+            "All your emails have been read",
+            "None of the above",
+            "I don't know"
         ],
         multipleCorrectAnswers: true,
         // correctAnswerIndices: [0, 1, 3]  // Training, extension request, and contract feedback are accurate

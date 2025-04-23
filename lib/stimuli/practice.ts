@@ -11,7 +11,7 @@ export const practiceData: PracticeItem[] = [
 export const practiceTests: Question[] = [
     {
         id: "practice_accuracy",
-        text: 'Based on the squares you just saw, which one had the highest opacity (most "colorful")?',
+        text: 'Based on the squares you just saw, which square was located in the top-right corner?',
         type: 'multipleChoice',
         options: [
             "Red square",

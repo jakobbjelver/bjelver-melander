@@ -41,7 +41,7 @@ export function Filters() {
     return (
         <div className="flex flex-col items-center space-y-4 w-full max-w-4xl mx-auto">
             <Select
-                value={params.get("test") ?? undefined}
+                value={params.get("test") ?? TestSlugs.EMAIL_INBOX}
                 onValueChange={(test) => updateQuery({ test })}
             >
                 <SelectTrigger className="w-[180px]">
@@ -50,7 +50,7 @@ export function Filters() {
                 <SelectContent>
                     {Object.values(TestSlugs).map((t) => (
                         <SelectItem key={t} value={t}>
-                            {t}
+                            {t.toUpperCase()}
                         </SelectItem>
                     ))}
                 </SelectContent>
@@ -63,12 +63,12 @@ export function Filters() {
             >
                 {Object.values(ContentSources).map((s) => (
                     <ToggleGroupItem key={s} value={s}>
-                        {s}
+                        {s.toUpperCase()}
                     </ToggleGroupItem>
                 ))}
             </ToggleGroup>
 
-            {currentSource === ContentSources.Original && (
+             
                 <ToggleGroup
                     type="single"
                     value={currentLength}
@@ -76,11 +76,11 @@ export function Filters() {
                 >
                     {Object.values(ContentLengths).map((l) => (
                         <ToggleGroupItem key={l} value={l}>
-                            {l}
+                            {l.toUpperCase()}
                         </ToggleGroupItem>
                     ))}
                 </ToggleGroup>
-            )}
+            
         </div>
     )
 }

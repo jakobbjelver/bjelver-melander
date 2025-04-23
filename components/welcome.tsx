@@ -1,12 +1,24 @@
-// components/welcome-content.tsx
+// components/WelcomeContent.tsx
+'use client'
+
+import { useEffect, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 export function WelcomeContent() {
+  const [markdown, setMarkdown] = useState<string>('')
+
+  useEffect(() => {
+    fetch('/docs/consent.md')
+      .then(res => res.text())
+      .then(setMarkdown)
+  }, [])
+
   return (
-    <div className="prose dark:prose-invert">
-      <h2>Welcome to the Experiment</h2>
-      <p>Thank you for participating...</p>
-      <p>Instructions: ...</p>
-      <p>Consent Information: ...</p>
-    </div>
-  );
+    <article className="prose min-w-full">
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        {markdown}
+      </ReactMarkdown>
+    </article>
+  )
 }

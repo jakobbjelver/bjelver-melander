@@ -63,7 +63,7 @@ export function ConsentForm() {
             onCheckedChange={(checked) => setConsentGiven(checked === true)}
           />
           <Label htmlFor="consent" className="md:text-base text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            I have read the information and consent to participate.
+            I consent to the stated agreement above.
           </Label>
         </div>
         <div className='space-y-5'>
@@ -112,12 +112,13 @@ export function ConsentForm() {
             </Label>
           </div>}
         </div>
-        <div className='space-y-2'>
+        <div className='space-y-2 w-full'>
           <Label htmlFor="age" className="md:text-base text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
             Enter your age
           </Label>
           <Input id="age"
             placeholder='Age'
+            className='w-full'
             value={age || ''}
             type='number'
             onChange={(e) => setAge(Number(e.target.value))} />

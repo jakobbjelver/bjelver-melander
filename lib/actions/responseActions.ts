@@ -73,7 +73,7 @@ export async function saveQuestionnaireResponses(
       const testSequence = getTestSequence();
       const firstTestSlug = testSequence[0];
       if (!firstTestSlug) throw new Error("Test sequence is empty or could not be retrieved.");
-      nextPath = `/participant/${participantId}/test/${firstTestSlug}/content`;
+      nextPath = `/participant/${participantId}/test/${firstTestSlug}/intro`;
     } else { // 'post'
       nextPath = `/participant/${participantId}/complete`;
     }
@@ -163,7 +163,7 @@ export async function saveTestResponses(
       // 4. Determine the next step (next test slug or post-questionnaire)
   const nextSlug = getNextTestSlug(testSlug);
   const nextPath = nextSlug
-    ? `/participant/${participantId}/test/${nextSlug}/content`
+    ? `/participant/${participantId}/test/${nextSlug}/intro`
     : `/participant/${participantId}/post`;
   // --- End Server-Side Data Fetching ---
 

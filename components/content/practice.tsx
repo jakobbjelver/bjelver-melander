@@ -10,8 +10,9 @@ export function PracticeComponent({ contentData }: PracticeComponentProps) {
 
     return (
         <div className="grid grid-cols-2 gap-5">
-            {contentData.map((box) => (
+            {contentData.map((box, i) => (
                 <div
+                    key={i}
                     className={
                         cn(
                             "h-[200px] w-[200px]",
