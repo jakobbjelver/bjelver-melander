@@ -1,6 +1,8 @@
+import 'server-only'
+
 import { contentLengths, contentSources } from '../db/schema';
 import { Stimuli, stimuli } from '../stimuli';
-import { pushNotificationsData, pushNotificationsTests } from '../stimuli/pushNotifications';
+import { pushNotificationsTests } from '../stimuli/pushNotifications';
 import { Question } from './questionnaire'; // reuse Question type
 
 export type SourceOrder = keyof typeof sourceOrderMappings; // Type: 1 | 2 | 3 | 4 | 5 | 6
@@ -41,7 +43,7 @@ const sourceOrderMappings = {
 } as const; // Use as const here too for precise keys ('1', '2', etc.)
 
 // Function to get the assigned format for a specific item and participant order
-function getAssignedSource(testSlug: TestSlug, sourceOrder: number): 'Original' | 'AI' | 'Programmatic' | undefined {
+export function getAssignedSource(testSlug: TestSlug, sourceOrder: number): contentSources | undefined {
     const mapping = sourceOrderMappings[sourceOrder as SourceOrder];
     if (!mapping) return undefined; // Handle invalid order
 
@@ -53,10 +55,8 @@ function getAssignedSource(testSlug: TestSlug, sourceOrder: number): 'Original' 
     return undefined; // Item not found in any set
 }
 
-export function getTestContent(testSlug: TestSlug, sourceOrder: number, length: string): Stimuli | null {
-    console.log(`Getting content for: test=${testSlug}, sourceOrder=${sourceOrder}, length=${length}`);
-
-    const source = getAssignedSource(testSlug, sourceOrder)
+export function getTestContent(testSlug: TestSlug, source: contentSources, length: string): Stimuli | null {
+    console.log(`Getting content for: test=${testSlug}, sourceOrder=${source}, length=${length}`);
 
     if(!source || !testSlug) {
         console.error("")
@@ -66,7 +66,7 @@ export function getTestContent(testSlug: TestSlug, sourceOrder: number, length: 
     let testContent = stimuli[testSlug][source]
 
     if(source == contentSources.Original && length == contentLengths.Shorter && Array.isArray(testContent)) {
-        testContent.filter(c => !c.irrelevant)
+        testContent.filter(c => !c.irrelevant) // TODO: Fix this
     }
 
     return testContent

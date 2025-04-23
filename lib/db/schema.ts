@@ -21,14 +21,14 @@ import { enumToPgEnum } from '../utils';
 // --- Enums for Experimental Conditions (Recommended for data integrity) ---
 
 export enum contentSources {
-  AI = 'AI',
-  Original = 'Original',
-  Programmatic = 'Programmatic'
+  AI = 'ai',
+  Original = 'original',
+  Programmatic = 'programmatic'
 }
 
 export enum contentLengths {
-  Longer = 'Longer',
-  Shorter = 'Shorter',
+  Longer = 'longer',
+  Shorter = 'shorter',
 }
 
 export enum questionnaireTypes {
@@ -50,6 +50,8 @@ export const ParticipantsTable = pgTable('participants', {
   assignedSourceOrder: integer('assigned_source_order').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   // Optional: Store user agent or other non-identifying technical details
+  isPilot: boolean('is_pilot'),
+  isControlled: boolean('is_controlled'),
   isMobile: boolean('is_mobile'),
 });
 

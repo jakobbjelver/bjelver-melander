@@ -1,30 +1,8 @@
-import { TfIdf } from "natural";
+import 'server-only' // Add this at the very top
+
+import { SentenceTokenizer, TfIdf, WordTokenizer } from "natural";
 import { Question } from "../data/questionnaire";
-import { TestSlug } from "../data/tests";
-
-export type PushNotifications = NotificationItem[] | NotificationSummary | typeof notificationAISummary
-
-interface NotificationItem {
-  id: number;
-  app: string;               // e.g. "ChatConnect"
-  title: string;
-  message: string;
-  timestamp: string;         // e.g. "10:24 AM"
-  priority: 'low' | 'medium' | 'high';
-  category: string;          // e.g. "message", "alert", etc.
-  unread?: boolean;
-  irrelevant?: boolean;
-}
-
-interface NotificationSummary {
-  executiveText: string;               // top-N extractive sentences
-  totalNotifications: number;
-  unreadCount: number;
-  byPriority: Record<'low' | 'medium' | 'high', number>;
-  byCategory: Record<string, number>;
-  byApp: Record<string, number>;
-  timeRange: { earliest: string; latest: string };
-}
+import { NotificationAISummary, NotificationItem, NotificationProgrammaticSummary } from "@/types/stimuli";
 
 export const pushNotificationsData: NotificationItem[] = [
   {
@@ -129,84 +107,96 @@ export const pushNotificationsData: NotificationItem[] = [
   }
 ];
 
+export const notificationProgrammaticSummary = summarizeNotifications(pushNotificationsData)
+
 // Dynamically generated (programmatic) summary based on text extraction
-export function summarizeNotifications(
-  items: NotificationItem[]
-): NotificationSummary {
-  // A) Build TF–IDF on title + message
-  const docs = items.map((n) => [n.title, n.message].join('. '));
-  const tfidf = new TfIdf();
-  docs.forEach((d) => tfidf.addDocument(d));
+function summarizeNotifications(items: NotificationItem[]): NotificationProgrammaticSummary {
+  // Filter out irrelevant notifications
+  const relevant = items.filter(item => !item.irrelevant);
+  const unread = relevant.filter(item => item.unread);
+  const high = relevant.filter(item => item.priority === 'high');
 
-  // Split into sentences & score
-  const sentences = docs.flatMap((d) => d.match(/[^\.!\?]+[\.!\?]+/g) || []);
-  const scored = sentences.map((s) => {
-    let score = 0;
-    tfidf.tfidfs(s, (_, w) => (score += w));
-    return { sentence: s.trim(), score };
+  // Count by category
+  const categories: Record<string, number> = {};
+  relevant.forEach(item => {
+    categories[item.category] = (categories[item.category] || 0) + 1;
   });
-  const executiveText = scored
+
+  // Prepare documents for TF-IDF
+  const docs = relevant.map(item => `${item.title}. ${item.message};`);
+  const tfidf = new TfIdf();
+  docs.forEach(doc => tfidf.addDocument(doc));
+
+  const wordTokenizer = new WordTokenizer();
+  const sentenceTokenizer = new SentenceTokenizer([]);
+
+  type ScoredSentence = { sentence: string; score: number; itemId: number };
+  const scoredSentences: ScoredSentence[] = [];
+
+  // Score each sentence
+  docs.forEach((doc, idx) => {
+    const sentences = sentenceTokenizer.tokenize(doc);
+    sentences.forEach(sentence => {
+      const tokens = wordTokenizer.tokenize(sentence.toLowerCase());
+      const score = tokens.reduce((sum, term) => sum + tfidf.tfidf(term, idx), 0);
+      scoredSentences.push({ sentence, score, itemId: relevant[idx].id });
+    });
+  });
+
+  // Top 3 extractive sentences
+  const extractive = scoredSentences
     .sort((a, b) => b.score - a.score)
-    .slice(0, 3)
-    .map((x) => x.sentence)
-    .join(' ');
+    .slice(0, 3);
 
-  // B) Metadata
-  const totalNotifications = items.length;
-  const unreadCount = items.filter((n) => n.unread).length;
-
-  const byPriority = items.reduce(
-    (acc, n) => {
-      acc[n.priority]++;
-      return acc;
-    },
-    { low: 0, medium: 0, high: 0 }
-  );
-
-  const byCategory = items.reduce((acc, n) => {
-    acc[n.category] = (acc[n.category] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-
-  const byApp = items.reduce((acc, n) => {
-    acc[n.app] = (acc[n.app] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-
-  // C) Time range (assumes same-day or AM/PM formatting)
-  const toMinutes = (t: string) => {
-    const [hms, period] = t.split(' ');
-    let [h, m] = hms.split(':').map(Number);
-    if (period === 'PM' && h < 12) h += 12;
-    if (period === 'AM' && h === 12) h = 0;
+  // Helper to parse "HH:MM AM/PM" into minutes
+  const parseTimestamp = (ts: string): number => {
+    const [time, mod] = ts.split(' ');
+    let [h, m] = time.split(':').map(Number);
+    if (mod === 'PM' && h < 12) h += 12;
+    if (mod === 'AM' && h === 12) h = 0;
     return h * 60 + m;
   };
-  const mins = items.map((n) => toMinutes(n.timestamp));
-  const minM = Math.min(...mins),
-    maxM = Math.max(...mins);
-  const fmt = (m: number) => {
-    const h = Math.floor(m / 60);
-    const mm = (m % 60).toString().padStart(2, '0');
-    const period = h >= 12 ? 'PM' : 'AM';
-    const hh = ((h + 11) % 12) + 1;
-    return `${hh}:${mm} ${period}`;
-  };
-  const timeRange = { earliest: fmt(minM), latest: fmt(maxM) };
+
+  // Sort by priority then timestamp
+  const sortedRelevant = [...relevant].sort((a, b) => {
+    const pMap = { high: 2, medium: 1, low: 0 };
+    if (pMap[b.priority] !== pMap[a.priority]) {
+      return pMap[b.priority] - pMap[a.priority];
+    }
+    return parseTimestamp(b.timestamp) - parseTimestamp(a.timestamp);
+  });
+
+  const nextItems = sortedRelevant
+    .slice(0, 2)
+    .map(item => `${item.title} at ${item.timestamp}`);
+
+  // Construct an abstractive-style summary
+  const parts: string[] = [];
+  parts.push(`You have ${unread.length} unread notification${unread.length !== 1 ? 's' : ''} across ${Object.keys(categories).length} categories.`);
+  if (high.length) {
+    parts.push(`High-priority alerts: ${high.map(i => `"${i.title}"`).join(', ')}.`);
+  }
+  if (nextItems.length) {
+    parts.push(`Up next: ${nextItems.join(', ')}.`);
+  }
+  parts.push(`Other low-priority or irrelevant updates are filtered out for focus.`);
 
   return {
-    executiveText,
-    totalNotifications,
-    unreadCount,
-    byPriority,
-    byCategory,
-    byApp,
-    timeRange,
+    summary: parts.join(' '),
+    extractive,
+    meta: {
+      totalItems: items.length,
+      relevantItems: relevant.length,
+      unreadCount: unread.length,
+      highPriorityCount: high.length,
+      categories
+    }
   };
 }
 
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
-export const notificationAISummary = {
+export const notificationAISummary: NotificationAISummary = {
   overview: "Today's notification feed includes critical meeting and weather alerts, timely personal messages and delivery updates, a low‐priority birthday prompt, and several non‐essential system/entertainment alerts contributing to noise.",
   categories: [
     {
@@ -256,7 +246,7 @@ export const notificationAISummary = {
 
 export const pushNotificationsTests: Question[] = [
   {
-    id: `${TestSlug.PUSH_NOTIFICATIONS}_accuracy`, // Original ID kept
+    id: `push-notifications_accuracy`, // Original ID kept
     text: "Based on your notifications, what requires your immediate attention and response?",
     type: 'multipleChoice',
     options: [
@@ -270,7 +260,7 @@ export const pushNotificationsTests: Question[] = [
     // correctAnswerIndex: 1  // The team meeting is highest priority and most imminent
   },
   {
-    id: `${TestSlug.PUSH_NOTIFICATIONS}_comprehension`, // Original ID kept
+    id: `push-notifications_comprehension`, // Original ID kept
     text: "Which of the following statements are accurate based on your notifications?",
     type: 'multipleChoice',
     options: [

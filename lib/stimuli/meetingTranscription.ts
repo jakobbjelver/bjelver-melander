@@ -1,23 +1,5 @@
-import { TfIdf } from "natural";
-
-export type MeetingTranscript = TranscriptItem[] | TranscriptSummary | typeof meetingAISummary
-
-
-interface TranscriptItem {
-    id: number;
-    time: string;         // e.g. "00:00:23"
-    speaker: string;      // e.g. "Marcus Chen (Project Manager)"
-    content: string;
-    irrelevant?: boolean;
-}
-
-interface TranscriptSummary {
-    executiveText: string;               // top‑N extracted sentences
-    totalTurns: number;                  // count of items
-    uniqueSpeakers: number;              // distinct speaker count
-    speakerDistribution: Record<string, number>;
-    timeRange: { start: string; end: string };
-}
+import { TranscriptAISummary, TranscriptItem, TranscriptProgrammaticSummary } from "@/types/stimuli";
+import { SentenceTokenizer, TfIdf, WordTokenizer } from "natural";
 
 export const meetingTranscriptData: TranscriptItem[] = [
     {
@@ -89,107 +71,117 @@ export const meetingTranscriptData: TranscriptItem[] = [
 
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
-export const meetingAISummary = {
-    overview: "During the weekly product development meeting, the team confirmed Q3 priorities—dashboard redesign and enhanced notifications—postponed the collaborative editing feature to Q4, and committed to resolving performance bottlenecks to stay on track for a July 30 release.",
-    themes: [
-        {
-            category: "Feature Prioritization",
-            focus: ["Dashboard redesign", "Notification system", "Deferring collaborative editing to Q4"]
-        },
-        {
-            category: "Performance Optimization",
-            focus: ["Database query tuning", "Mobile image processing improvements"]
-        },
-        {
-            category: "Release Planning",
-            focus: ["Assessing impact on July 30 timeline", "Dependency on API vendor response"]
-        }
+export const meetingAISummary: TranscriptAISummary = {
+    topic: "Q3 product development meeting",
+    goals: [
+        "Finalize Q3 feature list",
+        "Resolve performance issues",
+        "Confirm July 30 release readiness"
     ],
-    keyInsights: [
-        "User feedback strongly favors dashboard and notification enhancements over rushed collaboration features.",
-        "Postponing complex features reduces risk of negative reception.",
-        "Core performance fixes are achievable within two weeks plus one week of QA."
+    decisions: [
+        "Postpone collaborative editing to Q4"
+    ],
+    priorities: [
+        "Dashboard redesign",
+        "Notification system enhancements",
+        "Performance optimizations"
     ],
     actionItems: [
-        { owner: "Emma Rodriguez", task: "Resolve performance bottlenecks and liaise with external API vendor" },
-        { owner: "Alex Kim", task: "Complete and hand off dashboard redesign" },
-        { owner: "Priya Patel", task: "Revise Q3 roadmap to reflect updated priorities" },
-        { owner: "David Wilson", task: "Prepare extended QA plan for new features" }
+        { owner: "Emma Rodriguez", task: "Tackle performance bottlenecks and coordinate with API vendor" },
+        { owner: "Alex Kim", task: "Complete the dashboard redesign" },
+        { owner: "Priya Patel", task: "Update the Q3 product roadmap" },
+        { owner: "David Wilson", task: "Prepare extended QA for the prioritized features" }
     ],
-    nextMeeting: {
-        date: "Next Tuesday",
-        goal: "Review progress on performance fixes, dashboard redesign, and notification rollout"
-    }
+    targetRelease: "July 30",
+    nextMeeting: "Next Tuesday"
 };
 
 // Dynamically generated (programmatic) summary based on text extraction
 export function summarizeTranscripts(
     items: TranscriptItem[]
-): TranscriptSummary {
-    // -- Build TF–IDF on all content
-    const docs = items.map((t) => t.content);
-    const tfidf = new TfIdf();
-    docs.forEach((d) => tfidf.addDocument(d));
+): TranscriptProgrammaticSummary {
+    // 1. Filter out irrelevant utterances
+    const relevant = items.filter(i => !i.irrelevant);
+    const totalItems = items.length;
+    const relevantItems = relevant.length;
 
-    // -- Split each doc into sentences and score
-    const sentences = docs.flatMap((doc) =>
-        doc.match(/[^\.!\?]+[\.!\?]+/g) || []
-    );
-    const scored = sentences.map((s) => {
-        let score = 0;
-        tfidf.tfidfs(s, (_, m) => (score += m));
-        return { sentence: s.trim(), score };
+    // 2. Count utterances per speaker
+    const speakerCounts: Record<string, number> = {};
+    relevant.forEach(i => {
+        speakerCounts[i.speaker] = (speakerCounts[i.speaker] || 0) + 1;
     });
 
-    // -- Top 3 for executiveText
-    const executiveText = scored
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 3)
-        .map((x) => x.sentence)
-        .join(" ");
-
-    // -- Metadata
-    const totalTurns = items.length;
-    const speakerDistribution = items.reduce((acc, t) => {
-        acc[t.speaker] = (acc[t.speaker] || 0) + 1;
-        return acc;
-    }, {} as Record<string, number>);
-    const uniqueSpeakers = Object.keys(speakerDistribution).length;
-
-    // -- Time range
-    const times = items.map((t) => {
-        const [h, m, s] = t.time.split(":").map(Number);
+    // 3. Determine earliest and latest timestamps
+    const parseTime = (ts: string) => {
+        const [h, m, s] = ts.split(':').map(Number);
         return h * 3600 + m * 60 + s;
-    });
-    const minSec = Math.min(...times);
-    const maxSec = Math.max(...times);
-    const fmt = (sec: number) => {
-        const h = Math.floor(sec / 3600)
-            .toString()
-            .padStart(2, "0");
-        const m = Math.floor((sec % 3600) / 60)
-            .toString()
-            .padStart(2, "0");
-        const s = Math.floor(sec % 60)
-            .toString()
-            .padStart(2, "0");
-        return `${h}:${m}:${s}`;
     };
-    const timeRange = { start: fmt(minSec), end: fmt(maxSec) };
+    const sortedByTime = [...relevant].sort(
+        (a, b) => parseTime(a.time) - parseTime(b.time)
+    );
+    const earliestTime = sortedByTime[0]?.time || '';
+    const latestTime = sortedByTime[sortedByTime.length - 1]?.time || '';
+
+    // 4. Build TF–IDF over speaker + content
+    const docs = relevant.map(i => `${i.speaker}: ${i.content}`);
+    const tfidf = new TfIdf();
+    docs.forEach(d => tfidf.addDocument(d));
+
+    const wtok = new WordTokenizer();
+    const stok = new SentenceTokenizer([]);
+    const scoredSentences: { sentence: string; score: number, speaker: string; time: string }[] = [];
+
+    docs.forEach((doc, idx) => {
+        stok.tokenize(doc).forEach(sentence => {
+            const tokens = wtok.tokenize(sentence.toLowerCase());
+            const score = tokens.reduce((sum, t) => sum + tfidf.tfidf(t, idx), 0);
+            scoredSentences.push({ sentence, score, speaker: relevant[idx].speaker, time: relevant[idx].time });
+        });
+    });
+
+    // 5. Extract top-3 key sentences
+    const extractive = scoredSentences
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3);
+
+    // 6. Compose an abstractive summary from your stats + extractive sentences
+    const numSpeakers = Object.keys(speakerCounts).length;
+    const sortedSpeakers = Object
+        .entries(speakerCounts)
+        .sort(([, a], [, b]) => b - a)
+        .map(([speaker]) => speaker);
+    const [top1, top2] = sortedSpeakers;
+
+    const parts: string[] = [];
+    parts.push(
+        `Found ${totalItems} utterances, of which ${relevantItems} ` +
+        `were relevant, spread across ${numSpeakers} speaker${numSpeakers > 1 ? 's' : ''}.`
+    );
+    if (top1)
+        parts.push(
+            `Most active: ${top1}` +
+            (top2 ? ` and ${top2}` : ``)
+            + `.`
+        );
+    parts.push(`Discussion ran from ${earliestTime} to ${latestTime}.`);
 
     return {
-        executiveText,
-        totalTurns,
-        uniqueSpeakers,
-        speakerDistribution,
-        timeRange,
+        summary: parts.join(' '),
+        extractive,
+        meta: {
+            totalItems,
+            relevantItems,
+            speakerCounts,
+            earliestTime,
+            latestTime
+        }
     };
 }
 
 export const meetingTranscriptTests = [
     {
-        id: "meeting_transcript_accuracy",
-        text: "Based *only* on the relevant parts of this meeting transcript, what action was decided regarding the collaborative editing feature?",
+        id: "meeting-transcription_accuracy",
+        text: "Based on the meeting transcript, what action was decided regarding the collaborative editing feature?",
         type: 'multipleChoice',
         options: [
             "Prioritize it for the Q3 release",
@@ -202,7 +194,7 @@ export const meetingTranscriptTests = [
         // correctAnswerIndex: 3  // Postpone to Q4 was the consensus decision mentioned multiple times in relevant sections (IDs 3, 4, 5, 10).
     },
     {
-        id: "meeting_transcript_comprehension",
+        id: "meeting-transcription_comprehension",
         text: "Which of the following statements are accurate based *only* on the relevant parts of the meeting transcript?",
         type: 'multipleChoice',
         options: [

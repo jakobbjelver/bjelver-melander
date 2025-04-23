@@ -10,19 +10,22 @@ interface TestPageProps {
   params: Promise<{
     participantId: string;
     testSlug: TestSlug;
+  }>;
+  searchParams: Promise<{
     source: number;
     length: number;
   }>;
 }
 
-export default async function QuestionsPage({ params }: TestPageProps) {
-  const { participantId, testSlug, source, length } = await params;
+export default async function QuestionsPage({ params, searchParams }: TestPageProps) {
+  const { participantId, testSlug } = await params; 
+  const { source, length } = await searchParams;
 
   const contentSource = getSourceFromMask(source)
   const contentLength = getLengthFromMask(length)
 
-  if(!contentSource || !contentLength) {
-    return <h1>Content source or length not provided.</h1>
+  if(!contentSource || !contentLength || !participantId || !testSlug) {
+    throw new Error(`Invalid data provided: length: ${contentLength}, source: ${contentSource}, participant: ${participantId}, test: ${testSlug}`)
   }
 
   // 3. Get the questions associated with this test slug

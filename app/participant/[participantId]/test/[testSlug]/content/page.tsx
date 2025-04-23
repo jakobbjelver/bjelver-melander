@@ -2,17 +2,17 @@
 import { TestContentDisplay } from '@/components/test-content-display';
 import { Button } from '@/components/ui/button';
 import { getParticipantAction } from '@/lib/actions/participantActions';
-import { getTestContent, TestSlug } from '@/lib/data/tests';
+import { getAssignedSource, getTestContent, TestSlug } from '@/lib/data/tests';
 import Link from 'next/link';
 
-interface TestPageProps {
+interface ContentPageProps {
   params: Promise<{
     participantId: string;
     testSlug: TestSlug;
   }>;
 }
 
-export default async function ContentPage({ params }: TestPageProps) {
+export default async function ContentPage({ params }: ContentPageProps) {
   const { participantId, testSlug } = await params;
 
   const nextPath = `/participant/${participantId}/test/${testSlug}/questions`
@@ -22,20 +22,25 @@ export default async function ContentPage({ params }: TestPageProps) {
   const participant = await getParticipantAction(participantId);
   if (!participant) {
     // Handle error: Participant not found or group not assigned
-    return <p>Error: Could not find participant data.</p>;
+    throw new Error (`Participant not found: ${participantId}`)
+  }
+
+  const source = getAssignedSource(testSlug, participant.assignedSourceOrder)
+  if (!source) {
+    // Handle error: Participant not found or group not assigned
+    throw new Error (`Could not determine source: test: ${testSlug}, source order: ${participant.assignedSourceOrder}`)
   }
 
   // 2. Get the specific test content based on slug and group
-  const content = getTestContent(testSlug, participant.assignedSourceOrder, participant.assignedLength);
+  const content = getTestContent(testSlug, source, participant.assignedLength);
   if (!content) {
     // Handle error: Content for this test/group combination not found
-    return <p>Error: Could not load test content.</p>;
+    throw new Error (`Content for this test/group combination not found: test: ${testSlug}, source: ${source}, length: ${participant.assignedLength}`)
   }
-
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-4 flex flex-col items-center">
-      <TestContentDisplay testSlug={testSlug} contentData={content} />
+      <TestContentDisplay source={source} testSlug={testSlug} contentData={content} />
       <Button asChild className='max-w-sm w-full md:max-w-sm' size={'lg'}>
         <Link href={nextPath}>Done</Link>
       </Button>

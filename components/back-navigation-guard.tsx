@@ -1,17 +1,7 @@
 "use client"
-import { usePreventBackNavigation } from "@/app/hooks/use-prevent-back-navigation";
-import { Button } from "@/components/ui/button";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
+import { usePreventBackNavigation } from "@/hooks/use-prevent-back-navigation";
 
 export function BackNavigationGuard() {
     usePreventBackNavigation();
-
     return null
 }

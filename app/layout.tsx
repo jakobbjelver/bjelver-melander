@@ -26,7 +26,7 @@ export default function RootLayout({
         )}
       >
         {/* Add ThemeProvider here if using Shadcn themes */}
-        <main className="container mx-auto p-4 md:p-8">{children}</main>
+        <main className="container mx-auto p-2 md:p-8">{children}</main>
         <Toaster />
       </body>
     </html>

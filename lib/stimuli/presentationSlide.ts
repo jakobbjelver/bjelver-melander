@@ -1,38 +1,6 @@
-import { TfIdf } from "natural";
+import { SentenceTokenizer, TfIdf, WordTokenizer } from "natural";
 import { Question } from "../data/questionnaire";
-
-export type PresentationSlide = SlideItem[] | SlideSummary | typeof presentationAISummary
-
-type SlideType = 'title slide' | 'bullet points' | 'chart' | 'timeline' | 'profiles' | 'map' | 'diagram';
-type ChartType = 'pie chart' | 'line chart';
-
-interface ChartContent {
-    labels: string[];
-    values: number[];
-    unit: string;
-}
-
-interface SlideItem {
-    id: number;
-    title: string;
-    type: SlideType;
-    chartType?: ChartType;
-    content: string | string[] | ChartContent;
-    notes: string;
-    irrelevant?: boolean;
-}
-
-interface SlideSummary {
-    executiveText: string;              // top‐N extractive sentences
-    totalSlides: number;
-    byType: Record<SlideType, number>;
-    keyTitles: string[];                // top titles or themes
-    chartSummaries: {
-        title: string;
-        trend: string;                    // e.g. “upward”/“flat”/“mixed”
-        peak: { label: string; value: number };
-    }[];
-}
+import { SlideAISummary, SlideItem, SlideProgrammaticSummary } from "@/types/stimuli";
 
 export const presentationSlideData: SlideItem[] = [
     {
@@ -154,113 +122,130 @@ export const presentationSlideData: SlideItem[] = [
 
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
-export const presentationAISummary = {
-    overview: "TechInnovate delivered a strong Q2 with 15% YoY revenue growth to $78.5 M, margin expansion, and cloud/AI momentum driving performance.",
-    metrics: {
-        revenue: "78.5 M USD (+15% YoY)",
-        operatingMargin: "23.4% (+2.1 pts QoQ)",
-        newEnterpriseCustomers: 42,
-        cloudGrowth: "28%",
-        aiPlatformLaunch: "May 2023"
-    },
-    revenueDistribution: {
-        cloudServices: "42%",
-        enterpriseSolutions: "30%",
-        consumerProducts: "18%",
-        professionalServices: "10%"
-    },
-    strategicInitiatives: [
-        "Enhance AI Platform capabilities by Q4",
-        "Achieve 15% APAC growth by year‑end",
-        "Complete DataSecure Inc. acquisition in September",
-        "Launch next‑gen Enterprise Suite in November",
-        "Improve operating margin to 25% by Q4"
-    ],
-    revenueForecast: [
-        { quarter: "Q3 2023", projectedRevenue: "85.3 M USD" },
-        { quarter: "Q4 2023", projectedRevenue: "94.7 M USD" }
-    ],
-    keyInsights: [
-        "Cloud & AI contribute over 40% of total revenue, underscoring strategic focus.",
-        "Margin gains reflect improved operational efficiency and disciplined cost management.",
-        "Targeted M&A and regional expansion will underpin second‑half growth."
-    ],
-    nextSteps: [
-        "Execute and monitor strategic initiatives",
-        "Finalize acquisition integration plans",
-        "Track APAC market progress",
-        "Prepare go‑to‑market for year‑end spending surge"
-    ]
+export const presentationAISummary: SlideAISummary = {
+    period: 'Q2 2023',
+  company: 'TechInnovate Corporation',
+  performance: {
+    totalRevenue: 78.5,
+    currencyUnit: 'USD Millions',
+    yoyGrowthPercent: 15,
+    operatingMarginPercent: 23.4,
+    newEnterpriseCustomers: 42,
+    cloudDivisionGrowthPercent: 28,
+    aiPlatformLaunchMonth: 'May 2023'
+  },
+  revenueByDivision: {
+    cloudServices: 42,
+    enterpriseSolutions: 30,
+    consumerProducts: 18,
+    professionalServices: 10,
+    unit: '%'
+  },
+  strategicInitiatives: [
+    'Expand AI Platform capabilities by Q4 2023',
+    'Grow APAC presence by 15% year‑end',
+    'Complete DataSecure Inc. acquisition in September',
+    'Launch next‑gen Enterprise suite in November',
+    'Raise operating margin to 25% by Q4 2023'
+  ],
+  forecast: {
+    Q3: 85.3,
+    Q4: 94.7,
+    currencyUnit: 'USD Millions',
+    keyDrivers: ['Holiday season demand', 'Enterprise year‑end spending']
+  }
 };
 
 // Dynamically generated (programmatic) summary based on text extraction
 export function summarizeSlides(
-    slides: SlideItem[]
-): SlideSummary {
-    // A) Extractive text from notes + title
-    const docs = slides.map(
-        (s) => [s.title, typeof s.content === 'string' ? s.content : '', s.notes].join('. ')
-    );
-    const tfidf = new TfIdf();
-    docs.forEach((d) => tfidf.addDocument(d));
+    items: SlideItem[]
+): SlideProgrammaticSummary {
+    // 1. Filter out irrelevant slides
+    const relevant = items.filter(s => !s.irrelevant);
+    const total = items.length;
+    const count = relevant.length;
 
-    const sentences = docs.flatMap((d) => d.match(/[^\.!\?]+[\.!\?]+/g) || []);
-    const scored = sentences.map((s) => {
-        let score = 0;
-        tfidf.tfidfs(s, (_, m) => (score += m));
-        return { sentence: s.trim(), score };
+    // 2. Count slides by type & chart slides
+    const slideTypeCounts: Record<string, number> = {};
+    relevant.forEach(s => {
+        slideTypeCounts[s.type] = (slideTypeCounts[s.type] || 0) + 1;
     });
-    const executiveText = scored
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 3)
-        .map((x) => x.sentence)
-        .join(' ');
+    const chartSlides = relevant.filter(s => !!s.chartType).length;
 
-    // B) Count slides by type
-    const byType = slides.reduce((acc, s) => {
-        acc[s.type] = (acc[s.type] || 0) + 1;
-        return acc;
-    }, {} as Record<SlideType, number>);
+    // 3. Compute average bullets for bullet-point slides
+    const bulletSlides = relevant.filter(
+        s => s.type === 'bullet points' && Array.isArray(s.content)
+    );
+    const avgBullets =
+        bulletSlides.length > 0
+            ? bulletSlides.reduce((sum, s) => sum + (s.content as string[]).length, 0) /
+            bulletSlides.length
+            : 0;
 
-    // C) Key titles (top‑3 longest / most content‑rich)
-    const keyTitles = slides
-        .sort((a, b) => b.notes.length + String(a.content).length - (a.notes.length + String(b.content).length))
-        .slice(0, 3)
-        .map((s) => s.title);
+    // 4. Prepare docs for TF–IDF
+    const docs = relevant.map(s => {
+        let text = s.title + '. ';
+        if (typeof s.content === 'string') text += s.content + '. ';
+        else if (Array.isArray(s.content)) text += (s.content as string[]).join('. ') + '. ';
+        else return ''; // Do not count in structured data for charts
+        text += s.notes;
+        return text;
+    });
 
-    // D) Chart analyses
-    const chartSummaries = slides
-        .filter((s): s is SlideItem & { content: ChartContent } => s.type === 'chart')
-        .map((s) => {
-            const { labels, values, unit } = s.content;
-            const min = Math.min(...values),
-                max = Math.max(...values);
-            const trend =
-                values.every((v, i, arr) => i === 0 || v >= arr[i - 1])
-                    ? 'upward'
-                    : values.every((v, i, arr) => i === 0 || v <= arr[i - 1])
-                        ? 'downward'
-                        : 'mixed';
-            const peakIndex = values.indexOf(max);
-            return {
-                title: s.title,
-                trend,
-                peak: { label: labels[peakIndex], value: max },
-            };
+    const tfidf = new TfIdf();
+    docs.forEach(d => tfidf.addDocument(d));
+    const wtok = new WordTokenizer();
+    const stok = new SentenceTokenizer([]);
+
+    type Scored = { sentence: string; score: number; title: string };
+    const scored: Scored[] = [];
+    docs.forEach((doc, idx) => {
+        stok.tokenize(doc).forEach(sent => {
+            const tokens = wtok.tokenize(sent.toLowerCase());
+            const score = tokens.reduce((sum, t) => sum + tfidf.tfidf(t, idx), 0);
+            scored.push({ sentence: sent, score, title: relevant[idx].title });
         });
+    });
+
+    // 5. Select top-3 extractive sentences
+    const extractive = scored.sort((a, b) => b.score - a.score).slice(0, 3);
+
+    // 6. Identify key bullet sections
+    const topBullet = bulletSlides
+        .sort(
+            (a, b) =>
+                (b.content as string[]).length - (a.content as string[]).length
+        )
+        .slice(0, 2)
+        .map(s => `"${s.title}"`);
+
+    // 7. Build an abstractive-style summary
+    const parts: string[] = [];
+    parts.push(`This deck has ${count} slides (of ${total}) focused on Q2 results.`);
+    parts.push(
+        `Includes ${chartSlides} chart slide${chartSlides !== 1 ? 's' : ''} and bullet slides averaging ${avgBullets.toFixed(
+            1
+        )} items.`
+    );
+    if (topBullet.length) parts.push(`Key sections include ${topBullet.join(' and ')}.`);
+    parts.push(`Background and profile slides are filtered out for clarity.`);
 
     return {
-        executiveText,
-        totalSlides: slides.length,
-        byType,
-        keyTitles,
-        chartSummaries,
+        summary: parts.join(' '),
+        extractive,
+        meta: {
+            totalSlides: total,
+            relevantSlides: count,
+            slideTypeCounts,
+            chartSlides,
+            averageBulletPoints: parseFloat(avgBullets.toFixed(1)),
+        },
     };
 }
 
 export const presentationSlideTests: Question[] = [
     {
-        id: "presentation_slide_accuracy",
+        id: "presentation-slide_accuracy",
         text: "Based on this presentation, which strategic action should investors expect to impact the company's security offerings most directly in the near future?",
         type: 'multipleChoice',
         options: [
@@ -274,7 +259,7 @@ export const presentationSlideTests: Question[] = [
         // correctAnswerIndex: 2  // The DataSecure acquisition is specifically noted to enhance security offerings
     },
     {
-        id: "presentation_slide_comprehension",
+        id: "presentation-slide_comprehension",
         text: "Which of the following statements are accurate based on the presentation slides?",
         type: 'multipleChoice',
         options: [

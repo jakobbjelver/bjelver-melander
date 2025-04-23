@@ -1,35 +1,11 @@
-import { TfIdf } from "natural";
+import { SentenceTokenizer, TfIdf, WordTokenizer } from "natural";
 import { Question } from "../data/questionnaire";
-
-export type SearchResults = SearchResult[] | SearchSummary | typeof searchResultsAISummary
-
-interface SearchResult {
-  id: number;
-  title: string;
-  url: string;
-  snippet: string;
-  source: string;
-  type: string;            // e.g. "article", "video", "blog", …
-  datePublished: string;   // free‑form, e.g. "Updated June 2023"
-  citations?: number;
-  hasVideo?: boolean;
-  irrelevant?: boolean;
-}
-
-interface SearchSummary {
-  executiveText: string;             // top‑N extractive sentences
-  totalResults: number;
-  byType: Record<string, number>;
-  bySource: Record<string, number>;
-  dateRange: { earliest: string; latest: string };
-  citationRange: { min: number; max: number; avg: number };
-  videoCount: number;
-}
+import { SearchAISummary, SearchProgrammaticSummary, SearchResultItem } from "@/types/stimuli";
 
 export const searchEngineQuery = "what is climate change";
 
 
-export const searchEngineData: SearchResult[] = [
+export const searchEngineData: SearchResultItem[] = [
   {
     id: 1,
     title: "Understanding Climate Change: A Comprehensive Guide",
@@ -139,78 +115,88 @@ export const searchEngineData: SearchResult[] = [
 
 // Dynamically generated (programmatic) summary based on text extraction
 export function summarizeSearchResults(
-  items: SearchResult[]
-): SearchSummary {
-  // A) Build TF–IDF on title + snippet
-  const docs = items.map((r) => [r.title, r.snippet].join('. '));
-  const tfidf = new TfIdf();
-  docs.forEach((d) => tfidf.addDocument(d));
+  items: SearchResultItem[]
+): SearchProgrammaticSummary {
+  // 1. Filter out irrelevant results
+  const relevant = items.filter(i => !i.irrelevant);
+  const totalItems = items.length;
+  const relevantItems = relevant.length;
 
-  // Split into sentences & score
-  const sentences = docs.flatMap((d) => d.match(/[^\.!\?]+[\.!\?]+/g) || []);
-  const scored = sentences.map((s) => {
-    let score = 0;
-    tfidf.tfidfs(s, (_, w) => (score += w));
-    return { sentence: s.trim(), score };
+  // 2. Video count and citation stats
+  const hasVideoCount = relevant.filter(i => i.hasVideo).length;
+  const citationValues = relevant.map(i => i.citations || 0);
+  const averageCitations = relevantItems
+    ? parseFloat(
+        (citationValues.reduce((sum, c) => sum + c, 0) / relevantItems).toFixed(1)
+      )
+    : 0;
+
+  // 3. Count by type
+  const typeCounts: Record<string, number> = {};
+  relevant.forEach(i => {
+    typeCounts[i.type] = (typeCounts[i.type] || 0) + 1;
   });
 
-  const executiveText = scored
+  // 4. Top sources by citations
+  const topSources = [...relevant]
+    .sort((a, b) => (b.citations || 0) - (a.citations || 0))
+    .slice(0, 2)
+    .map(i => i.source);
+
+  // 5. Build TF–IDF on title + snippet
+  const docs = relevant.map(i => `${i.title}. ${i.snippet}`);
+  const tfidf = new TfIdf();
+  docs.forEach(d => tfidf.addDocument(d));
+  const wtok = new WordTokenizer();
+  const stok = new SentenceTokenizer([]);
+  const scored: { sentence: string; score: number; itemId: number }[] = [];
+
+  docs.forEach((doc, idx) => {
+    stok.tokenize(doc).forEach(sentence => {
+      const tokens = wtok.tokenize(sentence.toLowerCase());
+      const score = tokens.reduce((s, t) => s + tfidf.tfidf(t, idx), 0);
+      scored.push({ sentence, score, itemId: relevant[idx].id });
+    });
+  });
+
+  // 6. Extract top-3 sentences
+  const extractive = scored
     .sort((a, b) => b.score - a.score)
-    .slice(0, 3)
-    .map((x) => x.sentence)
-    .join(' ');
+    .slice(0, 3);
 
-  // B) Metadata counts
-  const totalResults = items.length;
-
-  const byType = items.reduce((acc, r) => {
-    acc[r.type] = (acc[r.type] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-
-  const bySource = items.reduce((acc, r) => {
-    acc[r.source] = (acc[r.source] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-
-  // C) Date range (lexical compare)
-  const dates = items.map((r) => r.datePublished);
-  const sortedDates = dates.slice().sort((a, b) =>
-    a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+  // 7. Compose an abstractive summary
+  const parts: string[] = [];
+  parts.push(
+    `Found ${relevantItems} relevant search result${
+      relevantItems !== 1 ? 's' : ''
+    } across ${Object.keys(typeCounts).length} content types.`
   );
-  const dateRange = {
-    earliest: sortedDates[0] || '',
-    latest: sortedDates[sortedDates.length - 1] || '',
-  };
-
-  // D) Citation stats
-  const citations = items.map((r) => r.citations).filter((r) => r !== undefined);
-  const min = Math.min(...citations);
-  const max = Math.max(...citations);
-  const avg =
-    citations.reduce((sum, c) => sum + c, 0) / (citations.length || 1);
-
-  // E) Video count
-  const videoCount = items.filter((r) => r.hasVideo).length;
+  parts.push(
+    `${hasVideoCount} result${
+      hasVideoCount !== 1 ? 's' : ''
+    } include video; average citations per item: ${averageCitations}.`
+  );
+  if (topSources.length)
+    parts.push(`Top sources by citations: ${topSources.join(' and ')}.`);
+  parts.push(`Other less relevant entries are filtered out for focus.`);
 
   return {
-    executiveText,
-    totalResults,
-    byType,
-    bySource,
-    dateRange,
-    citationRange: {
-      min,
-      max,
-      avg: parseFloat(avg.toFixed(1)),
+    summary: parts.join(' '),
+    extractive,
+    meta: {
+      totalItems,
+      relevantItems,
+      hasVideoCount,
+      averageCitations,
+      typeCounts,
+      topSources,
     },
-    videoCount,
   };
 }
 
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
-export const searchResultsAISummary = {
+export const searchResultsAISummary: SearchAISummary = {
   overview: "Top search results offer a multi‑format deep dive into climate change: foundational science, interactive data trends, mitigation tactics, IPCC consensus, and myth‑busting video content.",
   themes: [
     { theme: "Foundational Science", ids: [1] },
@@ -246,7 +232,7 @@ export const searchResultsAISummary = {
 
 export const searchEngineTests: Question[] = [
   {
-    id: "search_results_accuracy",
+    id: "search-engine_accuracy",
     text: "Based on these search results, what should you consult if you need the most authoritative and up-to-date scientific information to cite in a policy paper about climate change impacts?",
     type: 'multipleChoice',
     options: [
@@ -260,7 +246,7 @@ export const searchEngineTests: Question[] = [
     // correctAnswerIndex: 3  // The IPCC report is the most authoritative source with the highest citation count
   },
   {
-    id: "search_results_comprehension",
+    id: "search-engine_comprehension",
     text: "Which of the following statements are accurate based on the search results provided?",
     type: 'multipleChoice',
     options: [

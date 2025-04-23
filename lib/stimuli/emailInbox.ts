@@ -1,41 +1,6 @@
+import { EmailAISummary, EmailItem, EmailProgrammaticSummary } from "@/types/stimuli";
 import { Question } from "../data/questionnaire";
-import { TfIdf, PorterStemmer } from 'natural';
-
-export type EmailInbox = EmailItem[] | EmailProgrammaticSummary | typeof emailInboxAISummarization
-
-// Define the structure of an email item
-interface EmailItem {
-    id: number;
-    sender: string;
-    email: string;
-    subject: string;
-    preview: string;
-    timestamp: string;
-    date: string;
-    read: boolean;
-    folder: string;
-    priority: "low" | "medium" | "high";
-    hasAttachment: boolean;
-    attachmentName?: string;
-    irrelevant?: boolean;
-}
-
-interface EmailProgrammaticSummary {
-    executiveText: string;       // Extractive summary
-    totalEmails: number;
-    unreadCount: number;
-    priorityDistribution: {
-        low: number;
-        medium: number;
-        high: number;
-    };
-    attachments: {
-        totalWith: number;
-        names: string[];
-    };
-    folders: Record<string, number>;
-    dateRange: { first: string; last: string };
-}
+import { TfIdf, WordTokenizer, SentenceTokenizer } from 'natural';
 
 export const emailInboxData: EmailItem[] = [
     {
@@ -178,102 +143,120 @@ export const emailInboxData: EmailItem[] = [
 ];
 
 // Dynamically generated (programmatic) summary based on text extraction
-export function summarizeEmails(emails: EmailItem[]): EmailProgrammaticSummary {
-    // 1. Aggregate text
-    const docs = emails
-        .filter(e => !e.irrelevant)
-        .map(e => [e.subject, e.preview].join('. '));
+export function summarizeEmails(items: EmailItem[]): EmailProgrammaticSummary {
+    // 1. Filter out irrelevant emails
+    const relevant = items.filter(e => !e.irrelevant);
+    const totalItems = items.length;
+    const relevantItems = relevant.length;
 
-    // 2. Build TF–IDF model
-    const tfidf = new TfIdf();
-    docs.forEach(doc => tfidf.addDocument(doc));
+    // 2. Compute simple stats
+    const unread = relevant.filter(e => !e.read);
+    const highPriority = relevant.filter(e => e.priority === 'high');
+    const withAttachment = relevant.filter(e => e.hasAttachment);
 
-    // 3. Split into sentences and score them
-    const allSentences = docs
-        .flatMap(doc => doc.match(/[^\.!\?]+[\.!\?]+/g) || []);
-    const sentenceScores = allSentences.map(sentence => {
-        let score = 0;
-        tfidf.tfidfs(sentence, (i, measure) => {
-            score += measure;
-        });
-        return { sentence: sentence.trim(), score };
+    // 3. Count by folder
+    const folderCounts: Record<string, number> = {};
+    relevant.forEach(e => {
+        folderCounts[e.folder] = (folderCounts[e.folder] || 0) + 1;
     });
 
-    // 4. Pick top‑N sentences
-    const topSentences = sentenceScores
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 3)
-        .map(x => x.sentence);
+    // 4. Build TF–IDF on subject + preview
+    const docs = relevant.map(e => `${e.subject}. ${e.preview}`);
+    const tfidf = new TfIdf();
+    docs.forEach(d => tfidf.addDocument(d));
+    const wtok = new WordTokenizer();
+    const stok = new SentenceTokenizer([]);
 
-    // 2. Metadata compilation
-    const totalEmails = emails.length;
-    const unreadCount = emails.filter(e => !e.read).length;
-    const priorityDistribution = emails.reduce(
-        (acc, e) => {
-            acc[e.priority]++;
-            return acc;
-        },
-        { low: 0, medium: 0, high: 0 }
+    type Scored = { sentence: string; score: number; itemId: number };
+    const allSentences: Scored[] = [];
+    docs.forEach((doc, idx) => {
+        stok.tokenize(doc).forEach(sentence => {
+            const tokens = wtok.tokenize(sentence.toLowerCase());
+            const score = tokens.reduce((sum, t) => sum + tfidf.tfidf(t, idx), 0);
+            allSentences.push({ sentence, score, itemId: relevant[idx].id });
+        });
+    });
+
+    // 5. Pick top-3 extractive sentences
+    const extractive = allSentences
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3);
+
+    // 6. Identify next items to review
+    const nextToReview = unread
+        .slice(0, 2)
+        .map(e => `"${e.subject}" from ${e.sender}`);
+
+    // 7. Compose an abstractive-style summary
+    const parts: string[] = [];
+    parts.push(
+        `You have ${unread.length} unread email${unread.length !== 1 ? 's' : ''} across ${Object.keys(folderCounts).length} folders.`
     );
-    const attachments = emails.reduce(
-        (acc, e) => {
-            if (e.hasAttachment && e.attachmentName) {
-                acc.totalWith++;
-                acc.names.push(e.attachmentName);
-            }
-            return acc;
-        },
-        { totalWith: 0, names: [] as string[] }
-    );
-    const folders = emails.reduce((acc, e) => {
-        acc[e.folder] = (acc[e.folder] || 0) + 1;
-        return acc;
-    }, {} as Record<string, number>);
-    const dates = emails.map(e => new Date(e.date));
-    const sorted = dates.sort((a, b) => a.getTime() - b.getTime());
-    const dateRange = {
-        first: sorted[0]?.toDateString() || '',
-        last: sorted[sorted.length - 1]?.toDateString() || ''
-    };
+    if (highPriority.length > 0) {
+        parts.push(
+            `High-priority messages from ${highPriority
+                .map(e => e.sender)
+                .join(', ')} need your attention.`
+        );
+    }
+    if (withAttachment.length > 0) {
+        parts.push(`There ${withAttachment.length === 1 ? 'is' : 'are'} ${withAttachment.length} attachment${withAttachment.length !== 1 ? 's' : ''} to review.`);
+    }
+    if (nextToReview.length) {
+        parts.push(`Next to review: ${nextToReview.join(' and ')}.`);
+    }
+    parts.push(`Promotions and low-priority updates have been filtered out for clarity.`);
 
     return {
-        executiveText: topSentences.join(' '),
-        totalEmails,
-        unreadCount,
-        priorityDistribution,
-        attachments,
-        folders,
-        dateRange
+        summary: parts.join(' '),
+        extractive,
+        meta: {
+            totalItems,
+            relevantItems,
+            unreadCount: unread.length,
+            highPriorityCount: highPriority.length,
+            attachmentCount: withAttachment.length,
+            folderCounts,
+        },
     };
 }
 
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
-export const emailInboxAISummarization = {
-    overview: "The inbox features urgent client requests, routine operational notices, collaborative document updates, and a large volume of low‑value notifications that may be distracting.",
-    themes: [
-        { name: "Client Action Items", count: 2, urgency: "high" },
-        { name: "Operational Notifications", count: 2, urgency: "medium" },
-        { name: "Collaboration Updates", count: 1, urgency: "medium" },
-        { name: "Irrelevant/Promotional", count: 5, urgency: "low" }
+export const emailInboxAISummarization: EmailAISummary = {
+    overview: "You have several high‑priority items awaiting your attention, a few informational notices, and a handful of non–work‑related messages.",
+    pendingRequests: {
+        count: 3,
+        items: [
+            {
+                subject: "Project Deadline Extension Request",
+                sender: "Sarah Johnson",
+                deadline: "End of today"
+            },
+            {
+                subject: "Contract Review - URGENT",
+                sender: "Michael Chen",
+                deadline: "End of today"
+            },
+            {
+                subject: "Document Updates: Q3 Marketing Strategy",
+                sender: "Team Collaboration"
+            }
+        ]
+    },
+    upcomingCommitments: {
+        trainingSession: true,
+        tripConfirmation: true
+    },
+    statusUpdates: [
+        "Expense report #EXP-2023-0429 approved; reimbursement pending.",
     ],
-    keyInsights: [
-        "Two high‑priority client deliverables require same‑day responses to keep projects on track.",
-        "Mandatory training and expense approvals support compliance and payroll processes but are lower urgency.",
-        "Team document edits need timely review to maintain marketing strategy momentum.",
-        "A significant share of notifications is low‑value, increasing inbox clutter and distraction."
-    ],
-    actionItems: [
-        "Respond to the Henderson project extension and contract review requests by EOD.",
-        "Confirm attendance for tomorrow’s compliance training session.",
-        "Review and comment on the updated Q3 Marketing Strategy document.",
-        "Filter out or unsubscribe from promotional and irrelevant notifications."
-    ]
+    irrelevantCount: 4
 };
 
 export const emailInboxTests: Question[] = [
     {
-        id: "email_inbox_accuracy",
+        id: "email-inbox_accuracy",
         text: "Based on your emails, which task should you prioritize to complete today?",
         type: 'multipleChoice',
         options: [
@@ -287,7 +270,7 @@ export const emailInboxTests: Question[] = [
         // correctAnswerIndex: 2  // The contract review is needed by EOD today
     },
     {
-        id: "email_inbox_comprehension",
+        id: "email-inbox_comprehension",
         text: "Which of the following statements are accurate based on your email inbox?",
         type: 'multipleChoice',
         options: [
