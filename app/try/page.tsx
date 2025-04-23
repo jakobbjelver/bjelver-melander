@@ -4,15 +4,15 @@ import 'server-only' // Add this at the very top
 import { TestContentDisplay } from '@/components/test-content-display'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { getTestContent, TestSlug } from '@/lib/data/tests'
-import { contentLengths, contentSources } from '@/lib/db/schema'
+import { getTestContent } from '@/lib/data/tests'
 import { Filters } from './filters'
+import { ContentLengths, ContentSources, TestSlugs } from '@/types/test'
 
 interface PageProps {
     searchParams: Promise<{
-        source: contentSources
-        length: contentLengths
-        test: TestSlug
+        source: ContentSources
+        length: ContentLengths
+        test: TestSlugs
     }>;
 }
 

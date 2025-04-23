@@ -1,17 +1,17 @@
-import { contentLengths, contentSources } from "../db/schema"
+import { ContentLengths, ContentSources } from "@/types/test"
 
 export const getSourceFromMask = (index: number) => {
-    return Object.values(contentSources).at(index)
+    return Object.values(ContentSources).at(index)
 }
 
-export const getMaskFromSource = (source: contentSources) => {
-    return Object.keys(contentSources).indexOf(source)
+export const getMaskFromSource = (source: ContentSources) => {
+    return Object.keys(ContentSources).indexOf(source)
 }
 
 export const getLengthFromMask = (index: number) => {
-    return Object.values(contentLengths).at(index)
+    return Object.values(ContentLengths).at(index)
 }
 
-export const getMaskFromLength = (length: contentLengths) => {
-    return Object.keys(contentLengths).indexOf(length)
+export const getMaskFromLength = (length: ContentLengths) => {
+    return Object.keys(ContentLengths).indexOf(length)
 }

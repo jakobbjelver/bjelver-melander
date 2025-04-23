@@ -1,5 +1,4 @@
 'use client'
-import { contentSources } from "@/lib/db/schema";
 import {
   MeetingTranscript,
   TranscriptAISummary,
@@ -16,9 +15,10 @@ import { Calendar, CheckCircle, ClipboardList, Flag, Key, Lightbulb, Users } fro
 import { cn } from "@/lib/utils";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
 import { Separator } from "../ui/separator";
+import { ContentSources } from '@/types/test';
 
 interface MeetingTranscriptComponentProps {
-  source: contentSources;
+  source: ContentSources;
   contentData: MeetingTranscript;
 }
 
@@ -27,11 +27,11 @@ export function MeetingTranscriptComponent({
   contentData,
 }: MeetingTranscriptComponentProps) {
   switch (source) {
-    case contentSources.AI:
+    case ContentSources.AI:
       return <AIComponent contentData={contentData as TranscriptAISummary} />;
-    case contentSources.Original:
+    case ContentSources.Original:
       return <OriginalComponent contentData={contentData as TranscriptItem[]} />;
-    case contentSources.Programmatic:
+    case ContentSources.Programmatic:
       return (
         <ProgrammaticComponent
           contentData={contentData as TranscriptProgrammaticSummary}
@@ -48,18 +48,17 @@ function OriginalComponent({ contentData }: { contentData: TranscriptItem[] }) {
     <div className="space-y-6">
       {/* Mobile: cards */}
       <div className="lg:hidden space-y-4">
-        {contentData.map(item => (
+        {contentData.map((item, i) => (
           <div
             key={item.id}
             className={cn(
               "p-4 border rounded-lg shadow-sm",
-              item.irrelevant && "opacity-50 bg-gray-50"
             )}
           >
             <div className="flex justify-between items-center">
               <span className="text-xs font-mono text-gray-500">{item.time}</span>
-              <Badge variant={item.irrelevant ? 'secondary' : 'default'}>
-                {item.irrelevant ? 'Note' : 'Spoke'}
+              <Badge variant={'secondary'}>
+                {i + 1}
               </Badge>
             </div>
             <p className="mt-2 text-sm font-semibold">{item.speaker}</p>
@@ -76,18 +75,18 @@ function OriginalComponent({ contentData }: { contentData: TranscriptItem[] }) {
               <TableHead>Time</TableHead>
               <TableHead>Speaker</TableHead>
               <TableHead>Content</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>Order</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {contentData.map(item => (
-              <TableRow key={item.id} className={item.irrelevant ? 'opacity-50' : ''}>
+            {contentData.map((item, i) => (
+              <TableRow key={item.id}>
                 <TableCell className="font-mono text-xs">{item.time}</TableCell>
                 <TableCell className="whitespace-nowrap">{item.speaker}</TableCell>
                 <TableCell>{item.content}</TableCell>
                 <TableCell>
-                  <Badge variant={item.irrelevant ? 'secondary' : 'outline'}>
-                    {item.irrelevant ? 'Off‑topic' : 'Relevant'}
+                  <Badge variant={'secondary'}>
+                    {i + 1}
                   </Badge>
                 </TableCell>
               </TableRow>
@@ -241,10 +240,10 @@ function ProgrammaticComponent({ contentData }: { contentData: TranscriptProgram
           </span>
           <div className="space-y-2">
             {extractive.map((e, i) => (
-              <div className="flex md:flex-row flex-col items-center justify-center gap-3">
+              <div key={i} className="flex md:flex-row flex-col items-center justify-center gap-3">
                 <p>#{i + 1}</p>
-                <div key={i} className="p-3 bg-gray-50 rounded">
-                  <p className="italic text-xs">“{e.sentence}”</p>
+                <div className="p-3 bg-gray-50 rounded">
+                  <p className="italic text-xs line-clamp-3">“{e.sentence}”</p>
                   <div className="flex justify-between text-xs text-gray-500 mt-1">
                     <span>{e.speaker}</span>
                     <span>{e.time}</span>

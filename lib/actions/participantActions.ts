@@ -1,17 +1,34 @@
 'use server';
-import { contentLengths, contentSources, Participant, ParticipantsTable } from '@/lib/db/schema'; // Your schema
+import { Participant, ParticipantsTable } from '@/lib/db/schema'; // Your schema
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db';
 import { cookies } from 'next/headers'; // Import cookies
 import { eq } from 'drizzle-orm';
+import { ContentLengths } from '@/types/test';
 
 // Basic random assignment (improve with better randomization if needed)
-const lengths = Object.values(contentLengths);
+const lengths = Object.values(ContentLengths);
 
 const sourceOrders: number[] = [1, 2, 3]; // Example: Define 3 counterbalancing orders
 
-export async function createParticipant(participant?: Partial<Participant>): Promise<{ participantId?: string; error?: string }> {
+const CONTROLLED_CODE = 'experimentLUSEM2025'
+
+const PILOT_CODE = 'pilotLUSEM2025'
+
+export async function createParticipant(age: number, controlledCode: string, pilotCode: string, participant?: Partial<Participant>): Promise<{ participantId?: string; error?: string }> {
   const cookieStore = await cookies();
+
+  if(controlledCode && controlledCode !== CONTROLLED_CODE) {
+    return { error: 'The instructor code you entered is incorrect.' };
+  }
+
+  if(pilotCode && pilotCode !== PILOT_CODE) {
+    return { error: 'The pilot code you entered is incorrect.' };
+  }
+
+  const isControlled = controlledCode === CONTROLLED_CODE
+  const isPilot = pilotCode === PILOT_CODE
+
   const existingParticipantId = cookieStore.get('participantId')?.value;
 
   /* 
@@ -35,6 +52,9 @@ export async function createParticipant(participant?: Partial<Participant>): Pro
       id: participantId,
       assignedLength,
       assignedSourceOrder,
+      isControlled,
+      isPilot,
+      age,
       ...participant
       // createdAt will be handled by defaultNow() in the schema
     });

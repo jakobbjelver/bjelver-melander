@@ -10,13 +10,13 @@ import { Question } from '@/lib/data/questionnaire';
 import { TestResponseAction } from '@/lib/actions/responseActions';
 import { useRouter } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
-import { TestSlug } from '@/lib/data/tests';
 import { toast } from 'sonner';
+import { TestSlugs } from '@/types/test';
 
 interface TestQuestionFormProps {
   questions: Question[];
   participantId: string;
-  testSlug: TestSlug;
+  testSlug: TestSlugs;
   action: TestResponseAction; // Server action to save responses
 }
 

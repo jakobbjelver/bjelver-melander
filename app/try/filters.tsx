@@ -12,25 +12,9 @@ import {
     ToggleGroup,
     ToggleGroupItem,
 } from "@/components/ui/toggle-group"
+import { ContentLengths, ContentSources, TestSlugs } from "@/types/test"
 
-enum TestSlug {
-    PUSH_NOTIFICATIONS = 'push-notifications',
-    SEARCH_ENGINE = 'search-engine',
-    EMAIL_INBOX = 'email-inbox',
-    PRODUCT_LISTING = 'product-listing',
-    MEETING_TRANSCRIPTION = 'meeting-transcription',
-    PRESENTATION_SLIDE = 'presentation-slide',
-}
-enum contentSources {
-    AI = 'ai',
-    Original = 'original',
-    Programmatic = 'programmatic'
-}
 
-enum contentLengths {
-    Longer = 'longer',
-    Shorter = 'shorter',
-}
 
 export function Filters() {
     const router = useRouter()
@@ -38,8 +22,8 @@ export function Filters() {
     const params = useSearchParams()
 
     // read existing query params
-    const currentSource = params.get("source") ?? contentSources.Original
-    const currentLength = params.get("length") ?? contentLengths.Shorter
+    const currentSource = params.get("source") ?? ContentSources.Original
+    const currentLength = params.get("length") ?? ContentLengths.Shorter
 
     function updateQuery(updates: Record<string, string>) {
         const next = new URLSearchParams(params.toString())
@@ -64,7 +48,7 @@ export function Filters() {
                     <SelectValue placeholder="Select test" />
                 </SelectTrigger>
                 <SelectContent>
-                    {Object.values(TestSlug).map((t) => (
+                    {Object.values(TestSlugs).map((t) => (
                         <SelectItem key={t} value={t}>
                             {t}
                         </SelectItem>
@@ -77,20 +61,20 @@ export function Filters() {
                 value={currentSource}
                 onValueChange={(source) => updateQuery({ source })}
             >
-                {Object.values(contentSources).map((s) => (
+                {Object.values(ContentSources).map((s) => (
                     <ToggleGroupItem key={s} value={s}>
                         {s}
                     </ToggleGroupItem>
                 ))}
             </ToggleGroup>
 
-            {currentSource === contentSources.Original && (
+            {currentSource === ContentSources.Original && (
                 <ToggleGroup
                     type="single"
                     value={currentLength}
                     onValueChange={(length) => updateQuery({ length })}
                 >
-                    {Object.values(contentLengths).map((l) => (
+                    {Object.values(ContentLengths).map((l) => (
                         <ToggleGroupItem key={l} value={l}>
                             {l}
                         </ToggleGroupItem>

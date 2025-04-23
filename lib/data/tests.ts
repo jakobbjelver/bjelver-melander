@@ -1,26 +1,22 @@
 import 'server-only'
 
-import { contentLengths, contentSources } from '../db/schema';
 import { Stimuli, stimuli } from '../stimuli';
 import { pushNotificationsTests } from '../stimuli/pushNotifications';
 import { Question } from './questionnaire'; // reuse Question type
+import { ContentLengths, ContentSources, TestSlugs } from '@/types/test';
+import { meetingTranscriptTests } from '../stimuli/meetingTranscription';
+import { presentationSlideTests } from '../stimuli/presentationSlide';
+import { productListingTests } from '../stimuli/productListing';
+import { searchEngineTests } from '../stimuli/searchEngine';
+import { practiceTests } from '../stimuli/practice';
 
 export type SourceOrder = keyof typeof sourceOrderMappings; // Type: 1 | 2 | 3 | 4 | 5 | 6
 
-export enum TestSlug {
-    PUSH_NOTIFICATIONS = 'push-notifications',
-    SEARCH_ENGINE = 'search-engine',
-    EMAIL_INBOX = 'email-inbox',
-    PRODUCT_LISTING = 'product-listing',
-    MEETING_TRANSCRIPTION = 'meeting-transcription',
-    PRESENTATION_SLIDE = 'presentation-slide',
-}
-
-const allTestSlugs = Object.values(TestSlug); // Your list of item slugs/IDs
+const allTestSlugs = Object.values(TestSlugs).filter(ts => ts !== TestSlugs.PRACTICE); // Your list of item slugs/IDs
 
 const N = allTestSlugs.length;
 if (N === 0 || N % 3 !== 0) {
-    console.error("Warning: Ensure allTestSlugs is populated and its length is divisible by 3 for proper set division.");
+    console.error("Warning: Ensure allTestSlugss is populated and its length is divisible by 3 for proper set division.");
     // Basic division - adjust indices if N is not perfectly divisible
 }
 
@@ -34,18 +30,18 @@ const testSets = {
 
 // Define the Full Latin Square mapping for 3 formats (6 orders) applied to Sets A, B, C
 const sourceOrderMappings = {
-    1: { SetA: contentSources.Original, SetB: contentSources.AI, SetC: contentSources.Programmatic },
-    2: { SetA: contentSources.Original, SetB: contentSources.Programmatic, SetC: contentSources.AI }, 
-    3: { SetA: contentSources.AI, SetB: contentSources.Original, SetC: contentSources.Programmatic },
-    4: { SetA: contentSources.AI, SetB: contentSources.Programmatic, SetC: contentSources.Original }, 
-    5: { SetA: contentSources.Programmatic, SetB: contentSources.Original, SetC: contentSources.AI }, 
-    6: { SetA: contentSources.Programmatic, SetB: contentSources.AI, SetC: contentSources.Original },
+    1: { SetA: ContentSources.Original, SetB: ContentSources.AI, SetC: ContentSources.Programmatic },
+    2: { SetA: ContentSources.Original, SetB: ContentSources.Programmatic, SetC: ContentSources.AI }, 
+    3: { SetA: ContentSources.AI, SetB: ContentSources.Original, SetC: ContentSources.Programmatic },
+    4: { SetA: ContentSources.AI, SetB: ContentSources.Programmatic, SetC: ContentSources.Original }, 
+    5: { SetA: ContentSources.Programmatic, SetB: ContentSources.Original, SetC: ContentSources.AI }, 
+    6: { SetA: ContentSources.Programmatic, SetB: ContentSources.AI, SetC: ContentSources.Original },
 } as const; // Use as const here too for precise keys ('1', '2', etc.)
 
 // Function to get the assigned format for a specific item and participant order
-export function getAssignedSource(testSlug: TestSlug, sourceOrder: number): contentSources | undefined {
+export function getAssignedSource(testSlug: TestSlugs, sourceOrder: number): ContentSources | undefined {
     const mapping = sourceOrderMappings[sourceOrder as SourceOrder];
-    if (!mapping) return undefined; // Handle invalid order
+    if (!mapping || testSlug === TestSlugs.PRACTICE) return ContentSources.Original; // Handle invalid order or practice
 
     // Find which set the item belongs to
     if (testSets.SetA.includes(testSlug)) return mapping.SetA;
@@ -55,7 +51,7 @@ export function getAssignedSource(testSlug: TestSlug, sourceOrder: number): cont
     return undefined; // Item not found in any set
 }
 
-export function getTestContent(testSlug: TestSlug, source: contentSources, length: string): Stimuli | null {
+export function getTestContent(testSlug: TestSlugs, source: ContentSources, length: string): Stimuli | null {
     console.log(`Getting content for: test=${testSlug}, sourceOrder=${source}, length=${length}`);
 
     if(!source || !testSlug) {
@@ -65,14 +61,14 @@ export function getTestContent(testSlug: TestSlug, source: contentSources, lengt
 
     let testContent = stimuli[testSlug][source]
 
-    if(source == contentSources.Original && length == contentLengths.Shorter && Array.isArray(testContent)) {
+    if(source == ContentSources.Original && length == ContentLengths.Shorter && Array.isArray(testContent)) {
         testContent.filter(c => !c.irrelevant) // TODO: Fix this
     }
 
     return testContent
 }
 
-export async function getTestQuestions(testSlug: TestSlug): Promise<Question[]> {
+export async function getTestQuestions(testSlug: TestSlugs): Promise<Question[]> {
 
     const specificQuestions = specificTestQuestions[testSlug];
 
@@ -84,13 +80,13 @@ export async function getTestQuestions(testSlug: TestSlug): Promise<Question[]> 
     return [...(specificQuestions || []), ...commonQuestions];
 }
 
-const TEST_SEQUENCE = Object.values(TestSlug);
+const TEST_SEQUENCE = Object.values(TestSlugs);
 
 export function getTestSequence() {
     return TEST_SEQUENCE;
 }
 
-export function getNextTestSlug(currentSlug: TestSlug): string | null {
+export function getNextTestSlug(currentSlug: TestSlugs): string | null {
     const currentIndex = TEST_SEQUENCE.indexOf(currentSlug);
     if (currentIndex === -1 || currentIndex === TEST_SEQUENCE.length - 1) {
         return null; // Not found or it's the last test
@@ -98,8 +94,15 @@ export function getNextTestSlug(currentSlug: TestSlug): string | null {
     return TEST_SEQUENCE[currentIndex + 1];
 }
 
-const specificTestQuestions: { [key in TestSlug]?: Question[] } = {
-    [TestSlug.PUSH_NOTIFICATIONS]: pushNotificationsTests,
+const specificTestQuestions: { [key in TestSlugs]: Question[] } = {
+    [TestSlugs.PUSH_NOTIFICATIONS]: pushNotificationsTests,
+    [TestSlugs.EMAIL_INBOX]: pushNotificationsTests,
+    [TestSlugs.MEETING_TRANSCRIPTION]: meetingTranscriptTests,
+    [TestSlugs.PRESENTATION_SLIDE]: presentationSlideTests,
+    [TestSlugs.PRODUCT_LISTING]: productListingTests,
+    [TestSlugs.SEARCH_ENGINE]: searchEngineTests,
+    [TestSlugs.PRACTICE]: practiceTests,
+
 };
 
 const commonTestQuestions: Question[] = [

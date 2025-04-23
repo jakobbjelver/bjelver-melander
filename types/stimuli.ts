@@ -147,58 +147,30 @@ export interface SlideProgrammaticSummary {
 export type ProductListing = ProductItem[] | ProductProgrammaticSummary | ProductAISummary
 
 export interface ProductAISummary {
-  overview: string;
-  themes: Array<{
-    category: string;
-    items: Array<{
-      id: number;
-      name: string;
-      focus: string;
-    }>;
-  }>;
-  pricingInsights: {
-    averageDiscount: string;
-    maxDiscount: {
-      id: number;
-      discount: string;
-    };
-    priceRange: {
-      min: string;
-      max: string;
-    };
+  itemCount: number;
+  brands: string[];
+  categories: string[];
+  priceRange: {
+    min: number;
+    max: number;
+    currency: string;
   };
-  ratingsOverview: {
-    averageRating: number;
-    highestRated: {
-      id: number;
-      rating: number;
-    };
-    mostReviewed: {
-      id: number;
-      reviews: number;
-    };
+  averageRating: number;
+  discountRange: {
+    min: number;
+    max: number;
+    unit: string;
   };
-  shippingDelivery: {
-    freeShippingOn: number[];
-    deliveryWindows: {
-      fastest: {
-        id: number;
-        eta: string;
-      };
-      longest: {
-        id: number;
-        eta: string;
-      };
-    };
+  batteryLifeHours: {
+        min: number;
+        max: number;
   };
-  keyInsights: string[];
-  recommendations: Array<{
-    useCase: string;
-    pick: {
-      id: number;
-      name: string;
-    };
-  }>;
+  keyFeatures: string[];
+  shippingOptions: {
+        free: number;
+        paid: number;
+        typicalEstimate: string;
+  };
 }
 
 // You can then use this type like this:
@@ -236,26 +208,30 @@ export interface ProductProgrammaticSummary {
 export type PushNotifications = NotificationItem[] | NotificationProgrammaticSummary | NotificationAISummary
 
 export interface NotificationAISummary {
-  overview: string;
-  categories: Array<{
-    category: string;
-    count: number;
-    items?: Array<{ // items is optional, based on your example
-      id: number;
-      app: string;
-      title: string;
-      priority: 'high' | 'medium' | 'low'; // Use a union type for specific string values
-    }>;
-  }>;
-  priorityBreakdown: {
-    high: number;
-    medium: number;
-    low: number;
-    irrelevant: number;
-  };
-  keyInsights: string[];
-  actionItems: string[];
+  totalItems: number
+  unreadCount: number
+  highPriorityCount: number
+  relevantItems: number
+  categoryBreakdown: {
+    message: number
+    reminder: number
+    delivery: number
+    alert: number
+    social: number
+    system: number
+    entertainment: number
+    news: number
+    health: number
+  }
+  keyHighlights: {
+    upcomingEvents: Array<{ app: string; note: string }>
+    urgentAlerts: Array<{ app: string; note: string }>
+    pendingMessages: Array<{ app: string; note: string }>
+  }
+  summaryText: string
 }
+
+
 
 // You can then use this type like this:
 // export const notificationAISummary: NotificationAISummary = { ... };
@@ -286,27 +262,23 @@ export interface NotificationProgrammaticSummary {
 export type SearchEngine = SearchResultItem[] | SearchProgrammaticSummary | SearchAISummary
 
 export interface SearchAISummary {
+  topic: string;
   overview: string;
-  themes: Array<{
-    theme: string;
-    ids: number[];
-  }>;
-  resourceMetrics: {
-    totalResults: number;
-    types: { [key: string]: number }; // Allows any string key mapping to a number
-    citations: {
-      max: number;
-      min: number;
-      avg: number;
-    };
+  keyThemes: string[];
+  formatCounts: {
+    article: number;
+    interactive: number;
+    report: number;
+    video: number;
   };
-  keyInsights: string[];
-  actionRecommendations: string[];
-  topResource: {
-    id: number;
-    title: string;
-    citations: number;
+  sources: string[];
+  latestUpdate: string;
+  citationStats: {
+    totalItems: number;
+    average: number;
+    range: [number, number];
   };
+  multimediaIncluded: boolean;
 }
 
 // You can then use this type like this:
@@ -336,3 +308,18 @@ export interface SearchProgrammaticSummary {
     topSources: string[];
   };
 }
+
+export enum BoxColors {
+  RED = 'red',
+  BLUE = 'blue',
+  ORANGE = 'orange',
+  GREEN = 'green'
+}
+
+export interface PracticeItem {
+  color: BoxColors;
+  opacity: number;
+  irrelevant?: boolean;
+}
+
+export type Practice = PracticeItem[]

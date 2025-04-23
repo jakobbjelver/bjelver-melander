@@ -1,16 +1,15 @@
 
 'use server';
 import { db } from '@/lib/db';
-import { revalidatePath } from 'next/cache'; // May not be needed if just redirecting
-import { redirect } from 'next/navigation';
-import { getNextTestSlug, getTestSequence, TestSlug } from '../data/tests';
-import { contentLengths, contentSources, QuestionnaireResponse, QuestionnaireResponsesTable, questionnaireTypes, TestResponse, TestResponsesTable } from '../db/schema';
+import { getNextTestSlug, getTestSequence } from '../data/tests';
+import { QuestionnaireResponsesTable, TestResponsesTable } from '../db/schema';
+import { ContentLengths, ContentSources, QuestionnaireTypes, TestSlugs } from '@/types/test';
 
 export async function saveQuestionnaireResponses(
   formData: FormData
 ): Promise<{ error?: string; nextPath?: string }> {
   const participantId = formData.get('participantId') as string;
-  const questionnaireType = formData.get('questionnaireType') as questionnaireTypes;
+  const questionnaireType = formData.get('questionnaireType') as QuestionnaireTypes;
 
   // Validate input early
   if (!participantId || !['pre', 'post'].includes(questionnaireType)) {
@@ -94,12 +93,12 @@ export type TestResponseAction = (
 // --- Action 3: Save Test Responses ---
 export async function saveTestResponses(
   startTime: number,
-  contentSource: contentSources,
-  contentLength: contentLengths,
+  contentSource: ContentSources,
+  contentLength: ContentLengths,
   formData: FormData
 ): Promise<{ error?: string; nextPath?: string }> {
   const participantId = formData.get('participantId') as string;
-  const testSlug = formData.get('testSlug') as TestSlug;
+  const testSlug = formData.get('testSlug') as TestSlugs;
 
   if (!participantId || !testSlug) {
     return { error: 'Missing required participant or test information.' };

@@ -228,7 +228,6 @@ export function summarizeSlides(
         )} items.`
     );
     if (topBullet.length) parts.push(`Key sections include ${topBullet.join(' and ')}.`);
-    parts.push(`Background and profile slides are filtered out for clarity.`);
 
     return {
         summary: parts.join(' '),

@@ -2,14 +2,13 @@
 import { TestQuestionForm } from '@/components/forms/test-question-form';
 import { saveTestResponses } from '@/lib/actions/responseActions';
 import { getLengthFromMask, getSourceFromMask } from '@/lib/data/participants';
-import { getTestQuestions, TestSlug } from '@/lib/data/tests';
-import { contentSources } from '@/lib/db/schema';
-import { redirect } from 'next/navigation'
+import { getTestQuestions } from '@/lib/data/tests';
+import { TestSlugs } from '@/types/test';
 
 interface TestPageProps {
   params: Promise<{
     participantId: string;
-    testSlug: TestSlug;
+    testSlug: TestSlugs;
   }>;
   searchParams: Promise<{
     source: number;

@@ -178,7 +178,6 @@ export function summarizeSearchResults(
   );
   if (topSources.length)
     parts.push(`Top sources by citations: ${topSources.join(' and ')}.`);
-  parts.push(`Other less relevant entries are filtered out for focus.`);
 
   return {
     summary: parts.join(' '),
@@ -197,37 +196,35 @@ export function summarizeSearchResults(
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
 export const searchResultsAISummary: SearchAISummary = {
-  overview: "Top search results offer a multi‑format deep dive into climate change: foundational science, interactive data trends, mitigation tactics, IPCC consensus, and myth‑busting video content.",
-  themes: [
-    { theme: "Foundational Science", ids: [1] },
-    { theme: "Data & Visualization", ids: [2] },
-    { theme: "Mitigation Strategies", ids: [3] },
-    { theme: "Official Assessments", ids: [4] },
-    { theme: "Educational Video", ids: [5] }
+  topic: "Climate Change Resources",
+  overview: "A curated set of up‑to‑date, evidence‑based materials covering the fundamentals of climate science, interactive impact data, mitigation strategies at policy and personal levels, and expert assessments.",
+  keyThemes: [
+    "Science overview and drivers",
+    "Interactive visualizations of impacts",
+    "Policy and individual mitigation tactics",
+    "Authoritative climate assessment",
+    "Myth‑busting educational content"
   ],
-  resourceMetrics: {
-    totalResults: 5,
-    types: { article: 2, interactive: 1, report: 1, video: 1 },
-    citations: { max: 1872, min: 423, avg: 982 }
+  formatCounts: {
+    article: 2,
+    interactive: 1,
+    report: 1,
+    video: 1
   },
-  keyInsights: [
-    "Since the 1800s, fossil‑fuel combustion has been the primary driver of long‑term climate shifts.",
-    "Interactive maps illustrate accelerating sea‑level rise and extreme weather trends.",
-    "Effective mitigation blends policy measures (carbon pricing, renewables) with individual lifestyle changes.",
-    "IPCC summary distills critical warming scenarios and policy roadmaps for decision‑makers.",
-    "Video lecture demystifies climate science and counters common misconceptions."
+  sources: [
+    "Climate Science Organization",
+    "Global Data Institute",
+    "Environmental Action Network",
+    "IPCC",
+    "EduStream"
   ],
-  actionRecommendations: [
-    "Use the interactive visualization to demonstrate urgent climate trends.",
-    "Base policy or corporate strategies on the latest IPCC findings.",
-    "Adopt and promote mitigation tactics at both organizational and personal levels.",
-    "Incorporate the comprehensive guide and video into educational programs."
-  ],
-  topResource: {
-    id: 4,
-    title: "Latest IPCC Report on Climate Change (Summary)",
-    citations: 1872
-  }
+  latestUpdate: "June 2023",
+  citationStats: {
+    totalItems: 5,
+    average: 982,
+    range: [423, 1872]
+  },
+  multimediaIncluded: true
 };
 
 export const searchEngineTests: Question[] = [

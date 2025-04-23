@@ -2,13 +2,14 @@
 import { TestContentDisplay } from '@/components/test-content-display';
 import { Button } from '@/components/ui/button';
 import { getParticipantAction } from '@/lib/actions/participantActions';
-import { getAssignedSource, getTestContent, TestSlug } from '@/lib/data/tests';
+import { getAssignedSource, getTestContent } from '@/lib/data/tests';
+import { TestSlugs } from '@/types/test';
 import Link from 'next/link';
 
 interface ContentPageProps {
   params: Promise<{
     participantId: string;
-    testSlug: TestSlug;
+    testSlug: TestSlugs;
   }>;
 }
 

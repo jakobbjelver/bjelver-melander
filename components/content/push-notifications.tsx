@@ -1,9 +1,7 @@
 'use client'
 import { NotificationAISummary, NotificationItem, NotificationProgrammaticSummary, PushNotifications } from '@/types/stimuli';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
-import { Table, TableHead, TableBody, TableRow, TableCell } from '../ui/table';
 import { Badge } from '../ui/badge';
-import { Progress } from '../ui/progress';
 import {
   Bell,
   MessageCircle,
@@ -16,40 +14,25 @@ import {
   Battery,
   Globe
 } from 'lucide-react';
-
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent
-} from '../ui/chart'
-import { BarChart, CartesianGrid, XAxis, YAxis, Bar } from 'recharts'
-
-enum contentSources {
-    AI = 'ai',
-    Original = 'original',
-    Programmatic = 'programmatic'
-  }
+import { ContentSources } from '@/types/test';
 
 interface PushNotificationComponentProps {
-    source: contentSources;
-    contentData: PushNotifications;
+  source: ContentSources;
+  contentData: PushNotifications;
 }
 
 export function PushNotificationComponent({ source, contentData }: PushNotificationComponentProps) {
 
-    switch (source) {
-        case (contentSources.AI):
-            return <AIComponent contentData={contentData as NotificationAISummary} />
-        case (contentSources.Original):
-            return <OriginalComponent contentData={contentData as NotificationItem[]} />
-        case (contentSources.Programmatic):
-            return <ProgrammaticComponent contentData={contentData as NotificationProgrammaticSummary} />
-        default:
-            return null
-    }
+  switch (source) {
+    case (ContentSources.AI):
+      return <AIComponent contentData={contentData as NotificationAISummary} />
+    case (ContentSources.Original):
+      return <OriginalComponent contentData={contentData as NotificationItem[]} />
+    case (ContentSources.Programmatic):
+      return <ProgrammaticComponent contentData={contentData as NotificationProgrammaticSummary} />
+    default:
+      return null
+  }
 }
 
 /** helpers **/
@@ -71,7 +54,7 @@ const getIcon = (category: string) => {
 const priorityVariant = (p: 'low' | 'medium' | 'high') => {
   if (p === 'high') return 'destructive';
   if (p === 'medium') return 'warning';
-  return 'default';
+  return 'outline';
 };
 
 /** 1) OriginalComponent **/
@@ -85,8 +68,6 @@ function OriginalComponent({ contentData }: { contentData: NotificationItem[] })
             key={item.id}
             className={`
               flex items-center p-4
-              ${item.unread ? 'bg-gray-50' : ''}
-              ${item.irrelevant ? 'opacity-50' : ''}
               rounded-lg
             `}
           >
@@ -96,16 +77,16 @@ function OriginalComponent({ contentData }: { contentData: NotificationItem[] })
                 <h3 className={`text-sm ${item.unread ? 'font-semibold' : 'font-normal'}`}>
                   {item.title}
                 </h3>
-                <span className="text-xs text-muted-foreground">
-                  {item.timestamp}
-                </span>
               </div>
               <p className="text-xs text-muted-foreground mt-1">
                 {item.message}
               </p>
-              <Badge variant={priorityVariant(item.priority)} className="mt-2">
-                {item.priority}
-              </Badge>
+            </div>
+            <div className='flex flex-col items-center justify-evenly'>
+            <span className="text-xs text-muted-foreground">
+              {item.timestamp}
+            </span>
+            <Badge variant={priorityVariant(item.priority)} className="h-7 w-7 scale-50 rounded-full" />
             </div>
           </Card>
         );
@@ -116,151 +97,115 @@ function OriginalComponent({ contentData }: { contentData: NotificationItem[] })
 
 /** 2) ProgrammaticComponent **/
 function ProgrammaticComponent({ contentData }: { contentData: NotificationProgrammaticSummary }) {
-    const { summary, extractive, meta } = contentData
+  const { meta, extractive } = contentData;
 
-    // Prepare chart data
-    const chartData = Object.entries(meta.categories).map(([category, count]) => ({
-      category,
-      count
-    }))
-  
-    // Chart config: maps our "count" key to a label & color
-    const chartConfig = {
-      count: {
-        label: 'Count',
-        color: 'hsl(var(--chart-1))'
-      }
-    } satisfies ChartConfig
-  
-    return (
-      <Card className="max-w-md md:max-w-xl mx-auto p-4 space-y-6">
+  return (
+    <div className="space-y-6 max-w-lg mx-auto">
+      {/* Overview stats */}
+      <Card>
         <CardHeader>
-          <CardTitle>Overview</CardTitle>
+          <CardTitle>Notifications Overview</CardTitle>
         </CardHeader>
-  
-        <CardContent className="space-y-4">
-          {/* Summary Text */}
-          <p className="text-sm text-gray-700">{summary}</p>
-  
-          {/* Progress Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <CardContent>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             <div>
-              <p className="text-xs font-medium mb-1">Relevant</p>
-              <Progress
-                value={(meta.relevantItems / meta.totalItems) * 100}
-                className="h-2"
-              />
-              <p className="text-xs mt-1">
-                {meta.relevantItems}/{meta.totalItems}
-              </p>
+              <p className="text-xl font-bold">{meta.totalItems}</p>
+              <p className="text-xs text-muted-foreground">Total</p>
             </div>
-  
             <div>
-              <p className="text-xs font-medium mb-1">Unread</p>
-              <Progress
-                value={(meta.unreadCount / meta.totalItems) * 100}
-                className="h-2"
-              />
-              <p className="text-xs mt-1">{meta.unreadCount}</p>
+              <p className="text-xl font-bold">{meta.relevantItems}</p>
+              <p className="text-xs text-muted-foreground">Relevant</p>
             </div>
-  
             <div>
-              <p className="text-xs font-medium mb-1">High Priority</p>
-              <Progress
-                value={(meta.highPriorityCount / meta.totalItems) * 100}
-                className="h-2"
-              />
-              <p className="text-xs mt-1">{meta.highPriorityCount}</p>
+              <p className="text-xl font-bold">{meta.unreadCount}</p>
+              <p className="text-xs text-muted-foreground">Unread</p>
             </div>
-          </div>
-  
-          {/* Category Bar Chart */}
-          <div>
-            <h4 className="text-sm font-medium mb-2">By Category</h4>
-            <ChartContainer config={chartConfig} className="min-h-[180px] w-full">
-              <BarChart accessibilityLayer data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis
-                  dataKey="category"
-                  tickLine={false}
-                  axisLine={false}
-                  tick={{ fontSize: 10 }}
-                />
-                <YAxis
-                  hide
-                  tick={{ fontSize: 10 }}
-                />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <ChartLegend content={<ChartLegendContent />} />
-                <Bar dataKey="count" fill="var(--chart-1)" radius={4} />
-              </BarChart>
-            </ChartContainer>
-          </div>
-  
-          {/* Top Extractive Sentences */}
-          <div>
-            <h4 className="text-sm font-medium mb-2">Top Details</h4>
-            <ul className="list-disc list-inside space-y-1 text-xs text-gray-700">
-              {extractive.map((item, idx) => (
-                <li key={idx}>{item.sentence}</li>
-              ))}
-            </ul>
+            <div>
+              <p className="text-xl font-bold">{meta.highPriorityCount}</p>
+              <p className="text-xs text-muted-foreground">High Priority</p>
+            </div>
           </div>
         </CardContent>
       </Card>
-    )
+
+      {/* Top extracts */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Key Highlights</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {extractive.map((e, i) => (
+            <div key={i} className="flex items-start space-x-2">
+              <Badge variant="secondary">{i + 1}</Badge>
+              <p className="text-sm leading-snug">{e.sentence.trim()}</p>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
 
 /** 3) AIComponent **/
 function AIComponent({ contentData }: { contentData: NotificationAISummary }) {
-  const { overview, categories, keyInsights, actionItems } = contentData;
+  const { summaryText, keyHighlights, categoryBreakdown } = contentData;
 
   return (
-    <Card className="max-w-md mx-auto p-4 space-y-4">
-      <CardHeader>
-        <CardTitle>Overview</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <p className="text-sm text-indigo-600">{overview}</p>
+    <div className="grid md:grid-cols-2 gap-4 max-w-lg mx-auto">
+      {/* Executive overview */}
+      <Card className='md:col-span-2'>
+        <CardHeader>
+          <CardTitle>At a Glance</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm">{summaryText}</p>
+        </CardContent>
+      </Card>
 
-        <div>
-          <h4 className="text-sm font-medium mb-1">Highlights</h4>
-          <ul className="list-disc list-inside text-xs space-y-1">
-            {keyInsights.slice(0, 3).map((insight, i) => (
-              <li key={i}>{insight}</li>
-            ))}
-          </ul>
-        </div>
+      {/* Upcoming events */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Upcoming</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          {keyHighlights.upcomingEvents.map((evt, idx) => (
+            <div key={idx} className="flex items-center space-x-2">
+              <Calendar className="w-5 h-5 text-primary" />
+              <div>
+                <p className="text-sm font-medium">{evt.app}</p>
+                <p className="text-xs text-muted-foreground">{evt.note}</p>
+              </div>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
 
-        <div>
-          <h4 className="text-sm font-medium mb-1">Next Steps</h4>
-          <ul className="list-disc list-inside text-xs space-y-1">
-            {actionItems.slice(0, 3).map((step, i) => (
-              <li key={i}>{step}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="text-sm font-medium mb-1">Category Breakdown</h4>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell className="text-xs">Category</TableCell>
-                <TableCell className="text-xs">Count</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {categories.slice(0, 3).map((cat, i) => (
-                <TableRow key={i}>
-                  <TableCell className="text-xs">{cat.category}</TableCell>
-                  <TableCell className="text-xs">{cat.count}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      </CardContent>
-    </Card>
+      {/* Alerts & messages */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Urgent</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {keyHighlights.urgentAlerts.map((alert, idx) => (
+            <div key={idx} className="flex items-center space-x-2">
+              <AlertTriangle className="w-5 h-5 text-destructive" />
+              <div>
+                <p className="text-sm font-medium">{alert.app}</p>
+                <p className="text-xs text-muted-foreground">{alert.note}</p>
+              </div>
+            </div>
+          ))}
+          {keyHighlights.pendingMessages.map((msg, idx) => (
+            <div key={idx} className="flex items-center space-x-2">
+              <MessageCircle className="w-5 h-5 text-foreground" />
+              <div>
+                <p className="text-sm font-medium">{msg.app}</p>
+                <p className="text-xs text-muted-foreground">{msg.note}</p>
+              </div>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+    </div>
   );
 }

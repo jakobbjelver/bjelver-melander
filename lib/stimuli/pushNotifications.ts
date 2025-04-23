@@ -123,7 +123,7 @@ function summarizeNotifications(items: NotificationItem[]): NotificationProgramm
   });
 
   // Prepare documents for TF-IDF
-  const docs = relevant.map(item => `${item.title}. ${item.message};`);
+  const docs = relevant.map(item => `${item.title}. ${item.message}.`);
   const tfidf = new TfIdf();
   docs.forEach(doc => tfidf.addDocument(doc));
 
@@ -179,7 +179,6 @@ function summarizeNotifications(items: NotificationItem[]): NotificationProgramm
   if (nextItems.length) {
     parts.push(`Up next: ${nextItems.join(', ')}.`);
   }
-  parts.push(`Other low-priority or irrelevant updates are filtered out for focus.`);
 
   return {
     summary: parts.join(' '),
@@ -197,51 +196,34 @@ function summarizeNotifications(items: NotificationItem[]): NotificationProgramm
 // Pre-generated and statically delivered
 // Model: OpenAI o4-mini (standard parameters + low reasoning effort)
 export const notificationAISummary: NotificationAISummary = {
-  overview: "Today's notification feed includes critical meeting and weather alerts, timely personal messages and delivery updates, a low‐priority birthday prompt, and several non‐essential system/entertainment alerts contributing to noise.",
-  categories: [
-    {
-      category: "Immediate Alerts & Reminders",
-      count: 2,
-      items: [
-        { id: 2, app: "Calendar", title: "Team Weekly Sync", priority: "high" },
-        { id: 4, app: "WeatherAlert", title: "Flash flood warning", priority: "high" }
-      ]
-    },
-    {
-      category: "Personal Messages & Updates",
-      count: 2,
-      items: [
-        { id: 1, app: "ChatConnect", title: "New message from Sarah", priority: "medium" },
-        { id: 3, app: "FoodDelivery", title: "Order delivered", priority: "medium" }
-      ]
-    },
-    {
-      category: "Low‑Priority Social",
-      count: 1,
-      items: [
-        { id: 5, app: "SocialConnect", title: "Birthday Reminder", priority: "low" }
-      ]
-    },
-    {
-      category: "Non‑Essential/Noise",
-      count: 5
-    }
-  ],
-  priorityBreakdown: { high: 2, medium: 2, low: 1, irrelevant: 5 },
-  keyInsights: [
-    "High‑priority items demand immediate action: upcoming sync meeting and local flood warning.",
-    "Personal notifications require moderate attention but can wait momentarily.",
-    "Social reminders add context but low urgency.",
-    "Half of the feed is non‑essential noise, diluting focus."
-  ],
-  actionItems: [
-    "Join the 11:45 AM team sync in Conference Room B.",
-    "Heed the flash flood warning until 8 PM.",
-    "Confirm with Sarah about tomorrow’s 2 PM meeting.",
-    "Acknowledge delivery arrival if needed.",
-    "Send birthday wishes to Alex tomorrow.",
-    "Mute or filter non‑essential notifications to reduce clutter."
-  ]
+  totalItems: 10,
+  unreadCount: 5,
+  highPriorityCount: 2,
+  relevantItems: 5,
+  categoryBreakdown: {
+    message: 1,
+    reminder: 1,
+    delivery: 1,
+    alert: 1,
+    social: 1,
+    system: 2,
+    entertainment: 1,
+    news: 1,
+    health: 1
+  },
+  keyHighlights: {
+    upcomingEvents: [
+      { app: "Calendar", note: "Team Weekly Sync in 15 min" },
+      { app: "SocialConnect", note: "Alex’s birthday tomorrow" }
+    ],
+    urgentAlerts: [
+      { app: "WeatherAlert", note: "Flash flood warning until 8 PM" }
+    ],
+    pendingMessages: [
+      { app: "ChatConnect", note: "New message from Sarah" }
+    ]
+  },
+  summaryText: "You have 10 notifications (5 unread), including 2 high‑priority alerts and reminders. Immediate attention needed for a flood warning, an upcoming team sync, and a message from Sarah. Other updates cover deliveries, birthdays, and system notices."
 };
 
 export const pushNotificationsTests: Question[] = [

@@ -9,9 +9,16 @@ import { createParticipant } from '@/lib/actions/participantActions'; // Placeho
 import { useRouter } from 'next/navigation';
 import { isMobile } from 'react-device-detect';
 import { toast } from 'sonner';
+import { Input } from '../ui/input';
 
 export function ConsentForm() {
   const [consentGiven, setConsentGiven] = useState(false);
+  const [isControlled, setControlled] = useState(false);
+  const [controlledCode, setControlledCode] = useState('');
+  const [isPilot, setPilot] = useState(false);
+  const [pilotCode, setPilotCode] = useState('');
+  const [age, setAge] = useState<number | null>(null);
+
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -20,9 +27,15 @@ export function ConsentForm() {
       toast.error("You must provide consent to continue.")
       return;
     }
+
+    if (!age) {
+      toast.error("You must enter your age to continue.")
+      return;
+    }
+
     setIsLoading(true);
     try {
-      const result = await createParticipant({ isMobile });
+      const result = await createParticipant(age, controlledCode, pilotCode, { isMobile });
       if (result.error) {
         toast.error(result.error)
       } else if (result.participantId) {
@@ -41,20 +54,77 @@ export function ConsentForm() {
   };
 
   return (
-    <div className="space-y-4 p-4 border rounded-md">
-      <div className="flex items-center space-x-2">
-        <Checkbox
-          id="consent"
-          checked={consentGiven}
-          onCheckedChange={(checked) => setConsentGiven(checked === true)}
-          aria-label="Consent Checkbox"
-        />
-        <Label htmlFor="consent" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-          I have read the information and consent to participate.
-        </Label>
+    <div className="space-y-8 p-8 border rounded-md flex flex-col items-center">
+      <div className="flex flex-col items-start gap-6">
+        <div className='flex items-center gap-2'>
+          <Checkbox
+            id="consent"
+            checked={consentGiven}
+            onCheckedChange={(checked) => setConsentGiven(checked === true)}
+          />
+          <Label htmlFor="consent" className="md:text-base text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            I have read the information and consent to participate.
+          </Label>
+        </div>
+        <div className='space-y-5'>
+          <div className='flex items-center gap-2'>
+            <Checkbox
+              id="controlled"
+              checked={isControlled}
+              onCheckedChange={(checked) => setControlled(checked === true)}
+            />
+            <Label htmlFor="controlled" className="whitespace-pre-wrap md:text-base text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              I am in company of an experiment instructor.
+              {`\n`}
+              <span className='md:text-sm text-xs font-normal italic mt-2'>Only check this box if you are told to do so.</span>
+            </Label>
+          </div>
+          {isControlled && <div>
+            <Input id="controlled_code"
+              placeholder='Code'
+              value={controlledCode}
+              onChange={(e) => setControlledCode(e.target.value)} />
+            <Label htmlFor="controlled_code" className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Enter assigned instructor code
+            </Label>
+          </div>}
+        </div>
+        <div className='space-y-5'>
+          <div className='flex items-center gap-2'>
+            <Checkbox
+              id="pilot"
+              checked={isPilot}
+              onCheckedChange={(checked) => setPilot(checked === true)}
+            />
+            <Label htmlFor="pilot" className="whitespace-pre-wrap md:text-base text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              I am a pilot participant.
+              {`\n`}
+              <span className='md:text-sm text-xs font-normal italic mt-2'>Only check this box if you are told to do so.</span>
+            </Label>
+          </div>
+          {isPilot && <div>
+            <Input id="pilot_code"
+              placeholder='Code'
+              value={pilotCode}
+              onChange={(e) => setPilotCode(e.target.value)} />
+            <Label htmlFor="pilot_code" className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Enter assigned pilot code
+            </Label>
+          </div>}
+        </div>
+        <div className='space-y-2'>
+          <Label htmlFor="age" className="md:text-base text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Enter your age
+          </Label>
+          <Input id="age"
+            placeholder='Age'
+            value={age || ''}
+            type='number'
+            onChange={(e) => setAge(Number(e.target.value))} />
+        </div>
       </div>
-      <Button onClick={handleSubmit} disabled={isLoading || !consentGiven}>
-        {isLoading ? 'Starting...' : 'Begin Experiment'}
+      <Button onClick={handleSubmit} disabled={isLoading || !consentGiven || !age} className='max-w-sm w-full md:max-w-sm' size={'lg'}>
+        {isLoading ? 'Starting...' : 'Begin'}
       </Button>
     </div>
   );

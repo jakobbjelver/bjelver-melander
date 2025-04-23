@@ -1,4 +1,3 @@
-import { contentSources } from '@/lib/db/schema';
 import { EmailAISummary, EmailInbox, EmailItem, EmailProgrammaticSummary } from '@/types/stimuli';
 
 // Add or merge these imports at the top of your file
@@ -31,20 +30,21 @@ import {
   InboxIcon,
 } from 'lucide-react'
 import { format } from 'date-fns'
+import { ContentSources } from '@/types/test';
 
 interface EmailInboxComponentProps {
-  source: contentSources;
+  source: ContentSources;
   contentData: EmailInbox;
 }
 
 export function EmailInboxComponent({ source, contentData }: EmailInboxComponentProps) {
 
   switch (source) {
-    case (contentSources.AI):
+    case (ContentSources.AI):
       return <EmailInboxAIComponent contentData={contentData as EmailAISummary} />
-    case (contentSources.Original):
+    case (ContentSources.Original):
       return <EmailInboxOriginalComponent contentData={contentData as EmailItem[]} />
-    case (contentSources.Programmatic):
+    case (ContentSources.Programmatic):
       return <EmailInboxProgrammaticComponent contentData={contentData as EmailProgrammaticSummary} />
     default:
       return null
@@ -70,7 +70,7 @@ function EmailInboxOriginalComponent({ contentData }: { contentData: EmailItem[]
             <TableRow key={item.id} className={!item.read ? 'font-medium' : ''}>
               <TableCell>{item.sender}</TableCell>
               <TableCell>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 w-52 max-w-none">
                   <div>
                     <p className="max-w-xs">{item.subject}</p>
                     <p className="text-sm text-muted-foreground max-w-xs">{item.preview}</p>
@@ -231,7 +231,7 @@ function EmailInboxProgrammaticComponent({
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex space-x-3">
+          <div className="flex flex-wrap gap-2">
             <Badge variant={'outline'}>Unread <Badge className='rounded-full scale-[0.6] h-8 w-8 text-lg leading-none'>{unreadCount}</Badge></Badge>
             <Badge variant={'outline'}>High priority <Badge variant={'destructive'} className='animate-pulse rounded-full scale-[0.6] h-8 w-8 text-lg leading-none'>{highPriorityCount}</Badge></Badge>
             <Badge variant={'outline'}>Attachments <Badge className='rounded-full scale-[0.6] h-8 w-8 text-lg leading-none'>{attachmentCount}</Badge></Badge>

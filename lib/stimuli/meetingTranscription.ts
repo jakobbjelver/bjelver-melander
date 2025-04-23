@@ -1,5 +1,6 @@
 import { TranscriptAISummary, TranscriptItem, TranscriptProgrammaticSummary } from "@/types/stimuli";
 import { SentenceTokenizer, TfIdf, WordTokenizer } from "natural";
+import { Question } from "../data/questionnaire";
 
 export const meetingTranscriptData: TranscriptItem[] = [
     {
@@ -178,7 +179,7 @@ export function summarizeTranscripts(
     };
 }
 
-export const meetingTranscriptTests = [
+export const meetingTranscriptTests: Question[] = [
     {
         id: "meeting-transcription_accuracy",
         text: "Based on the meeting transcript, what action was decided regarding the collaborative editing feature?",

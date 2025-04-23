@@ -205,7 +205,6 @@ export function summarizeEmails(items: EmailItem[]): EmailProgrammaticSummary {
     if (nextToReview.length) {
         parts.push(`Next to review: ${nextToReview.join(' and ')}.`);
     }
-    parts.push(`Promotions and low-priority updates have been filtered out for clarity.`);
 
     return {
         summary: parts.join(' '),

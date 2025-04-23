@@ -17,28 +17,14 @@ import { InferSelectModel, InferInsertModel } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import { enumToPgEnum } from '../utils';
+import { ContentLengths, ContentSources, QuestionnaireTypes, TestSlugs } from '@/types/test';
 
 // --- Enums for Experimental Conditions (Recommended for data integrity) ---
 
-export enum contentSources {
-  AI = 'ai',
-  Original = 'original',
-  Programmatic = 'programmatic'
-}
-
-export enum contentLengths {
-  Longer = 'longer',
-  Shorter = 'shorter',
-}
-
-export enum questionnaireTypes {
-  Pre = 'pre',
-  Post = 'post',
-}
-
-export const contentSourceEnum = pgEnum('content_source', enumToPgEnum(contentSources));
-export const contentLengthEnum = pgEnum('content_length', enumToPgEnum(contentLengths));
-export const questionnaireTypeEnum = pgEnum('questionnaire_type', enumToPgEnum(questionnaireTypes));
+export const contentSourceEnum = pgEnum('content_source', enumToPgEnum(ContentSources));
+export const contentLengthEnum = pgEnum('content_length', enumToPgEnum(ContentLengths));
+export const testSlugEnum = pgEnum('test_slug', enumToPgEnum(TestSlugs));
+export const questionnaireTypeEnum = pgEnum('questionnaire_type', enumToPgEnum(QuestionnaireTypes));
 
 // --- Participants Table ---
 // Stores information about each participant session and their assigned group
@@ -48,6 +34,7 @@ export const ParticipantsTable = pgTable('participants', {
   id: uuid('id').primaryKey().defaultRandom(),
   assignedLength: contentLengthEnum('assigned_length').notNull(),
   assignedSourceOrder: integer('assigned_source_order').notNull(),
+  age: integer('age').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   // Optional: Store user agent or other non-identifying technical details
   isPilot: boolean('is_pilot'),
@@ -76,7 +63,7 @@ export type QuestionnaireResponse = InferSelectModel<typeof QuestionnaireRespons
 export const TestResponsesTable = pgTable('test_responses', {
   id: serial('id').primaryKey(),
   participantId: uuid('participant_id').notNull().references(() => ParticipantsTable.id, { onDelete: 'cascade' }), // Link to participant
-  testSlug: varchar('test_slug', { length: 50 }).notNull(), // Link to the specific test shown
+  testSlug: testSlugEnum('test_slug').notNull(), // Link to the specific test shown
   // Optional: Link to the specific content item shown, if needed for very fine-grained analysis
   // testContentId: integer('test_content_id').references(() => TestContentTable.id),
   questionId: varchar('question_id', { length: 100 }).notNull(), // Identifier for the question (e.g., 'recall_count', 'credibility_rating')

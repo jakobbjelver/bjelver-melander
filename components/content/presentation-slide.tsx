@@ -1,5 +1,4 @@
 'use client'
-import { contentSources } from '@/lib/db/schema';
 import { ChartContent, PresentationSlide, SlideAISummary, SlideItem, SlideProgrammaticSummary } from '@/types/stimuli';
 
 import {
@@ -39,20 +38,21 @@ import {
 } from 'lucide-react'
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from '../ui/chart';
 import { Pie, PieChart } from 'recharts';
+import { ContentSources } from '@/types/test';
 
 interface PresentationSlideComponentProps {
-  source: contentSources;
+  source: ContentSources;
   contentData: PresentationSlide;
 }
 
 export function PresentationSlideComponent({ source, contentData }: PresentationSlideComponentProps) {
 
   switch (source) {
-    case (contentSources.AI):
+    case (ContentSources.AI):
       return <AIComponent contentData={contentData as SlideAISummary} />
-    case (contentSources.Original):
+    case (ContentSources.Original):
       return <OriginalComponent contentData={contentData as SlideItem[]} />
-    case (contentSources.Programmatic):
+    case (ContentSources.Programmatic):
       return <ProgrammaticComponent contentData={contentData as SlideProgrammaticSummary} />
     default:
       return null
@@ -92,7 +92,7 @@ export function OriginalComponent({
                           className="mt-1 flex-shrink-0"
                           size={8}
                         />
-                        <span className="ml-2">{pt}</span>
+                        <span className="ml-2 md:text-base text-sm">{pt}</span>
                       </li>
                     ))}
                   </ul>
@@ -158,21 +158,21 @@ export function OriginalComponent({
                     {(slide.content as string[]).map((evt, i) => (
                       <li key={i} className="flex items-start">
                         <Badge variant="secondary">{i + 1}</Badge>
-                        <span className="ml-3">{evt}</span>
+                        <span className="ml-3 md:text-base text-sm">{evt}</span>
                       </li>
                     ))}
                   </ul>
                 )}
 
                 {slide.type === 'profiles' && (
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                     {(slide.content as string[]).map((profile, i) => (
                       <div
                         key={i}
                         className="flex items-center space-x-2"
                       >
                         <User size={24} />
-                        <span>{profile}</span>
+                        <span className='md:text-base text-sm'>{profile}</span>
                       </div>
                     ))}
                   </div>
@@ -209,8 +209,8 @@ export function OriginalComponent({
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className='scale-150' />
-      <CarouselNext className='scale-150' />
+      <CarouselPrevious className='md:scale-150 scale-110 absolute -left-2 md:-left-14' />
+      <CarouselNext className='md:scale-150 scale-110 absolute -right-2 md:-right-14' />
     </Carousel>
   )
 }
@@ -275,30 +275,30 @@ export function AIComponent({
         <CarouselItem>
           <Card className="flex flex-col h-full p-6">
             <CardHeader>
-              <CardTitle>
+              <CardTitle className='text-lg'>
                 {company} — {period}
               </CardTitle>
               <CardDescription>Q2 2023 Financial Performance</CardDescription>
             </CardHeader>
             <CardContent className="flex-1 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <Badge variant="info" className="px-4 py-2 text-base">
+              <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+                <Badge variant="info" className="px-4 py-2 text-[0.9rem]">
                   Revenue: {performance.totalRevenue}{' '}
                   {performance.currencyUnit}
                 </Badge>
-                <Badge variant="secondary" className="px-4 py-2 text-base">
+                <Badge variant="secondary" className="px-4 py-2 text-[0.9rem]">
                   YoY Growth: {performance.yoyGrowthPercent}%
                 </Badge>
-                <Badge variant="outline" className="px-4 py-2 text-base">
+                <Badge variant="outline" className="px-4 py-2 text-[0.9rem]">
                   Margin: {performance.operatingMarginPercent}%
                 </Badge>
-                <Badge variant="outline" className="px-4 py-2 text-base">
+                <Badge variant="outline" className="px-4 py-2 text-[0.9rem]">
                   New Customers: {performance.newEnterpriseCustomers}
                 </Badge>
-                <Badge variant="outline" className="px-4 py-2 text-base">
+                <Badge variant="outline" className="px-4 py-2 text-[0.9rem]">
                   Cloud Growth: {performance.cloudDivisionGrowthPercent}%
                 </Badge>
-                <Badge variant="outline" className="px-4 py-2 text-base">
+                <Badge variant="outline" className="px-4 py-2 text-[0.9rem]">
                   AI Platform: {performance.aiPlatformLaunchMonth}
                 </Badge>
               </div>
@@ -310,7 +310,7 @@ export function AIComponent({
         <CarouselItem>
           <Card className="flex flex-col h-full">
             <CardHeader className="pb-0">
-              <CardTitle>Revenue Breakdown</CardTitle>
+              <CardTitle className='text-lg'>Revenue Breakdown</CardTitle>
               <CardDescription>By Division ({revenueByDivision.unit})</CardDescription>
             </CardHeader>
             <CardContent className="flex-1">
@@ -338,14 +338,14 @@ export function AIComponent({
         <CarouselItem>
           <Card className="flex flex-col h-full p-6 bg-gradient-to-tr from-blue-50 to-white">
             <CardHeader>
-              <CardTitle>Initiatives & Forecast</CardTitle>
+              <CardTitle className='text-lg'>Initiatives & Forecast</CardTitle>
             </CardHeader>
             <CardContent className="flex-1 space-y-4">
               <section>
                 <h3 className="font-semibold">Strategic Initiatives</h3>
                 <ul className="list-disc list-inside space-y-1">
                   {strategicInitiatives.map((itm, idx) => (
-                    <li key={idx}>{itm}</li>
+                    <li className='md:text-base text-sm' key={idx}>{itm}</li>
                   ))}
                 </ul>
               </section>
@@ -365,8 +365,8 @@ export function AIComponent({
           </Card>
         </CarouselItem>
       </CarouselContent>
-      <CarouselPrevious className="scale-150" />
-      <CarouselNext className="scale-150" />
+      <CarouselPrevious className='md:scale-150 scale-110 absolute -left-2 md:-left-14' />
+      <CarouselNext className='md:scale-150 scale-110 absolute -right-2 md:-right-14' />
     </Carousel>
   )
 }
@@ -387,7 +387,7 @@ export function ProgrammaticComponent({
         <CarouselItem>
           <Card className="h-full p-6">
             <CardHeader>
-              <CardTitle>Overview</CardTitle>
+              <CardTitle className='text-lg'>Overview</CardTitle>
             </CardHeader>
             <CardContent>
               <p>{summary}</p>
@@ -399,17 +399,17 @@ export function ProgrammaticComponent({
         <CarouselItem>
           <Card className="h-full p-6">
             <CardHeader>
-              <CardTitle>Highlights</CardTitle>
+              <CardTitle className='text-lg'>Highlights</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {extractive.map((ex, i) => (
-                <div key={i} className="flex items-start gap-2">
-                  <Badge variant="outline" className="mr-2 text-lg rounded-full">
+                <div key={i} className="flex items-start md:gap-2">
+                  <Badge variant="outline" className="mr-2 md:text-lg rounded-full">
                     #{i + 1}
                   </Badge>
                   <span className='block'>
                     <p className='font-semibold'>{ex.title}</p>
-                    <span>{ex.sentence}</span>
+                    <span className='md:text-base text-sm'>{ex.sentence}</span>
                   </span>
                 </div>
               ))}
@@ -422,31 +422,31 @@ export function ProgrammaticComponent({
           <Card className="h-full p-6 bg-gradient-to-tr from-blue-50 to-white">
             <CardHeader className="flex items-center space-x-2">
               <BarChart2 />
-              <CardTitle>Stats</CardTitle>
+              <CardTitle  className='text-lg'>Stats</CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-2 gap-4">
-              <Badge className='text-base border border-muted-foreground/50 justify-between' variant={'secondary'}>
+            <CardContent className="grid md:grid-cols-2 grid-cols-1 gap-4">
+              <Badge className='text-base border h-10 justify-between' variant={'outline'}>
                 Total Slides
-                <Badge className='rounded-full'> {meta.totalSlides}</Badge>
+                <Badge className='rounded-full' variant={'secondary'}> {meta.totalSlides}</Badge>
               </Badge>
-              <Badge className='text-base border border-muted-foreground/50 justify-between' variant={'secondary'}>
+              <Badge className='text-base border h-10 justify-between' variant={'outline'}>
                 Relevant
-                <Badge className='rounded-full'> {meta.relevantSlides}</Badge>
+                <Badge className='rounded-full' variant={'secondary'}> {meta.relevantSlides}</Badge>
               </Badge>
-              <Badge className='text-base border border-muted-foreground/50 justify-between' variant={'secondary'}>
+              <Badge className='text-base border h-10 justify-between' variant={'outline'}>
                 Charts
-                <Badge className='rounded-full'> {meta.chartSlides}</Badge>
+                <Badge className='rounded-full' variant={'secondary'}> {meta.chartSlides}</Badge>
               </Badge>
-              <Badge className='text-base border border-muted-foreground/50 justify-between' variant={'secondary'}>
+              <Badge className='text-base border h-10 justify-between' variant={'outline'}>
               Avg. Bullets
-                <Badge className='rounded-full'> {meta.averageBulletPoints.toFixed(1)}</Badge>
+                <Badge className='rounded-full' variant={'secondary'}> {meta.averageBulletPoints.toFixed(1)}</Badge>
               </Badge>
             </CardContent>
           </Card>
         </CarouselItem>
       </CarouselContent>
-      <CarouselPrevious className='scale-150' />
-      <CarouselNext className='scale-150' />
+      <CarouselPrevious className='md:scale-150 scale-110 absolute -left-2 md:-left-14' />
+      <CarouselNext className='md:scale-150 scale-110 absolute -right-2 md:-right-14' />
     </Carousel>
   )
 }
