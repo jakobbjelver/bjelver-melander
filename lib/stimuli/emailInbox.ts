@@ -4,6 +4,8 @@ import { TfIdf, WordTokenizer, SentenceTokenizer } from 'natural';
 import { ContentLengths } from "@/types/test";
 import { filterStimuliByLength } from "../utils";
 
+export const emailInboxContextText = 'This content is supposed to resemble an email inbox (e.g. Gmail, Outlook).'
+
 const emailInboxData: EmailItem[] = [
     {
         id: 1,

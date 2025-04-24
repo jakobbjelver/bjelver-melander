@@ -4,6 +4,8 @@ import { SlideAISummary, SlideItem, SlideProgrammaticSummary } from "@/types/sti
 import { ContentLengths } from "@/types/test";
 import { filterStimuliByLength } from "../utils";
 
+export const presentationSlideContextText = 'This content is supposed to resemble a presentation (e.g. PowerPoint, Slides) from a company.'
+
 export const presentationSlideData: SlideItem[] = [
     {
         id: 1,

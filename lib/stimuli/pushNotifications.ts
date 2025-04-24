@@ -6,6 +6,8 @@ import { NotificationAISummary, NotificationItem, NotificationProgrammaticSummar
 import { ContentLengths } from '@/types/test';
 import { filterStimuliByLength } from '../utils';
 
+export const pushNotificationsContextText = 'This content is supposed to resemble a push notifications on a mobile device lockscreen (e.g. iOS, Android).'
+
 export const pushNotificationsData: NotificationItem[] = [
   {
     id: 1,

@@ -65,21 +65,21 @@ export default async function IntroPage({ params }: ContentPageProps) {
                 <InfoIcon className="h-4 w-4" />
                 <AlertTitle>Note</AlertTitle>
                 <AlertDescription>
-                    There is no time limit, but please move at a steady pace.
+                    There is no time limit, but please <strong>move at a steady pace</strong>.
                 </AlertDescription>
             </Alert>
-            <Alert variant={'info'}>
+            {/** <Alert variant={'info'}>
                 <Lightbulb className="h-4 w-4" />
                 <AlertTitle>Tip</AlertTitle>
                 <AlertDescription>
-                    You are encouraged to revisit the content as many times as you want when answering questions. Simply do so by going back and forth in your web history.
+                    You are encouraged to <strong>revisit the content as many times as you want</strong> when answering questions. Simply do so by going back and forth in your web history.
                 </AlertDescription>
-            </Alert>
+            </Alert> */}
             <Alert variant={'destructive'}>
                 <AlertCircle className="h-4 w-4" />
                 <AlertTitle>Warning</AlertTitle>
                 <AlertDescription>
-                    When you have submitted answers once, you cannot answer and submit them again. Failure to comply will result in an invalid experiment.
+                    You are <strong>under no circumstances allowed to "go back"</strong>–that is to navigate backwards in your web history. Failure to comply will result in an invalid experiment.
                 </AlertDescription>
             </Alert>
             <Button asChild className='max-w-sm w-full md:max-w-sm' size={'lg'}>

@@ -14,7 +14,7 @@ export const practiceTests: Question[] = [
         text: 'Based on the squares you just saw, which square was located in the top-right corner?',
         type: 'multipleChoice',
         options: [
-            "Red square",
+            "Yellow square",
             "Blue square",
             "Orange square",
             "Green square",
@@ -22,7 +22,6 @@ export const practiceTests: Question[] = [
             "I don't know"
         ],
         multipleCorrectAnswers: false,
-        // correctAnswerIndex: 3  // Postpone to Q4 was the consensus decision mentioned multiple times in relevant sections (IDs 3, 4, 5, 10).
     },
     {
         id: "practice_comprehension",

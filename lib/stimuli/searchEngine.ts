@@ -6,6 +6,8 @@ import { ContentLengths } from "@/types/test";
 
 export const searchEngineQuery = "what is climate change";
 
+export const searchEngineContextText = 'This content is supposed to resemble a search engine (e.g. Google, Bing) result list.'
+
 
 export const searchEngineData: SearchResultItem[] = [
   {
@@ -272,10 +274,10 @@ export const searchResultsAISummaryShorter: SearchAISummary = {
 export const searchEngineTests: Question[] = [
   {
     id: "search-engine_accuracy", // Kept the original ID
-    text: "Based on the general types of relevant resources listed, what seems to be the primary way information about climate change is presented in these results?", // Actionable decision: Guides user on what kind of format to expect/seek. Focuses on the GIST of formats.
+    text: "Based on the general types of relevant resources listed, which type of resources are the most prevalent??", // Actionable decision: Guides user on what kind of format to expect/seek. Focuses on the GIST of formats.
     type: 'multipleChoice',
     options: [
-      "Official reports and summaries.", // Plausible (Item 4 exists) but not primary
+      "Activist campaigns and protests", // Incorrect based on data, but plausible without it
       "Interactive data visualizations.", // Plausible (Item 2 exists) but not primary
       "Explanatory articles and video lectures.", // Correct GIST (Items 1, 3, 5 are the most numerous types)
       "Personal blogs and opinion essays.", // Incorrect based on data, but plausible without it

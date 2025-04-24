@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db';
 import { cookies } from 'next/headers'; // Import cookies
 import { eq } from 'drizzle-orm';
-import { ContentLengths } from '@/types/test';
 import { assignContentLengthAndSourceOrder } from '../data/tests';
 
 const CONTROLLED_CODE = 'experimentLUSEM2025'
@@ -22,13 +21,21 @@ export async function createParticipant(age: number, controlledCode: string, pil
     return { error: 'The pilot code you entered is incorrect.' };
   }
 
+  if(age < 18) {
+    return { error: 'You must be of legal age to participate.' };
+  }
+
+  if(age < 0) {
+    return { error: 'Please enter your age to continue.' };
+  }
+
   const isControlled = controlledCode === CONTROLLED_CODE
-  const isPilot = pilotCode === PILOT_CODE || age === 1337
+  const isPilot = pilotCode === PILOT_CODE
 
   const existingParticipantId = cookieStore.get('participantId')?.value;
   
   // Enable in prod
-  if (existingParticipantId && age !== 1337) {
+  if (existingParticipantId && !isPilot) {
     console.error(`Participant already exists with id: ${existingParticipantId}`);
     return { error: 'You are only allowed to do the experiment once.' };
   }

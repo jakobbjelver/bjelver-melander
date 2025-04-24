@@ -2,9 +2,12 @@ import { SearchAISummary, SearchEngine, SearchProgrammaticSummary, SearchResultI
 
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/card'
 import { Badge } from '../ui/badge'
-import { Video, ExternalLink, Calendar, Book } from 'lucide-react'
+import { Video, ExternalLink, Calendar, Book, SearchIcon } from 'lucide-react'
 import { Separator } from '../ui/separator';
 import { ContentSources } from '@/types/test';
+import { searchEngineQuery } from '@/lib/stimuli/searchEngine';
+import { Input } from '../ui/input';
+import { JSX } from 'react';
 
 interface SearchEngineComponentProps {
   source: ContentSources;
@@ -12,17 +15,33 @@ interface SearchEngineComponentProps {
 }
 
 export function SearchEngineComponent({ source, contentData }: SearchEngineComponentProps) {
+  // 1) define your query state
+
+  let component: JSX.Element | null = null;
 
   switch (source) {
-    case (ContentSources.AI):
-      return <AIComponent contentData={contentData as SearchAISummary} />
-    case (ContentSources.Original):
-      return <OriginalComponent contentData={contentData as SearchResultItem[]} />
-    case (ContentSources.Programmatic):
-      return <ProgrammaticComponent contentData={contentData as SearchProgrammaticSummary} />
+    case ContentSources.AI:
+      component = <AIComponent contentData={contentData as SearchAISummary} />;
+      break;                                  // ← add this
+    case ContentSources.Original:
+      component = <OriginalComponent contentData={contentData as SearchResultItem[]} />;
+      break;                                  // ← and this
+    case ContentSources.Programmatic:
+      component = <ProgrammaticComponent contentData={contentData as SearchProgrammaticSummary} />;
+      break;                                  // ← and this
     default:
-      return null
+      component = null;
   }
+
+  return (
+    <div className='grid gap-4'>
+      <span className='flex flex-row items-center relative'>
+      <SearchIcon size={20} className='absolute left-5'/>
+      <Input value={searchEngineQuery} readOnly className='bg-background h-16 !text-lg rounded-3xl pl-12' />
+      </span>
+      {component}
+    </div>
+  );
 }
 
 const titleCase = (s: string) =>

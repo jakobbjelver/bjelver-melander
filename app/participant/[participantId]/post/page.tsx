@@ -1,5 +1,4 @@
 // app/participant/[participantId]/post-questionnaire/page.tsx
-import { BackNavigationGuard } from '@/components/back-navigation-guard';
 import { QuestionnaireForm } from '@/components/forms/questionnaire-form';
 import { saveQuestionnaireResponses } from '@/lib/actions/responseActions';
 import { getPostQuestionnaireQuestions, Question } from '@/lib/data/questionnaire';

@@ -4,6 +4,7 @@ import { db } from '@/lib/db';
 import { getNextTestSlug, getTestSequence } from '../data/tests';
 import { QuestionnaireResponsesTable, TestResponsesTable } from '../db/schema';
 import { ContentLengths, ContentSources, QuestionnaireTypes, TestSlugs } from '@/types/test';
+import { and, eq } from 'drizzle-orm';
 
 export async function saveQuestionnaireResponses(
   formData: FormData
@@ -87,7 +88,7 @@ export async function saveQuestionnaireResponses(
 
 // Define the expected signature for the server action
 export type TestResponseAction = (
-    formData: FormData,
+  formData: FormData,
 ) => Promise<{ error?: string; nextPath?: string }>;
 
 // --- Action 3: Save Test Responses ---
@@ -146,28 +147,49 @@ export async function saveTestResponses(
 
   try {
     // --- Drizzle Bulk Insert ---
-    if (responsesToInsert.length > 0) {
-      await db.insert(TestResponsesTable).values(responsesToInsert);
-      console.log(`DB Insert Success: ${responsesToInsert.length} responses for test ${testSlug}, participant ${participantId}`);
+
+    // ─── Prevent duplicates ──────────────────────────────────────────────────────
+    // 1. Fetch already‐saved questionIds for this participant & testSlug
+    const existingRows = await db
+      .select({ questionId: TestResponsesTable.questionId })
+      .from(TestResponsesTable)
+      .where(
+        and(
+          eq(TestResponsesTable.participantId, participantId),
+          eq(TestResponsesTable.testSlug, testSlug)
+        )
+      );
+    const existingQids = new Set(existingRows.map(r => r.questionId));
+
+    // 2. Filter out any responses whose questionId is already present
+    const filteredResponses = responsesToInsert.filter(
+      r => !existingQids.has(r.questionId)
+    );
+
+    console.log("existingQids", existingQids)
+    console.log("filteredResponses", filteredResponses)
+
+    if (filteredResponses.length === 0) {
+      console.error(
+        `Duplicate responses detected. You can only submit answers once for these questions.`
+      );
     } else {
-      console.log(`No valid responses to insert for test ${testSlug}, participant ${participantId}`);
-      // return { error: 'No valid responses were provided for this test.' };
+      await db.insert(TestResponsesTable)
+        .values(responsesToInsert)
+
+      console.log(`DB Insert Success: ${responsesToInsert.length} responses for test ${testSlug}, participant ${participantId}`);
     }
-    // --- End Drizzle Bulk Insert ---
-
-    // Optional: Revalidate paths if needed
-    // revalidatePath(`/participant/${participantId}/results`);
-
+    
     // Success - proceed
 
-      // 4. Determine the next step (next test slug or post-questionnaire)
-  const nextSlug = getNextTestSlug(testSlug);
-  const nextPath = nextSlug
-    ? `/participant/${participantId}/test/${nextSlug}/intro`
-    : `/participant/${participantId}/post`;
-  // --- End Server-Side Data Fetching ---
+    // 4. Determine the next step (next test slug or post-questionnaire)
+    const nextSlug = getNextTestSlug(testSlug);
+    const nextPath = nextSlug
+      ? `/participant/${participantId}/test/${nextSlug}/intro`
+      : `/participant/${participantId}/post`;
+    // --- End Server-Side Data Fetching ---
 
-  return { nextPath };
+    return { nextPath };
 
   } catch (error) {
     console.error(`Error saving test responses for ${testSlug} to DB:`, error);

@@ -17,7 +17,7 @@ export function PracticeComponent({ contentData }: PracticeComponentProps) {
                         cn(
                             "h-[170px] w-[170px]",
                             box.color === BoxColors.BLUE && 'bg-blue-500',
-                            box.color === BoxColors.ORANGE && 'bg-orange-500',
+                            box.color === BoxColors.ORANGE && 'bg-yellow-400',
                             box.color === BoxColors.RED && 'bg-red-500',
                             box.color === BoxColors.GREEN && 'bg-green-500',
                         )

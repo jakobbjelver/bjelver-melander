@@ -4,6 +4,8 @@ import { Question } from "../data/questionnaire";
 import { ContentLengths } from "@/types/test";
 import { filterStimuliByLength } from "../utils";
 
+export const meetingTranscriptionContextText = 'This content is supposed to resemble an meeting transcriptions from an online/remote meeting (e.g. Zoom, Teams).'
+
 export const meetingTranscriptData: TranscriptItem[] = [
     {
         id: 1,

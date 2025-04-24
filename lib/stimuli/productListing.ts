@@ -4,6 +4,8 @@ import { ProductAISummary, ProductItem, ProductProgrammaticSummary } from "@/typ
 import { filterStimuliByLength } from "../utils";
 import { ContentLengths } from "@/types/test";
 
+export const productListingContextText = 'This content is supposed to resemble a an e-commerce audio product store (e.g. HiFi Klubben)'
+
 export const productListingData: ProductItem[] = [
   {
     id: 1,
@@ -320,11 +322,11 @@ export function summarizeProducts(items: ProductItem[]): ProductProgrammaticSumm
 export const productListingTests: Question[] = [
   {
     id: "product-listing_accuracy",
-    text: "Considering the audio products listed, if you are looking for a product that is currently being sold for less than its original price, what is generally true?",
+    text: "Considering the audio products listed, if you are looking discounted product, what is generally true?",
     type: 'multipleChoice',
     options: [
       "Only the most expensive audio products are discounted.",
-      "You will likely find discounts available across the audio product selection.",
+      "All products are discounted.",
       "Discounts are only offered on earbuds, not headphones.",
       "Finding a discounted audio product is unlikely based on this list.",
       "None of the above",
