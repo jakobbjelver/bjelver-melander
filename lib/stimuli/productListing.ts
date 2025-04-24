@@ -327,7 +327,8 @@ export const productListingTests: Question[] = [
       "You will likely find discounts available across the audio product selection.",
       "Discounts are only offered on earbuds, not headphones.",
       "Finding a discounted audio product is unlikely based on this list.",
-      "None of the above"
+      "None of the above",
+      "I don't know"
     ],
     multipleCorrectAnswers: false,
     // Correct Answer Logic: All relevant audio products (1-5) show a discount.
@@ -343,7 +344,8 @@ export const productListingTests: Question[] = [
       "Every audio product listed is either headphones, earbuds or speakers.",
       "Information about customer satisfaction (ratings) is provided for all audio items.",
       "All audio items offer free shipping.",
-      "None of the above"
+      "None of the above",
+      "I don't know"
     ],
     multipleCorrectAnswers: true,
     // Correct Answer Logic (Relevant Items 1-5):

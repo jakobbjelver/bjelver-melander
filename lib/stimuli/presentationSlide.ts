@@ -331,7 +331,8 @@ export const presentationSlideTests: Question[] = [
         "Reassess detailed revenue segmentation before deciding",
         "Concentrate resources on a single business area",
         "Hold off on new strategies pending market changes",
-        "None of the above"
+        "None of the above",
+        "I don't know"
       ],
       multipleCorrectAnswers: false,
       // correctAnswerIndex: 0
@@ -345,7 +346,8 @@ export const presentationSlideTests: Question[] = [
         "A technical deep dive into the product ecosystem only",
         "A focus on corporate social responsibility outcomes",
         "An upward revenue forecast and strategic next actions",
-        "None of the above"
+        "None of the above",
+        "I don't know"
       ],
       multipleCorrectAnswers: true,
       // correctAnswerIndices: [3]

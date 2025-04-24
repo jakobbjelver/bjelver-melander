@@ -5,7 +5,7 @@ export const getSourceFromMask = (index: number) => {
 }
 
 export const getMaskFromSource = (source: ContentSources) => {
-    return Object.keys(ContentSources).indexOf(source)
+    return Object.values(ContentSources).indexOf(source)
 }
 
 export const getLengthFromMask = (index: number) => {
@@ -13,5 +13,5 @@ export const getLengthFromMask = (index: number) => {
 }
 
 export const getMaskFromLength = (length: ContentLengths) => {
-    return Object.keys(ContentLengths).indexOf(length)
+    return Object.values(ContentLengths).indexOf(length)
 }

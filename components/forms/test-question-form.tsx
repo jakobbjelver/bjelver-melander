@@ -63,17 +63,17 @@ export function TestQuestionForm({
           <Label className="font-semibold text-base mb-4 block">{index + 1}. {q.text}</Label>
           {/* Render input based on question type */}
           {q.type === 'likert7' && (
-            <RadioGroup name={q.id} required className="flex flex-wrap justify-between gap-2">
-              {[1, 2, 3, 4, 5, 6, 7].map((value) => (
-                <div key={value} className="flex flex-col items-center space-y-1">
-                  <RadioGroupItem value={String(value)} id={`${q.id}-${value}`} />
-                  <Label htmlFor={`${q.id}-${value}`} className="text-xs text-muted-foreground">
-                    {!q.options && (value === 1 ? 'Strongly Disagree' : value === 7 ? 'Strongly Agree' : value)}
-                    {q.options && (q.options[value - 1] || value)}
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
+              <RadioGroup name={q.id} required className="flex flex-wrap justify-between gap-2">
+                {[1, 2, 3, 4, 5, 6, 7].map((value) => (
+                  <div key={value} className="flex flex-col items-center space-y-1">
+                    <RadioGroupItem value={String(value)} id={`${q.id}-${value}`} />
+                    <Label htmlFor={`${q.id}-${value}`} className="text-xs text-muted-foreground">
+                      {!q.options && (value === 1 ? 'Strongly Disagree' : value === 7 ? 'Strongly Agree' : value)}
+                      {q.options && (q.options[value - 1] || value)}
+                    </Label>
+                  </div>
+                ))}
+              </RadioGroup>
           )}
           {q.type === 'text' && ( // Example: Free text response
             <Textarea name={q.id} placeholder="Your answer..." required />
@@ -84,16 +84,21 @@ export function TestQuestionForm({
           {q.type === 'multipleChoice' && q.options && (
             q.multipleCorrectAnswers ? (
               // Checkboxes for multiple correct answers
-              <div className="flex flex-col gap-2">
-                {q.options.map((option, optionIndex) => (
-                  <div key={optionIndex} className="flex items-center space-x-2">
-                    <Checkbox id={`${q.id}-${optionIndex}`} name={q.id} value={option} />
-                    <Label htmlFor={`${q.id}-${optionIndex}`}>{option}</Label>
-                  </div>
-                ))}
-              </div>
+              <>
+                <p className='italic mb-3'>Select one or many options</p>
+                <div className="flex flex-col gap-2">
+                  {q.options.map((option, optionIndex) => (
+                    <div key={optionIndex} className="flex items-center space-x-2">
+                      <Checkbox id={`${q.id}-${optionIndex}`} name={q.id} value={option} />
+                      <Label htmlFor={`${q.id}-${optionIndex}`}>{option}</Label>
+                    </div>
+                  ))}
+                </div>
+              </>
             ) : (
               // Radio buttons for single correct answer
+              <>
+              <p className='italic mb-3'>Select only one option</p>
               <RadioGroup name={q.id} required className="flex flex-col gap-2">
                 {q.options.map((option, optionIndex) => (
                   <div key={optionIndex} className="flex items-center space-x-2">
@@ -102,6 +107,7 @@ export function TestQuestionForm({
                   </div>
                 ))}
               </RadioGroup>
+              </>
             )
           )}
           {/* Add other question types as needed */}

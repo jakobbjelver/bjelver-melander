@@ -18,6 +18,8 @@ export const practiceTests: Question[] = [
             "Blue square",
             "Orange square",
             "Green square",
+            "None of the above",
+            "I don't know"
         ],
         multipleCorrectAnswers: false,
         // correctAnswerIndex: 3  // Postpone to Q4 was the consensus decision mentioned multiple times in relevant sections (IDs 3, 4, 5, 10).
@@ -34,6 +36,8 @@ export const practiceTests: Question[] = [
             "Yellow", // Accurate (IDs 3, 4, 10)
             "Pink", // Accurate (IDs 3, 4, 10)
             "Brown", // Accurate (IDs 3, 4, 10)
+            "None of the above",
+            "I don't know"
         ],
         multipleCorrectAnswers: true,
         // correctAnswerIndices: [0, 1, 2, 3, 4]

@@ -1,45 +1,48 @@
-// app/participant/[participantId]/test/[testSlug]/page.tsx
-import { TestQuestionForm } from '@/components/forms/test-question-form';
-import { saveTestResponses } from '@/lib/actions/responseActions';
-import { getLengthFromMask, getSourceFromMask } from '@/lib/data/participants';
-import { getTestQuestions } from '@/lib/data/tests';
-import { TestSlugs } from '@/types/test';
+import { TestQuestionForm } from '@/components/forms/test-question-form'
+import { saveTestResponses } from '@/lib/actions/responseActions'
+import { getLengthFromMask, getSourceFromMask } from '@/lib/data/participants'
+import { getTestQuestions } from '@/lib/data/tests'
+import { TestSlugs } from '@/types/test'
 
 interface TestPageProps {
-  params: Promise<{
-    participantId: string;
-    testSlug: TestSlugs;
-  }>;
-  searchParams: Promise<{
-    source: number;
-    length: number;
-  }>;
+  params: Promise<{ participantId: string; testSlug: TestSlugs }>
+  searchParams: Promise<{ source: string; length: string, time: string }>
 }
 
 export default async function QuestionsPage({ params, searchParams }: TestPageProps) {
-  const { participantId, testSlug } = await params; 
-  const { source, length } = await searchParams;
+  const { participantId, testSlug } = await params
 
-  const contentSource = getSourceFromMask(source)
-  const contentLength = getLengthFromMask(length)
+  const search = await searchParams
 
-  if(!contentSource || !contentLength || !participantId || !testSlug) {
-    throw new Error(`Invalid data provided: length: ${contentLength}, source: ${contentSource}, participant: ${participantId}, test: ${testSlug}`)
+  const startTime = parseInt(search.time, 10)
+
+  // parse the incoming masks
+  const sourceMask = parseInt(search.source, 10)
+  const lengthMask = parseInt(search.length, 10)
+
+  console.log("Source mask: ", sourceMask)
+  console.log("Length mask: ", lengthMask)
+
+  const contentSource = getSourceFromMask(sourceMask)
+  const contentLength = getLengthFromMask(lengthMask)
+
+  console.log("Source: ", contentSource)
+  console.log("Length: ", contentLength)
+
+  if (!contentSource || !contentLength) {
+    throw new Error(
+      `Invalid data: sourceMask=${sourceMask}, lengthMask=${lengthMask}, participant=${participantId}, test=${testSlug}`
+    )
   }
 
-  // 3. Get the questions associated with this test slug
-  const questions = await getTestQuestions(testSlug);
-
-  const startTime = new Date().getTime()
-
-  // **Use .bind() to pre-fill the startTime argument**
-  // The 'null' argument for bind refers to 'this' context, which is not relevant here.
-  const saveActionWithStartTime = saveTestResponses.bind(null, startTime, contentSource, contentLength);
+  const questions = await getTestQuestions(testSlug)
+  const saveActionWithStartTime = saveTestResponses.bind(null, startTime, contentSource, contentLength)
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-
-      <h2 className="text-xl font-semibold mb-4">Please answer the following questions:</h2>
+      <h2 className="text-xl font-semibold mb-4">
+        Please answer the following questions:
+      </h2>
       <TestQuestionForm
         questions={questions}
         participantId={participantId}
@@ -47,5 +50,5 @@ export default async function QuestionsPage({ params, searchParams }: TestPagePr
         action={saveActionWithStartTime}
       />
     </div>
-  );
+  )
 }

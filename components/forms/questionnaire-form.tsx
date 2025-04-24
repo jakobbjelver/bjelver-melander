@@ -53,18 +53,18 @@ export function QuestionnaireForm({ questions, participantId, questionnaireType,
         <div key={q.id} className="p-4 border rounded-md">
           <Label className="font-semibold text-base mb-4 block">{index + 1}. {q.text}</Label>
           {q.type === 'likert7' && (
-            <RadioGroup name={q.id} required className="flex flex-wrap justify-between gap-2">
+            <RadioGroup name={q.id} required className="flex md:flex-wrap flex-col md:flex-row justify-between gap-2">
               {[1, 2, 3, 4, 5, 6, 7].map((value) => (
                 <div key={value} className="flex flex-col items-center space-y-1">
                    <RadioGroupItem value={String(value)} id={`${q.id}-${value}`} />
                    <Label htmlFor={`${q.id}-${value}`} className="text-xs text-muted-foreground">
-                      {value === 1 ? 'Strongly Disagree' : value === 7 ? 'Strongly Agree' : value}
-                   </Label>
+                    {!q.options && (value === 1 ? 'Strongly Disagree' : value === 7 ? 'Strongly Agree' : value)}
+                    {q.options && (q.options[value - 1] || value)}
+                  </Label>
                 </div>
               ))}
             </RadioGroup>
           )}
-          {/* Add other question types here if needed */}
           </div>
         ))}
     

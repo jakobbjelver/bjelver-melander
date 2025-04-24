@@ -246,7 +246,8 @@ export const meetingTranscriptTests: Question[] = [
             "Extend the project timeline significantly",
             "Prioritize core functionality and performance improvements",
             "Outsource development to third-party vendors",
-            "None of the above"
+            "None of the above",
+            "I don't know"
         ],
         multipleCorrectAnswers: false,
         // correctAnswerIndex: 2
@@ -261,7 +262,8 @@ export const meetingTranscriptTests: Question[] = [
             "Responsibilities for follow-up tasks were assigned to team members",
             "A target timeframe for the next release was mentioned",
             "A complete overhaul of the project plan was agreed upon",
-            "None of the above"
+            "None of the above",
+            "I don't know"
         ],
         multipleCorrectAnswers: true,
         // correctAnswerIndices: [0, 1, 2, 3]

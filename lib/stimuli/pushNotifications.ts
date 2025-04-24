@@ -330,7 +330,8 @@ export const pushNotificationsTests: Question[] = [
       "Prepare for potential flooding in your area",
       "Buy a birthday gift for Alex",
       "Prepare for the team meeting",
-      "None of the above"
+      "None of the above",
+      "I don't know"
     ],
     multipleCorrectAnswers: false,
     // correctAnswerIndex: 4  // The team meeting is highest priority and most imminent
@@ -346,7 +347,8 @@ export const pushNotificationsTests: Question[] = [
       "Your food order has been delivered",
       "You have a friend with an upcoming birthday",
       "You have a system update that needs to be installed",
-      "None of the above"
+      "None of the above",
+      "I don't know"
     ],
     multipleCorrectAnswers: true,
     // correctAnswerIndices: [2, 3, 4]  // Weather alert, food delivery, and birthday are accurate

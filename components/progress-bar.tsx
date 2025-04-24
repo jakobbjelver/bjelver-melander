@@ -25,13 +25,14 @@ export default function ProgressBar() {
     if (section === 'consent') step = 1
     else if (section === 'pre') step = 2
     else if (section === 'test' && testState === 'intro') {
-        step = (TEST_SEQUENCE.indexOf(test as TestSlugs) * 1) + 3 // 3, 6, 9, 12
+        step = (TEST_SEQUENCE.indexOf(test as TestSlugs) + 1) * 3 // 3, 6, 9, 12, etc..
+        console.log("STEP: ", step)
     }
     else if (section === 'test' && testState === 'content') {
-        step = (TEST_SEQUENCE.indexOf(test as TestSlugs) * 2) + 4 // 4, 7, 10, 13
+        step = ((TEST_SEQUENCE.indexOf(test as TestSlugs) + 1) * 3) + 1 // 4, 7, 10, 13, etc..
     }
     else if (section === 'test' && testState === 'questions') {
-        step = (TEST_SEQUENCE.indexOf(test as TestSlugs) * 3) + 5 // 5, 8, 11, 14
+        step = ((TEST_SEQUENCE.indexOf(test as TestSlugs) + 1) * 3) + 2 // 5, 8, 11, 14,etc..
     }
     else if (section === 'post') step = TOTAL_STEPS - 1
     else if (section === 'complete') step = TOTAL_STEPS

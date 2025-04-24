@@ -5,11 +5,7 @@ import { db } from '../db';
 import { cookies } from 'next/headers'; // Import cookies
 import { eq } from 'drizzle-orm';
 import { ContentLengths } from '@/types/test';
-
-// Basic random assignment (improve with better randomization if needed)
-const lengths = Object.values(ContentLengths);
-
-const sourceOrders: number[] = [1, 2, 3]; // Example: Define 3 counterbalancing orders
+import { assignContentLengthAndSourceOrder } from '../data/tests';
 
 const CONTROLLED_CODE = 'experimentLUSEM2025'
 
@@ -42,10 +38,7 @@ export async function createParticipant(age: number, controlledCode: string, pil
   try {
     const participantId = uuidv4();
 
-    // Assign Length BETWEEN subjects
-    const assignedLength = lengths[Math.floor(Math.random() * lengths.length)];
-    // Assign Format Order BETWEEN subjects (for within-subjects counterbalancing)
-    const assignedSourceOrder = sourceOrders[Math.floor(Math.random() * sourceOrders.length)];
+    const {sourceOrder: assignedSourceOrder, contentLength: assignedLength} = assignContentLengthAndSourceOrder()
 
     // --- Drizzle Insert ---
     await db.insert(ParticipantsTable).values({

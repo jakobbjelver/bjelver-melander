@@ -31,10 +31,10 @@ const testSets = {
 // Define the Full Latin Square mapping for 3 formats (6 orders) applied to Sets A, B, C
 const sourceOrderMappings = {
     1: { SetA: ContentSources.Original, SetB: ContentSources.AI, SetC: ContentSources.Programmatic },
-    2: { SetA: ContentSources.Original, SetB: ContentSources.Programmatic, SetC: ContentSources.AI }, 
+    2: { SetA: ContentSources.Original, SetB: ContentSources.Programmatic, SetC: ContentSources.AI },
     3: { SetA: ContentSources.AI, SetB: ContentSources.Original, SetC: ContentSources.Programmatic },
-    4: { SetA: ContentSources.AI, SetB: ContentSources.Programmatic, SetC: ContentSources.Original }, 
-    5: { SetA: ContentSources.Programmatic, SetB: ContentSources.Original, SetC: ContentSources.AI }, 
+    4: { SetA: ContentSources.AI, SetB: ContentSources.Programmatic, SetC: ContentSources.Original },
+    5: { SetA: ContentSources.Programmatic, SetB: ContentSources.Original, SetC: ContentSources.AI },
     6: { SetA: ContentSources.Programmatic, SetB: ContentSources.AI, SetC: ContentSources.Original },
 } as const; // Use as const here too for precise keys ('1', '2', etc.)
 
@@ -54,7 +54,7 @@ export function getAssignedSource(testSlug: TestSlugs, sourceOrder: number): Con
 export function getTestContent(testSlug: TestSlugs, source: ContentSources, length: ContentLengths): Stimuli | null {
     console.log(`Getting content for: test=${testSlug}, sourceOrder=${source}, length=${length}`);
 
-    if(!source || !testSlug || !length) {
+    if (!source || !testSlug || !length) {
         console.error("")
         return null
     }
@@ -88,6 +88,31 @@ export function getNextTestSlug(currentSlug: TestSlugs): string | null {
     return TEST_SEQUENCE[currentIndex + 1];
 }
 
+// Random helper
+function getRandomElement<T>(arr: T[]): T {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+/** 
+ * Returns a randomly chosen sourceOrder (1–6) and contentLength.
+ */
+export function assignContentLengthAndSourceOrder(): {
+    sourceOrder: SourceOrder
+    contentLength: ContentLengths
+} {
+    // all valid sourceOrder keys come from your mapping
+    const sourceOrders = Object.keys(sourceOrderMappings)
+        .map(o => Number(o) as SourceOrder);
+
+    // all possible content lengths from your enum
+    const lengths = Object.values(ContentLengths) as ContentLengths[];
+
+    return {
+        sourceOrder: getRandomElement(sourceOrders),
+        contentLength: getRandomElement(lengths),
+    };
+}
+
 const specificTestQuestions: { [key in TestSlugs]: Question[] } = {
     [TestSlugs.PUSH_NOTIFICATIONS]: pushNotificationsTests,
     [TestSlugs.EMAIL_INBOX]: pushNotificationsTests,
@@ -101,6 +126,6 @@ const specificTestQuestions: { [key in TestSlugs]: Question[] } = {
 
 const commonTestQuestions: Question[] = [
     { id: 'confidence', text: 'How confident are you in your above answers?', type: 'likert7', options: ['Very confident', '', '', '', '', '', 'Very insecure'] },
-    { id: 'satisfaction', text: 'How sufficient/satisfactory did you find the infromation presented in order to answer to the above questions?', type: 'likert7', options: ['Very sufficient', '', '', '', '', '', 'Very insufficient'] },
-    { id: 'effort', text: 'How hard did you find the above questions to be?', type: 'likert7', options: ['Very hard', '', '', '', '', '', 'Very Easy'] },
+    { id: 'satisfaction', text: 'How sufficient did you find the infromation presented in order to answer to the above questions?', type: 'likert7', options: ['Very sufficient', '', '', '', '', '', 'Very insufficient'] },
+    { id: 'effort', text: 'How mentally demanding did you find answering the above questions to be?', type: 'likert7', options: ['Very demanding', '', '', '', '', '', 'Very effortless'] },
 ];

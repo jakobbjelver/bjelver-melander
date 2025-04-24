@@ -2,6 +2,7 @@
 import { TestContentDisplay } from '@/components/test-content-display';
 import { Button } from '@/components/ui/button';
 import { getParticipantAction } from '@/lib/actions/participantActions';
+import { getMaskFromLength, getMaskFromSource } from '@/lib/data/participants';
 import { getAssignedSource, getTestContent } from '@/lib/data/tests';
 import { TestSlugs } from '@/types/test';
 import Link from 'next/link';
@@ -15,8 +16,6 @@ interface ContentPageProps {
 
 export default async function ContentPage({ params }: ContentPageProps) {
   const { participantId, testSlug } = await params;
-
-  const nextPath = `/participant/${participantId}/test/${testSlug}/questions`
 
   // --- Server-Side Data Fetching ---
   // 1. Get participant's assigned group
@@ -42,6 +41,14 @@ export default async function ContentPage({ params }: ContentPageProps) {
   console.log("Source: ", source)
   console.log("Length: ", participant.assignedLength)
   console.log("Test: ", testSlug)
+
+  const startTime = Date.now()
+
+  const maskedSource = getMaskFromSource(source)
+  const maskedLength = getMaskFromLength(participant.assignedLength)
+
+  const nextPath = `/participant/${participantId}/test/${testSlug}/questions?source=${maskedSource}&length=${maskedLength}&time=${startTime}`
+
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-4 flex flex-col items-center">

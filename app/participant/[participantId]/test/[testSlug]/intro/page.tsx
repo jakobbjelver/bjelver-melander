@@ -31,7 +31,7 @@ export default async function IntroPage({ params }: ContentPageProps) {
     const isFirstRealRound = testSlug === TestSlugs.PUSH_NOTIFICATIONS
 
     return (
-        <div className="w-full mx-auto flex flex-col items-center max-w-md space-y-4">
+        <div className="w-full mx-auto flex flex-col items-center max-w-md space-y-4 p-8">
             <h3 className='text-2xl font-bold'>Intro</h3>
             {isFirstRound && (
                 <>

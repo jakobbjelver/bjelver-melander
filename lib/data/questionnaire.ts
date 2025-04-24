@@ -11,18 +11,6 @@ export interface Question {
 export function getPreQuestionnaireQuestions(): Question[] {
   return [
     {
-      id: 'pre_gender',
-      text: 'What is your gender?',
-      type: 'multipleChoice',
-      options: ['Male', 'Female', 'Non-binary', 'Prefer not to say', 'Other'],
-    },
-    {
-      id: 'pre_education',
-      text: 'What is the highest level of education you have completed or are currently pursuing?',
-      type: 'multipleChoice',
-      options: ['High School', "Bachelor’s Degree", "Master’s Degree", 'PhD', 'Other'],
-    },
-    {
       id: 'pre_content_familiarity',
       text: 'How familiar are you with using electronic devices, such as smartphones and laptops?',
       type: 'likert7',
@@ -80,11 +68,6 @@ export function getPostQuestionnaireQuestions(): Question[] {
       text: 'How engaging did you find the experiment?',
       type: 'likert7',
       options: ['Not at all engaging', '', '', '', '', '', 'Very engaging'],
-    },
-    {
-      id: 'post_general_feedback',
-      text: 'Do you have any other comments or feedback about the experiment?',
-      type: 'text',
     },
   ];
 }
