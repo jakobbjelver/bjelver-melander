@@ -29,7 +29,6 @@ import {
   RefreshCcwIcon,
   InboxIcon,
 } from 'lucide-react'
-import { format } from 'date-fns'
 import { ContentSources } from '@/types/test';
 
 interface EmailInboxComponentProps {
