@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { TestSlugs } from '@/types/test';
 import Link from 'next/link';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { InfoIcon } from 'lucide-react';
+import { AlertCircle, InfoIcon, Lightbulb } from 'lucide-react';
 
 interface ContentPageProps {
     params: Promise<{
@@ -28,7 +28,6 @@ export default async function IntroPage({ params }: ContentPageProps) {
     const nextPath = `/participant/${participantId}/test/${testSlug}/content`
 
     const isFirstRound = testSlug === TestSlugs.PRACTICE
-    const isFirstRealRound = testSlug === TestSlugs.PUSH_NOTIFICATIONS
 
     return (
         <div className="w-full mx-auto flex flex-col items-center max-w-md space-y-4 p-8">
@@ -55,13 +54,6 @@ export default async function IntroPage({ params }: ContentPageProps) {
                         <li>Observe and <strong>interact with the content</strong> (Push Notifications, an Email Inbox, etc.)</li>
                         <li><strong>Answer questions</strong> about the content.</li>
                     </ul>
-                    {isFirstRound && <Alert variant={'destructive'}>
-                        <InfoIcon className="h-4 w-4" />
-                        <AlertTitle>Important</AlertTitle>
-                        <AlertDescription>
-                            You are under no circumstances allowed to "go back", that is to navigate backwards in your web history. Once you have proceeded from the content to the questions, you should not go back again.
-                        </AlertDescription>
-                    </Alert>}
                     <br></br>
 
                     <p className='text-left w-full text-lg font-semibold'>Instructions</p>
@@ -74,6 +66,20 @@ export default async function IntroPage({ params }: ContentPageProps) {
                 <AlertTitle>Note</AlertTitle>
                 <AlertDescription>
                     There is no time limit, but please move at a steady pace.
+                </AlertDescription>
+            </Alert>
+            <Alert variant={'info'}>
+                <Lightbulb className="h-4 w-4" />
+                <AlertTitle>Tip</AlertTitle>
+                <AlertDescription>
+                    You are encouraged to revisit the content as many times as you want when answering questions. Simply do so by going back and forth in your web history.
+                </AlertDescription>
+            </Alert>
+            <Alert variant={'destructive'}>
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Warning</AlertTitle>
+                <AlertDescription>
+                    When you have submitted answers once, you cannot answer and submit them again. Failure to comply will result in an invalid experiment.
                 </AlertDescription>
             </Alert>
             <Button asChild className='max-w-sm w-full md:max-w-sm' size={'lg'}>

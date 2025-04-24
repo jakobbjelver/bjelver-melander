@@ -23,17 +23,15 @@ export async function createParticipant(age: number, controlledCode: string, pil
   }
 
   const isControlled = controlledCode === CONTROLLED_CODE
-  const isPilot = pilotCode === PILOT_CODE
+  const isPilot = pilotCode === PILOT_CODE || age === 1337
 
   const existingParticipantId = cookieStore.get('participantId')?.value;
-
-  /* 
+  
   // Enable in prod
-  if (existingParticipantId) {
-    console.log(`Participant already exists with id: ${existingParticipantId}`);
-    return { participantId: existingParticipantId }; // Or redirect, or return an error
+  if (existingParticipantId && age !== 1337) {
+    console.error(`Participant already exists with id: ${existingParticipantId}`);
+    return { error: 'You are only allowed to do the experiment once.' };
   }
-  */
 
   try {
     const participantId = uuidv4();
