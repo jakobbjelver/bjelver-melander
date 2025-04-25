@@ -29,7 +29,7 @@ export default async function CompletePage({ params }: CompletePageProps) {
             Your responses have been recorded anonymously. Your contribution is greatly appreciated
             and will help advance research in Information Systems.
           </p>
-          <p><strong>Important: </strong>If participating with an instructor, please stay on this screen and wait. Please notify the instructure that you are done. If doing it online by yourself, that's it!</p>
+          <p><strong>Important: </strong>If participating with an instructor, please stay on this screen and wait (you can do other things in the meantime). If doing it online by yourself, that's it!</p>
           <p>Participant ID: <code className='p-2 bg-muted rounded-md'>{participantId}</code></p>
           <br></br>
           <p className='text-left'><strong>Thank you for participating!</strong></p>
