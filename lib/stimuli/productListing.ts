@@ -319,44 +319,32 @@ export function summarizeProducts(items: ProductItem[]): ProductProgrammaticSumm
   };
 }
 
-export const productListingTests: Question[] = [
-  {
-    id: "product-listing_accuracy",
-    text: "Considering the audio products listed, if you are looking discounted product, what is generally true?",
-    type: 'multipleChoice',
-    options: [
-      "Only the most expensive audio products are discounted.",
-      "All products are discounted.",
-      "Discounts are only offered on earbuds, not headphones.",
-      "Finding a discounted audio product is unlikely based on this list.",
-      "None of the above",
-      "I don't know"
-    ],
-    multipleCorrectAnswers: false,
-    // Correct Answer Logic: All relevant audio products (1-5) show a discount.
-    // correctAnswerIndex: 1
-  },
-  {
-    id: "product-listing_comprehension",
-    text: "Which of the following general statements are accurate descriptions of the listed audio products?",
-    type: 'multipleChoice',
-    options: [
-      "All the audio items listed are available to buy right now.",
-      "The audio products represent offerings from multiple different brands.",
-      "Every audio product listed is either headphones, earbuds or speakers.",
-      "Information about customer satisfaction (ratings) is provided for all audio items.",
-      "All audio items offer free shipping.",
-      "None of the above",
-      "I don't know"
-    ],
-    multipleCorrectAnswers: true,
-    // Correct Answer Logic (Relevant Items 1-5):
-    // 0: True (inStock is true for all).
-    // 1: True (AudioTech, BassKing, SoundMaster, FitTech, SafeSound).
-    // 2: False (All are headphones or earbuds, NOT speakers).
-    // 3: True (All have ratings).
-    // 4: False (SportFit does not have free shipping).
-    // 5: False.
-    // correctAnswerIndices: [0, 1, 3]
-  }
+export const productListingTests: Question[] = [ // GOOD!
+    {
+        id: `product-listing_accuracy`,
+        text: "Considering the listed products, what makes this e-commerce store stand out?",
+        type: 'multipleChoice',
+        options: [
+            "Free shipping on all items", // Incorrect because focusing only on price ignores features, reviews, and suitability which are key aspects presented in the data.
+            "All items are discounted", // Correct because the data presents a variety of items with differing features, prices, and target users, making exploring this range the most effective way to find a suitable match based on the provided information.
+            "Low customer ratings on some items", // Incorrect because while review count is provided, focusing solely on this metric ignores other crucial information like features, price, and suitability for purpose presented in the data.
+            "They sell from a wide variety of product categories",
+            "None of the above",
+            "I don't know"
+        ],
+        multipleCorrectAnswers: false,
+    },
+    {
+        id: `product-listing_comprehension`,
+        text: "Based on an overview of the relevant items, what characteristics are generally true?",
+        type: 'multipleChoice',
+        options: [
+            "They serve a similar core function", // Correct because all the relevant items are personal audio output devices (headphones/earbuds).
+            "They have a wide range of differing features", // Correct because the relevant items show variation in features like noise cancellation, water resistance, battery life, design, and target user group.
+            "They are all offered at a discount", // Correct because all the relevant items listed have a discount percentage indicated compared to an original price.
+            "None of the above", // Incorrect because at least one of the statements is true based on the relevant data.
+            "I don't know"
+        ],
+        multipleCorrectAnswers: true,
+    }
 ];

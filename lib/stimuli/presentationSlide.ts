@@ -323,35 +323,33 @@ export function summarizeSlides(
     };
 }
 
-export const presentationSlideTests: Question[] = [
-    {
-      id: "presentation-slide_accuracy",
-      text: "After reviewing the company's presentation, which of the following best supports their stated priorities?",
-      type: 'multipleChoice',
-      options: [
-        "Advance the outlined growth and innovation initiatives",
-        "Reassess detailed revenue segmentation before deciding",
-        "Concentrate resources on a single business area",
-        "Hold off on new strategies pending market changes",
-        "None of the above",
-        "I don't know"
-      ],
-      multipleCorrectAnswers: false,
-      // correctAnswerIndex: 0
-    },
-    {
-      id: "presentation-slide_comprehension",
-      text: "Which option best captures the overall emphasis of the slides?",
-      type: 'multipleChoice',
-      options: [
-        "A detailed review of past milestones without future outlook",
-        "A technical deep dive into the product ecosystem only",
-        "A focus on corporate social responsibility outcomes",
-        "An upward revenue forecast and strategic next actions",
-        "None of the above",
-        "I don't know"
-      ],
-      multipleCorrectAnswers: true,
-      // correctAnswerIndices: [3]
-    }
-  ];
+export const presentationSlideTests: Question[] = [ // GOOD!
+  {
+    id: "presentation-slide_accuracy",
+    text: "Based on the company’s overall performance and future outlook, which decision best supports continuing its growth trajectory?",
+    type: 'multipleChoice',
+    options: [
+      "Enhance core technology offerings", // Correct because the overview emphasizes investing in technology capabilities to drive growth.
+      "Diversify product investments", // Incorrect because the data focuses on deepening existing strengths over broad diversification.
+      "Expand geographical reach", // Incorrect because while growth in regions was noted, the priority was on capability expansion.
+      "Get rid of non-core assets", // Incorrect because divestment was not indicated as a strategy.
+      "None of the above",
+      "I don't know"
+    ],
+    multipleCorrectAnswers: false,
+  },
+  {
+    id: "presentation-slide_comprehension",
+    text: "Which forward-looking elements were included in the overview?",
+    type: 'multipleChoice',
+    options: [
+      "Projected revenue growth", // Correct because future quarters’ revenue forecast was presented.
+      "Targets for operating margin", // Correct because improving margin by a target was listed as an initiative.
+      "Plans for dividend increase", // Incorrect (purely made-up).
+      "Workforce growth projections", // Incorrect (purely made-up).
+      "None of the above",
+      "I don't know"
+    ],
+    multipleCorrectAnswers: true,
+  }
+];

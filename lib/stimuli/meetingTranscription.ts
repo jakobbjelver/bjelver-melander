@@ -238,36 +238,35 @@ export function summarizeTranscripts(
     };
 }
 
-export const meetingTranscriptTests: Question[] = [
+
+export const meetingTranscriptTests: Question[] = [ // GOOD!
     {
         id: "meeting-transcription_accuracy",
-        text: "What primary course of action did the team agree on during the meeting?",
+        text: "Based on the discussion, what was the main strategic decision made regarding the focus for the upcoming product release?",
         type: 'multipleChoice',
         options: [
-            "Develop and test new experimental features",
-            "Extend the project timeline significantly",
-            "Prioritize core functionality and performance improvements",
-            "Outsource development to third-party vendors",
+            "Prioritize adding new features to the release to respond to customer demands.", // Incorrect because the data shows the complex feature was postponed.
+            "Focus on marketing to reach out to potential customers.", // Incorrect because while performance was discussed, other improvements (UI/notifications) were also prioritized.
+            "Refine and improve existing core user experiences and address known technical problems.", // Correct because the consensus was to focus on dashboard redesign, notification improvements, and performance fixes, while postponing a new complex feature.
+            "Initiate planning new product lines.", // Incorrect, this action is not supported by the data (made up).
             "None of the above",
             "I don't know"
         ],
         multipleCorrectAnswers: false,
-        // correctAnswerIndex: 2
     },
     {
         id: "meeting-transcription_comprehension",
-        text: "Which of the following statements accurately reflect the discussion's outcomes?",
+        text: "Which types of product improvements were decided upon for inclusion in the next release phase?",
         type: 'multipleChoice',
         options: [
-            "The team decided to delay less critical features",
-            "They chose to focus on performance and core functionality",
-            "Responsibilities for follow-up tasks were assigned to team members",
-            "A target timeframe for the next release was mentioned",
-            "A complete overhaul of the project plan was agreed upon",
+            "Implementing a complex new shared workspace feature.", // Incorrect because the data indicates this was postponed.
+            "Improvements to user-facing elements.", // Correct because the data mentions focusing on dashboard redesign and the notification system.
+            "Establishing new external vendor partnerships.", // Incorrect, this is not supported by the data (made up).
+            "Resolving technical performance issues.", // Correct because the data explicitly discusses addressing performance bottlenecks as a priority.
+            "Planning future marketing campaigns.", // Incorrect because marketing planning was not the subject of the release scope decisions in the data (made up).
             "None of the above",
             "I don't know"
         ],
         multipleCorrectAnswers: true,
-        // correctAnswerIndices: [0, 1, 2, 3]
     }
 ];

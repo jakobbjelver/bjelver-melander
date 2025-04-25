@@ -315,38 +315,64 @@ export const emailAISummaryShorter: EmailAISummary = {
     irrelevantCount: 1
 }
 
-export const emailInboxTests: Question[] = [
+export const emailInboxTests: Question[] = [ // GOOD
     {
-        id: "email-inbox_accuracy",
-        text: "Based on the email inbox, which task should you prioritize to complete today?",
+      id: "email-inbox_accuracy",
+      text: "Looking at these messages, what action should be the most prioritized?",
+      type: "multipleChoice",
+      options: [
+        "Review and give feedback on the legal team's contract", // Correct because data shows some messages require a response by specific dates
+        "Approve or decline the deadline extension request", // Incorrect because it ignores pending action items
+        "Send the expense report to your colleague", // Incorrect because it’s unrelated to current tasks (made up)
+        "Allocate time for the mandatory compliance training session", // Incorrect because not indicated in the data
+        "None of the above",
+        "I don't know"
+      ],
+      multipleCorrectAnswers: false
+    },
+    {
+      id: "email-inbox_comprehension",
+      text: "Which of the following statements accurately describe aspects of the messages list shown?",
+      type: "multipleChoice",
+      options: [
+        "Some messages include attached files that need review", // Correct because data lists messages with hasAttachment = true
+        "Some messages do not include attachments and can be handled without opening files", // Correct because other messages have hasAttachment = false
+        "Every message is unread", // Incorrect because several are marked as read
+        "All messages can be processed without opening files", // Incorrect because at least some have attachments
+        "None of the above",
+        "I don't know"
+      ],
+      multipleCorrectAnswers: true
+    }
+  ];
+
+export const testSlugTests: Question[] = [
+    {
+        id: "testSlug_accuracy",
+        text: "Question",
         type: 'multipleChoice',
         options: [
-            "Extend the deadline for the Henderson project",
-            "Prepare for the HR training session",
-            "Review and provide feedback on the revised contract",
-            "Check your approved expense report details",
-            "Review the updated Q3 Marketing Strategy document",
+            "Option 1",
+            "Option 2", // Incorrect because...
+            "Option 3", // Correct because...
+            "Option 4",
             "None of the above",
             "I don't know"
         ],
         multipleCorrectAnswers: false,
-        // correctAnswerIndex: 2  // The contract review is needed by EOD today
     },
     {
-        id: "email-inbox_comprehension",
-        text: "Which of the following statements are accurate based on your email inbox?",
+        id: "testSlug_comprehension",
+        text: "Question?",
         type: 'multipleChoice',
         options: [
-            "You have a mandatory training session to attend tomorrow",
-            "Sarah Johnson has requested an extension for a project deadline",
-            "Your expense report has been rejected and needs revision",
-            "You need to provide feedback on a contract by the end of today",
-            "You have an upcoming flight to Boston",
-            "All your emails have been read",
+            "Option 1",
+            "Option 2", // Incorrect because
+            "Option 3",
+            "Option 4", // Correct because...
             "None of the above",
             "I don't know"
         ],
         multipleCorrectAnswers: true,
-        // correctAnswerIndices: [0, 1, 3]  // Training, extension request, and contract feedback are accurate
     }
 ];

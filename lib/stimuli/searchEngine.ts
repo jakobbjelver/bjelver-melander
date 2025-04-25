@@ -271,37 +271,33 @@ export const searchResultsAISummaryShorter: SearchAISummary = {
   multimediaIncluded: true
 };
 
-export const searchEngineTests: Question[] = [
+export const searchEngineTests: Question[] = [ // GOOD!
   {
-    id: "search-engine_accuracy", // Kept the original ID
-    text: "Based on the general types of relevant resources listed, which type of resources are the most prevalent??", // Actionable decision: Guides user on what kind of format to expect/seek. Focuses on the GIST of formats.
+    id: "search-engine_accuracy",
+    text: "To get the most out of this search result, which medium should you prioritize consuming?",
     type: 'multipleChoice',
     options: [
-      "Activist campaigns and protests", // Incorrect based on data, but plausible without it
-      "Interactive data visualizations.", // Plausible (Item 2 exists) but not primary
-      "Explanatory articles and video lectures.", // Correct GIST (Items 1, 3, 5 are the most numerous types)
-      "Personal blogs and opinion essays.", // Incorrect based on data, but plausible without it
-      "Travel guides focusing on climate zones.", // Incorrect based on data (irrelevant), but plausible without it
-      "None of the above",
-      "I don't know" // Retained as per original structure, though not explicitly requested for revision.
+      "Interactive experiences",         // Incorrect: fewer interactive items exist than text.
+      "Video lectures",                  // Incorrect: only one video item is present.
+      "Images and infographics",          // Incorrect: summaries are only one part of the mix.
+      "Written articles",            // Correct: written formats make up the majority of items.
+      "None of the above",                       // Incorrect: one option clearly matches the data.
+      "I don't know"                             // Incorrect: the dataset indicates a clear majority.
     ],
     multipleCorrectAnswers: false,
-    // correctAnswerIndex: 2 // Option C reflects the main types in relevant data (articles, video)
   },
   {
-    id: "search-engine_comprehension", // Kept the original ID
-    text: "Which general themes related to climate change appear to be covered across the relevant search results?", // Comprehension/Memory: Tests recall of topics covered in the relevant items.
+    id: "search-engine_comprehension",
+    text: "Which of these characteristics accurately describe this collection of resources?",
     type: 'multipleChoice',
     options: [
-      "Historical weather patterns before the industrial revolution.", // Plausible topic, but not explicitly covered in relevant snippets
-      "The observable effects and impacts.", // Covered (Item 2)
-      "Debates on climate change's actual impact.", // NOOO (Item 3)
-      "Findings from major climate research bodies.", // Covered (Item 4)
-      "The basic definition and science of climate change.", // Covered (Item 1, 5)
-      "None of the above",
-      "I don't know" // Retained as per original structure.
+      "Varied content formats",                  // Correct: includes articles, report, interactive, video.
+      "Different update schedules",              // Correct: some items update regularly, others have fixed dates.
+      "Uniform publisher type",                  // Incorrect: resources come from multiple organizations.
+      "Audio-only interviews",                   // Incorrect: no purely audio resources are listed. (imagined)
+      "None of the above",                       // Incorrect: at least two characteristics do apply.
+      "I don't know"                             // Incorrect: the data clearly shows multiple traits.
     ],
     multipleCorrectAnswers: true,
-    // correctAnswerIndices: [1, 3, 4] // Options B, D, E reflect themes
   }
 ];

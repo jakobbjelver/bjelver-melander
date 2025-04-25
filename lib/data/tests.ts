@@ -9,6 +9,7 @@ import { presentationSlideTests } from '../stimuli/presentationSlide';
 import { productListingTests } from '../stimuli/productListing';
 import { searchEngineTests } from '../stimuli/searchEngine';
 import { practiceTests } from '../stimuli/practice';
+import { emailInboxTests } from '../stimuli/emailInbox';
 
 export type SourceOrder = keyof typeof sourceOrderMappings; // Type: 1 | 2 | 3 | 4 | 5 | 6
 
@@ -115,7 +116,7 @@ export function assignContentLengthAndSourceOrder(): {
 
 const specificTestQuestions: { [key in TestSlugs]: Question[] } = {
     [TestSlugs.PUSH_NOTIFICATIONS]: pushNotificationsTests,
-    [TestSlugs.EMAIL_INBOX]: pushNotificationsTests,
+    [TestSlugs.EMAIL_INBOX]: emailInboxTests,
     [TestSlugs.MEETING_TRANSCRIPTION]: meetingTranscriptTests,
     [TestSlugs.PRESENTATION_SLIDE]: presentationSlideTests,
     [TestSlugs.PRODUCT_LISTING]: productListingTests,

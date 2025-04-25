@@ -321,38 +321,34 @@ export const notificationAISummaryShorter: NotificationAISummary = {
   summaryText: "You have 5 notifications, 4 of which are unread and 2 marked as high priority. Upcoming events include a team sync in 15 minutes and Alex’s birthday tomorrow. A flash flood warning is active until 8 PM. Don’t forget to confirm your meeting time with Sarah."
 };
 
-export const pushNotificationsTests: Question[] = [
+export const pushNotificationsTests: Question[] = [ // GOOD!
   {
-    id: `push-notifications_accuracy`, // Original ID kept
-    text: "Based on your notifications, what requires your immediate attention and response?",
+    id: "push-notifications_accuracy",
+    text: "Based on the types of items shown, what category of information might be important to consider first?",
     type: 'multipleChoice',
     options: [
-      "Respond to Sarah about tomorrow’s meeting time",
-      "Check that your food delivery arrived correctly",
-      "Prepare for potential flooding in your area",
-      "Buy a birthday gift for Alex",
-      "Prepare for the team meeting",
-      "None of the above",
-      "I don't know"
+      "Information about social happenings.", // Incorrect because there are no relevant entertainment items in the data. This option is purely made up.
+      "Information related to weather alerts.", // Correct because there is a high-priority weather alert in the relevant data, suggesting it might warrant early attention.
+      "Information about system status.", // Incorrect because relevant data does not include system status items. Any system items in the original full data were flagged as irrelevant.
+      "Information about order deliveries.", // Incorrect because there are no items related to shopping in the relevant data. This option is purely made up.
+      "None of the above", // Incorrect because there is a correct option available based on the data.
+      "I don't know" // Incorrect because the answer can be determined from the data provided.
     ],
     multipleCorrectAnswers: false,
-    // correctAnswerIndex: 4  // The team meeting is highest priority and most imminent
   },
   {
-    id: `push-notifications_comprehension`, // Original ID kept
-    text: "Which of the following statements are accurate based on your notifications?",
+    id: "push-notifications_comprehension",
+    text: "Based on the items shown, which of the following statements are true? (Select all that apply)",
     type: 'multipleChoice',
     options: [
-      "You have an upcoming meeting with a team member named Sarah",
-      "Your phone battery is critically low",
-      "There is a severe weather alert active in your area",
-      "Your food order has been delivered",
-      "You have a friend with an upcoming birthday",
-      "You have a system update that needs to be installed",
-      "None of the above",
-      "I don't know"
+      "Some items are related to social activities.", // Correct because there is a birthday reminder related to social activities in the relevant data.
+      "Some items are related to getting things.", // Correct because there is a delivery notification in the relevant data.
+      "Some items indicate a higher level of importance.", // Correct because some items (Meeting Reminder, Weather Alert) are marked with high priority in the relevant data.
+      "All items are about things that have already happened.", // Incorrect because several items (message, reminder, alert, social) are about future or present events.
+      "The items come from only two different sources.", // Incorrect because the relevant data comes from at least five different apps (ChatConnect, Calendar, FoodDelivery, WeatherAlert, SocialConnect).
+      "None of the above", // Incorrect because there are correct options available based on the data.
+      "I don't know" // Incorrect because the answers can be determined from the data provided.
     ],
     multipleCorrectAnswers: true,
-    // correctAnswerIndices: [2, 3, 4]  // Weather alert, food delivery, and birthday are accurate
-  },
+  }
 ];
