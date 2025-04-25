@@ -335,16 +335,26 @@ export const productListingTests: Question[] = [ // GOOD!
         multipleCorrectAnswers: false,
     },
     {
-        id: `product-listing_comprehension`,
-        text: "Based on an overview of the relevant items, what characteristics are generally true?",
-        type: 'multipleChoice',
-        options: [
-            "They serve a similar core function", // Correct because all the relevant items are personal audio output devices (headphones/earbuds).
-            "They have a wide range of differing features", // Correct because the relevant items show variation in features like noise cancellation, water resistance, battery life, design, and target user group.
-            "They are all offered at a discount", // Correct because all the relevant items listed have a discount percentage indicated compared to an original price.
-            "None of the above", // Incorrect because at least one of the statements is true based on the relevant data.
-            "I don't know"
-        ],
+      id: "product-listing_comprehension",
+      text: "Which of the following general statements are accurate descriptions of the listed audio products?",
+      type: 'multipleChoice',
+      options: [
+        "All the audio items listed are available to buy right now.",
+        "The audio products represent offerings from multiple different brands.",
+        "Every audio product listed is either headphones, earbuds or speakers.",
+        "Information about customer satisfaction (ratings) is provided for all audio items.",
+        "All audio items offer free shipping.",
+        "None of the above",
+        "I don't know"
+      ],
         multipleCorrectAnswers: true,
+            // Correct Answer Logic (Relevant Items 1-5):
+    // 0: True (inStock is true for all).
+    // 1: True (AudioTech, BassKing, SoundMaster, FitTech, SafeSound).
+    // 2: False (All are headphones or earbuds, NOT speakers).
+    // 3: True (All have ratings).
+    // 4: False (SportFit does not have free shipping).
+    // 5: False.
+    // correctAnswerIndices: [0, 1, 3]
     }
 ];

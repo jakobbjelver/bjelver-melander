@@ -331,18 +331,21 @@ export const emailInboxTests: Question[] = [ // GOOD
       multipleCorrectAnswers: false
     },
     {
-      id: "email-inbox_comprehension",
-      text: "Which of the following statements accurately describe aspects of the messages list shown?",
-      type: "multipleChoice",
-      options: [
-        "Some messages include attached files that need review", // Correct because data lists messages with hasAttachment = true
-        "Some messages do not include attachments and can be handled without opening files", // Correct because other messages have hasAttachment = false
-        "Every message is unread", // Incorrect because several are marked as read
-        "All messages can be processed without opening files", // Incorrect because at least some have attachments
-        "None of the above",
-        "I don't know"
-      ],
-      multipleCorrectAnswers: true
+        id: "email-inbox_comprehension",
+        text: "Which of the following statements are accurate based on your email inbox?",
+        type: 'multipleChoice',
+        options: [
+            "You have a mandatory training session to attend tomorrow",
+            "Sarah Johnson has requested an extension for a project deadline",
+            "Your expense report has been rejected and needs revision",
+            "You need to provide feedback on a contract by the end of today",
+            "You have an upcoming flight to Boston",
+            "All your emails have been read",
+            "None of the above",
+            "I don't know"
+        ],
+        multipleCorrectAnswers: true,
+        // correctAnswerIndices: [0, 1, 3]  // Training, extension request, and contract feedback are accurate
     }
   ];
 

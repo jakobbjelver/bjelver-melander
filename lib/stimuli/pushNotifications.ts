@@ -324,7 +324,7 @@ export const notificationAISummaryShorter: NotificationAISummary = {
 export const pushNotificationsTests: Question[] = [ // GOOD!
   {
     id: "push-notifications_accuracy",
-    text: "Based on the types of items shown, what category of information might be important to consider first?",
+    text: "Based on the types of items shown, what category of information is the most important to consider first?",
     type: 'multipleChoice',
     options: [
       "Information about social happenings.", // Incorrect because there are no relevant entertainment items in the data. This option is purely made up.
@@ -337,18 +337,20 @@ export const pushNotificationsTests: Question[] = [ // GOOD!
     multipleCorrectAnswers: false,
   },
   {
-    id: "push-notifications_comprehension",
-    text: "Based on the items shown, which of the following statements are true? (Select all that apply)",
+    id: `push-notifications_comprehension`, // Original ID kept
+    text: "Which of the following statements are accurate based on your notifications?",
     type: 'multipleChoice',
     options: [
-      "Some items are related to social activities.", // Correct because there is a birthday reminder related to social activities in the relevant data.
-      "Some items are related to getting things.", // Correct because there is a delivery notification in the relevant data.
-      "Some items indicate a higher level of importance.", // Correct because some items (Meeting Reminder, Weather Alert) are marked with high priority in the relevant data.
-      "All items are about things that have already happened.", // Incorrect because several items (message, reminder, alert, social) are about future or present events.
-      "The items come from only two different sources.", // Incorrect because the relevant data comes from at least five different apps (ChatConnect, Calendar, FoodDelivery, WeatherAlert, SocialConnect).
-      "None of the above", // Incorrect because there are correct options available based on the data.
-      "I don't know" // Incorrect because the answers can be determined from the data provided.
+      "You have an upcoming meeting with a team member named Sarah",
+      "Your phone battery is critically low",
+      "There is a severe weather alert active in your area",
+      "Your food order has been delivered",
+      "You have a friend with an upcoming birthday",
+      "You have a system update that needs to be installed",
+      "None of the above",
+      "I don't know"
     ],
     multipleCorrectAnswers: true,
-  }
+    // correctAnswerIndices: [2, 3, 4]  // Weather alert, food delivery, and birthday are accurate
+  },
 ];
