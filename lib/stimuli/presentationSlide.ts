@@ -339,7 +339,7 @@ export const presentationSlideTests: Question[] = [ // GOOD!
     multipleCorrectAnswers: false,
   },
   {
-    id: "presentation-slide_comprehension",
+    id: "presentation-slide_comprehension", // GOOD
     text: "Which forward-looking elements were included in the overview?",
     type: 'multipleChoice',
     options: [

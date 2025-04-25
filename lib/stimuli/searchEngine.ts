@@ -287,7 +287,7 @@ export const searchEngineTests: Question[] = [ // GOOD!
     multipleCorrectAnswers: false,
   },
   {
-    id: "search-engine_comprehension",
+    id: "search-engine_comprehension", // GOOD
     text: "Which of these characteristics accurately describe this collection of resources?",
     type: 'multipleChoice',
     options: [

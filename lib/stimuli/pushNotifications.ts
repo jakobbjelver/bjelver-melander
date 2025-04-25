@@ -337,20 +337,19 @@ export const pushNotificationsTests: Question[] = [ // GOOD!
     multipleCorrectAnswers: false,
   },
   {
-    id: `push-notifications_comprehension`, // Original ID kept
+    id: `push-notifications_comprehension`, // GOOD
     text: "Which of the following statements are accurate based on your notifications?",
     type: 'multipleChoice',
     options: [
       "You have an upcoming meeting with a team member named Sarah",
-      "Your phone battery is critically low",
       "There is a severe weather alert active in your area",
-      "Your food order has been delivered",
-      "You have a friend with an upcoming birthday",
-      "You have a system update that needs to be installed",
+      "Your order from a clothing store has been delivered",
+      "Your friends wants to plan your birthday",
+      "Your colleague needs your attention",
       "None of the above",
       "I don't know"
     ],
     multipleCorrectAnswers: true,
-    // correctAnswerIndices: [2, 3, 4]  // Weather alert, food delivery, and birthday are accurate
+    // correctAnswerIndices: [0, 1]  // Weather alert, food delivery, and birthday are accurate
   },
 ];

@@ -256,14 +256,14 @@ export const meetingTranscriptTests: Question[] = [ // GOOD!
     },
     {
         id: "meeting-transcription_comprehension",
-        text: "Which types of product improvements were decided upon for inclusion in the next release phase?",
+        text: "Based on the meeting content, which of the following were areas of discussion related to the product or project?",
         type: 'multipleChoice',
         options: [
-            "Implementing a complex new shared workspace feature.", // Incorrect because the data indicates this was postponed.
-            "Improvements to user-facing elements.", // Correct because the data mentions focusing on dashboard redesign and the notification system.
-            "Establishing new external vendor partnerships.", // Incorrect, this is not supported by the data (made up).
-            "Resolving technical performance issues.", // Correct because the data explicitly discusses addressing performance bottlenecks as a priority.
-            "Planning future marketing campaigns.", // Incorrect because marketing planning was not the subject of the release scope decisions in the data (made up).
+            "Reviewing current product features.", // Correct because the discussion included the dashboard, notification system, and collaborative editing feature.
+            "Evaluating the project timeline.", // Correct because the feasibility of the release date was discussed.
+            "Developing a new marketing strategy.", // Incorrect, this topic was not discussed in the provided data (made up).
+            "Negotiating vendor contracts.", // Incorrect, specific contract negotiation was not a discussion topic, although a vendor dependency was mentioned (made up as a main topic).
+            "Addressing technical performance.", // Correct because performance issues were a key topic of discussion.
             "None of the above",
             "I don't know"
         ],

@@ -331,7 +331,7 @@ export const emailInboxTests: Question[] = [ // GOOD
       multipleCorrectAnswers: false
     },
     {
-        id: "email-inbox_comprehension",
+        id: "email-inbox_comprehension", // GOOD
         text: "Which of the following statements are accurate based on your email inbox?",
         type: 'multipleChoice',
         options: [
