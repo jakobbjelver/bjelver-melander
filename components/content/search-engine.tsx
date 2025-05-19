@@ -169,7 +169,7 @@ function ProgrammaticComponent({
   const {
     summary,
     extractive,
-    meta: { totalItems, relevantItems, hasVideoCount, averageCitations, typeCounts, topSources },
+    meta: { totalItems, hasVideoCount, averageCitations, typeCounts, topSources },
   } = contentData
 
   return (

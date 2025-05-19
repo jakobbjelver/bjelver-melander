@@ -120,38 +120,36 @@ export const searchEngineData: SearchResultItem[] = [
 export const searchEngineDataShorter: SearchResultItem[] = filterStimuliByLength(searchEngineData, ContentLengths.Shorter) as SearchResultItem[]
 export const searchEngineDataLonger: SearchResultItem[] = filterStimuliByLength(searchEngineData, ContentLengths.Longer) as SearchResultItem[]
 
-// Dynamically generated (programmatic) summary based on text extraction
+// Programmtically generated summary based on text extraction
+// For Search Engine microcontent
 export function summarizeSearchResults(
   items: SearchResultItem[]
 ): SearchProgrammaticSummary {
-  // 1. Filter out irrelevant results - NOPE
-  const relevant = items;
   const totalItems = items.length;
-  const relevantItems = relevant.length;
 
   // 2. Video count and citation stats
-  const hasVideoCount = relevant.filter(i => i.hasVideo).length;
-  const citationValues = relevant.map(i => i.citations || 0);
-  const averageCitations = relevantItems
+  const hasVideoCount = items.filter(i => i.hasVideo).length;
+  const citationValues = items.map(i => i.citations || 0);
+  const averageCitations = items
     ? parseFloat(
-        (citationValues.reduce((sum, c) => sum + c, 0) / relevantItems).toFixed(1)
+        (citationValues.reduce((sum, c) => sum + c, 0) / totalItems).toFixed(1)
       )
     : 0;
 
   // 3. Count by type
   const typeCounts: Record<string, number> = {};
-  relevant.forEach(i => {
+  items.forEach(i => {
     typeCounts[i.type] = (typeCounts[i.type] || 0) + 1;
   });
 
   // 4. Top sources by citations
-  const topSources = [...relevant]
+  const topSources = [...items]
     .sort((a, b) => (b.citations || 0) - (a.citations || 0))
     .slice(0, 2)
     .map(i => i.source);
 
   // 5. Build TF–IDF on title + snippet
-  const docs = relevant.map(i => `${i.title}. ${i.snippet}`);
+  const docs = items.map(i => `${i.title}. ${i.snippet}`);
   const tfidf = new TfIdf();
   docs.forEach(d => tfidf.addDocument(d));
   const wtok = new WordTokenizer();
@@ -162,7 +160,7 @@ export function summarizeSearchResults(
     stok.tokenize(doc).forEach(sentence => {
       const tokens = wtok.tokenize(sentence.toLowerCase());
       const score = tokens.reduce((s, t) => s + tfidf.tfidf(t, idx), 0);
-      scored.push({ sentence, score, itemId: relevant[idx].id });
+      scored.push({ sentence, score, itemId: items[idx].id });
     });
   });
 
@@ -174,8 +172,8 @@ export function summarizeSearchResults(
   // 7. Compose an abstractive summary
   const parts: string[] = [];
   parts.push(
-    `Found ${relevantItems} relevant search result${
-      relevantItems !== 1 ? 's' : ''
+    `Found ${totalItems} relevant search result${
+      totalItems !== 1 ? 's' : ''
     } across ${Object.keys(typeCounts).length} content types.`
   );
   parts.push(
@@ -191,7 +189,6 @@ export function summarizeSearchResults(
     extractive,
     meta: {
       totalItems,
-      relevantItems,
       hasVideoCount,
       averageCitations,
       typeCounts,

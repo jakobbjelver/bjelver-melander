@@ -113,7 +113,7 @@ function ProgrammaticComponent({ contentData }: { contentData: NotificationProgr
               <p className="text-xs text-muted-foreground">Total</p>
             </div>
             <div>
-              <p className="text-xl font-bold">{meta.relevantItems}</p>
+              <p className="text-xl font-bold">{meta.totalItems}</p>
               <p className="text-xs text-muted-foreground">Relevant</p>
             </div>
             <div>

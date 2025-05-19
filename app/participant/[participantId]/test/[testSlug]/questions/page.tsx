@@ -35,7 +35,7 @@ export default async function QuestionsPage({ params, searchParams }: TestPagePr
     )
   }
 
-  const questions = await getTestQuestions(testSlug)
+  const questions = getTestQuestions(testSlug)
   const saveActionWithStartTime = saveTestResponses.bind(null, startTime, contentSource, contentLength)
 
   return (

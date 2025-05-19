@@ -41,7 +41,7 @@ export default function ProgressBar() {
     const percent = Math.round((step / TOTAL_STEPS) * 100)
 
     return (
-        <div className="container mx-auto px-2 md:px-8 mt-2 flex max-w-sm">
+        percent !== 0 && <div className="container mx-auto px-2 md:px-8 mt-2 flex max-w-sm">
             <Progress value={percent}/>
         </div>
     );

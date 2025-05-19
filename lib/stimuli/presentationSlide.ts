@@ -241,20 +241,18 @@ export const presentationAISummary: SlideAISummary = {
 export function summarizeSlides(
     items: SlideItem[]
 ): SlideProgrammaticSummary {
-    // 1. Filter out irrelevant slides - NOPE
-    const relevant = items;
     const total = items.length;
-    const count = relevant.length;
+    const count = items.length;
 
     // 2. Count slides by type & chart slides
     const slideTypeCounts: Record<string, number> = {};
-    relevant.forEach(s => {
+    items.forEach(s => {
         slideTypeCounts[s.type] = (slideTypeCounts[s.type] || 0) + 1;
     });
-    const chartSlides = relevant.filter(s => !!s.chartType).length;
+    const chartSlides = items.filter(s => !!s.chartType).length;
 
     // 3. Compute average bullets for bullet-point slides
-    const bulletSlides = relevant.filter(
+    const bulletSlides = items.filter(
         s => s.type === 'bullet points' && Array.isArray(s.content)
     );
     const avgBullets =
@@ -264,7 +262,7 @@ export function summarizeSlides(
             : 0;
 
     // 4. Prepare docs for TF–IDF
-    const docs = relevant.map(s => {
+    const docs = items.map(s => {
         let text = s.title + '. ';
         if (typeof s.content === 'string') text += s.content + '. ';
         else if (Array.isArray(s.content)) text += (s.content as string[]).join('. ') + '. ';
@@ -284,7 +282,7 @@ export function summarizeSlides(
         stok.tokenize(doc).forEach(sent => {
             const tokens = wtok.tokenize(sent.toLowerCase());
             const score = tokens.reduce((sum, t) => sum + tfidf.tfidf(t, idx), 0);
-            scored.push({ sentence: sent, score, title: relevant[idx].title });
+            scored.push({ sentence: sent, score, title: items[idx].title });
         });
     });
 
@@ -315,7 +313,6 @@ export function summarizeSlides(
         extractive,
         meta: {
             totalSlides: total,
-            relevantSlides: count,
             slideTypeCounts,
             chartSlides,
             averageBulletPoints: parseFloat(avgBullets.toFixed(1)),
@@ -333,8 +330,8 @@ export const presentationSlideTests: Question[] = [ // GOOD!
       "Diversify product investments", // Incorrect because the data focuses on deepening existing strengths over broad diversification.
       "Expand geographical reach", // Incorrect because while growth in regions was noted, the priority was on capability expansion.
       "Get rid of non-core assets", // Incorrect because divestment was not indicated as a strategy.
-      "None of the above",
-      "I don't know"
+      "None of the above", // Incorrect
+      "I don't know" // Incorrect
     ],
     multipleCorrectAnswers: false,
   },
@@ -347,8 +344,8 @@ export const presentationSlideTests: Question[] = [ // GOOD!
       "Targets for operating margin", // Correct because improving margin by a target was listed as an initiative.
       "Plans for dividend increase", // Incorrect (purely made-up).
       "Workforce growth projections", // Incorrect (purely made-up).
-      "None of the above",
-      "I don't know"
+      "None of the above", // Incorrect
+      "I don't know" // Incorrect
     ],
     multipleCorrectAnswers: true,
   }

@@ -254,22 +254,20 @@ export const productListingDataLonger: ProductItem[] = filterStimuliByLength(pro
 
 // Dynamically generated (programmatic) summary based on text extraction
 export function summarizeProducts(items: ProductItem[]): ProductProgrammaticSummary {
-  // 1. Filter out irrelevant products - NOPE
-  const relevant = items;
-  const inStockCount = relevant.filter(item => item.inStock).length;
-  const freeShippingCount = relevant.filter(item => item.freeShipping).length;
+  const inStockCount = items.filter(item => item.inStock).length;
+  const freeShippingCount = items.filter(item => item.freeShipping).length;
   const averageRating = parseFloat(
-    (relevant.reduce((sum, i) => sum + i.rating, 0) / relevant.length).toFixed(2)
+    (items.reduce((sum, i) => sum + i.rating, 0) / items.length).toFixed(2)
   );
 
   // 2. Count by brand
   const brandCounts: Record<string, number> = {};
-  relevant.forEach(i => {
+  items.forEach(i => {
     brandCounts[i.brand] = (brandCounts[i.brand] || 0) + 1;
   });
 
   // 3. Build TF–IDF over "productName + description"
-  const docs = relevant.map(i => `${i.productName}. ${i.description}`);
+  const docs = items.map(i => `${i.productName}. ${i.description}`);
   const tfidf = new TfIdf();
   docs.forEach(d => tfidf.addDocument(d));
 
@@ -282,7 +280,7 @@ export function summarizeProducts(items: ProductItem[]): ProductProgrammaticSumm
     sentenceTokenizer.tokenize(doc).forEach(sentence => {
       const tokens = wordTokenizer.tokenize(sentence.toLowerCase());
       const score = tokens.reduce((s, term) => s + tfidf.tfidf(term, idx), 0);
-      scoredSentences.push({ sentence, score, itemId: relevant[idx].id });
+      scoredSentences.push({ sentence, score, itemId: items[idx].id });
     });
   });
 
@@ -293,7 +291,7 @@ export function summarizeProducts(items: ProductItem[]): ProductProgrammaticSumm
 
   // 5. Identify top deals by discount & rating
   const parseDiscount = (d: string = "0% off") => parseInt(d.replace("% off", ""), 10);
-  const sortedDeals = [...relevant].sort((a, b) =>
+  const sortedDeals = [...items].sort((a, b) =>
     parseDiscount(b.discount!) - parseDiscount(a.discount!) || b.rating - a.rating
   );
   const topDeals = sortedDeals.slice(0, 2).map(i => `${i.productName} (${i.discount})`);
@@ -301,7 +299,7 @@ export function summarizeProducts(items: ProductItem[]): ProductProgrammaticSumm
   // 6. Build an abstractive-style summary
   const parts: string[] = [];
   parts.push(
-    `We found ${relevant.length} active products with an average rating of ${averageRating}.`
+    `We found ${items.length} active products with an average rating of ${averageRating}.`
   );
   parts.push(`Top deals are ${topDeals.join(" and ")}.`);
 
@@ -310,7 +308,6 @@ export function summarizeProducts(items: ProductItem[]): ProductProgrammaticSumm
     extractive,
     meta: {
       totalItems: items.length,
-      relevantItems: relevant.length,
       inStockCount,
       freeShippingCount,
       averageRating,
@@ -328,9 +325,9 @@ export const productListingTests: Question[] = [ // GOOD!
             "Free shipping on all items", // Incorrect because focusing only on price ignores features, reviews, and suitability which are key aspects presented in the data.
             "All items are discounted", // Correct because the data presents a variety of items with differing features, prices, and target users, making exploring this range the most effective way to find a suitable match based on the provided information.
             "Low customer ratings on some items", // Incorrect because while review count is provided, focusing solely on this metric ignores other crucial information like features, price, and suitability for purpose presented in the data.
-            "They sell from a wide variety of product categories",
-            "None of the above",
-            "I don't know"
+            "They sell from a wide variety of product categories", // Incorrect
+            "None of the above", // Incorrect
+            "I don't know" // Incorrect
         ],
         multipleCorrectAnswers: false,
     },
@@ -339,22 +336,14 @@ export const productListingTests: Question[] = [ // GOOD!
       text: "Which of the following general statements are accurate descriptions of the listed audio products?",
       type: 'multipleChoice',
       options: [
-        "All the audio items listed are available to buy right now.",
-        "The audio products represent offerings from multiple different brands.",
-        "Every audio product listed is either headphones, earbuds or speakers.",
-        "Information about customer satisfaction (ratings) is provided for all audio items.",
-        "All audio items offer free shipping.",
-        "None of the above",
-        "I don't know"
+        "All the audio items listed are available to buy right now.", // Correct
+        "The audio products represent offerings from multiple different brands.", // Correct
+        "Every audio product listed is either headphones, earbuds or speakers.", // Incorrect
+        "Information about customer satisfaction (ratings) is provided for all audio items.", // Correct
+        "All audio items offer free shipping.", // Incorrect
+        "None of the above", // Incorrect
+        "I don't know" // Incorrect
       ],
         multipleCorrectAnswers: true,
-            // Correct Answer Logic (Relevant Items 1-5):
-    // 0: True (inStock is true for all).
-    // 1: True (AudioTech, BassKing, SoundMaster, FitTech, SafeSound).
-    // 2: False (All are headphones or earbuds, NOT speakers).
-    // 3: True (All have ratings).
-    // 4: False (SportFit does not have free shipping).
-    // 5: False.
-    // correctAnswerIndices: [0, 1, 3]
     }
 ];

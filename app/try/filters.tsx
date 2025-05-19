@@ -13,6 +13,7 @@ import {
     ToggleGroupItem,
 } from "@/components/ui/toggle-group"
 import { ContentLengths, ContentSources, TestSlugs } from "@/types/test"
+import { formatString } from "@/lib/utils"
 
 
 
@@ -50,7 +51,7 @@ export function Filters() {
                 <SelectContent>
                     {Object.values(TestSlugs).map((t) => (
                         <SelectItem key={t} value={t}>
-                            {t.toUpperCase()}
+                            {formatString(t)}
                         </SelectItem>
                     ))}
                 </SelectContent>
@@ -62,21 +63,21 @@ export function Filters() {
                 onValueChange={(source) => updateQuery({ source })}
             >
                 {Object.values(ContentSources).map((s) => (
-                    <ToggleGroupItem key={s} value={s}>
-                        {s.toUpperCase()}
+                    <ToggleGroupItem key={s} value={s} className="w-28">
+                        {formatString(s)}
                     </ToggleGroupItem>
                 ))}
             </ToggleGroup>
-
              
                 <ToggleGroup
                     type="single"
                     value={currentLength}
+                    variant={'outline'}
                     onValueChange={(length) => updateQuery({ length })}
                 >
                     {Object.values(ContentLengths).map((l) => (
-                        <ToggleGroupItem key={l} value={l}>
-                            {l.toUpperCase()}
+                        <ToggleGroupItem key={l} value={l} className="w-28">
+                            {formatString(l)}
                         </ToggleGroupItem>
                     ))}
                 </ToggleGroup>

@@ -160,14 +160,11 @@ export const meetingAISummaryShorter: TranscriptAISummary = {
 export function summarizeTranscripts(
     items: TranscriptItem[]
 ): TranscriptProgrammaticSummary {
-    // 1. Filter out irrelevant utterances - NOPE
-    const relevant = items;
     const totalItems = items.length;
-    const relevantItems = relevant.length;
 
     // 2. Count utterances per speaker
     const speakerCounts: Record<string, number> = {};
-    relevant.forEach(i => {
+    items.forEach(i => {
         speakerCounts[i.speaker] = (speakerCounts[i.speaker] || 0) + 1;
     });
 
@@ -176,14 +173,14 @@ export function summarizeTranscripts(
         const [h, m, s] = ts.split(':').map(Number);
         return h * 3600 + m * 60 + s;
     };
-    const sortedByTime = [...relevant].sort(
+    const sortedByTime = [...items].sort(
         (a, b) => parseTime(a.time) - parseTime(b.time)
     );
     const earliestTime = sortedByTime[0]?.time || '';
     const latestTime = sortedByTime[sortedByTime.length - 1]?.time || '';
 
     // 4. Build TF–IDF over speaker + content
-    const docs = relevant.map(i => `${i.speaker}: ${i.content}`);
+    const docs = items.map(i => `${i.speaker}: ${i.content}`);
     const tfidf = new TfIdf();
     docs.forEach(d => tfidf.addDocument(d));
 
@@ -195,7 +192,7 @@ export function summarizeTranscripts(
         stok.tokenize(doc).forEach(sentence => {
             const tokens = wtok.tokenize(sentence.toLowerCase());
             const score = tokens.reduce((sum, t) => sum + tfidf.tfidf(t, idx), 0);
-            scoredSentences.push({ sentence, score, speaker: relevant[idx].speaker, time: relevant[idx].time });
+            scoredSentences.push({ sentence, score, speaker: items[idx].speaker, time: items[idx].time });
         });
     });
 
@@ -214,7 +211,7 @@ export function summarizeTranscripts(
 
     const parts: string[] = [];
     parts.push(
-        `Found ${totalItems} utterances, of which ${relevantItems} ` +
+        `Found ${totalItems} utterances, of which ${totalItems} ` +
         `were relevant, spread across ${numSpeakers} speaker${numSpeakers > 1 ? 's' : ''}.`
     );
     if (top1)
@@ -230,7 +227,6 @@ export function summarizeTranscripts(
         extractive,
         meta: {
             totalItems,
-            relevantItems,
             speakerCounts,
             earliestTime,
             latestTime
@@ -249,8 +245,8 @@ export const meetingTranscriptTests: Question[] = [ // GOOD!
             "Focus on marketing to reach out to potential customers.", // Incorrect because while performance was discussed, other improvements (UI/notifications) were also prioritized.
             "Refine and improve existing core user experiences and address known technical problems.", // Correct because the consensus was to focus on dashboard redesign, notification improvements, and performance fixes, while postponing a new complex feature.
             "Initiate planning new product lines.", // Incorrect, this action is not supported by the data (made up).
-            "None of the above",
-            "I don't know"
+            "None of the above", // Incorrect
+            "I don't know" // Incorrect
         ],
         multipleCorrectAnswers: false,
     },
@@ -264,8 +260,8 @@ export const meetingTranscriptTests: Question[] = [ // GOOD!
             "Developing a new marketing strategy.", // Incorrect, this topic was not discussed in the provided data (made up).
             "Negotiating vendor contracts.", // Incorrect, specific contract negotiation was not a discussion topic, although a vendor dependency was mentioned (made up as a main topic).
             "Addressing technical performance.", // Correct because performance issues were a key topic of discussion.
-            "None of the above",
-            "I don't know"
+            "None of the above", // Incorrect
+            "I don't know" // Incorrect
         ],
         multipleCorrectAnswers: true,
     }

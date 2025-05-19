@@ -200,7 +200,7 @@ function EmailInboxProgrammaticComponent({
   contentData: EmailProgrammaticSummary
 }) {
   const { summary, extractive, meta } = contentData
-  const { unreadCount, highPriorityCount, attachmentCount, folderCounts, totalItems, relevantItems } = meta
+  const { unreadCount, highPriorityCount, attachmentCount, folderCounts, totalItems } = meta
 
   return (
     <div className="space-y-4">

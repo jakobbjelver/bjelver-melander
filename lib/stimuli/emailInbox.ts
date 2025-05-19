@@ -151,23 +151,21 @@ export const emailInboxDataLonger: EmailItem[] = filterStimuliByLength(emailInbo
 
 // Dynamically generated (programmatic) summary based on text extraction
 export function summarizeEmails(items: EmailItem[]): EmailProgrammaticSummary {
-    // 1. Filter out irrelevant emails - NOPE
-    const relevant = items;
     const totalItems = items.length;
 
     // 2. Compute simple stats
-    const unread = relevant.filter(e => !e.read);
-    const highPriority = relevant.filter(e => e.priority === 'high');
-    const withAttachment = relevant.filter(e => e.hasAttachment);
+    const unread = items.filter(e => !e.read);
+    const highPriority = items.filter(e => e.priority === 'high');
+    const withAttachment = items.filter(e => e.hasAttachment);
 
     // 3. Count by folder
     const folderCounts: Record<string, number> = {};
-    relevant.forEach(e => {
+    items.forEach(e => {
         folderCounts[e.folder] = (folderCounts[e.folder] || 0) + 1;
     });
 
     // 4. Build TF–IDF on subject + preview
-    const docs = relevant.map(e => `${e.subject}. ${e.preview}`);
+    const docs = items.map(e => `${e.subject}. ${e.preview}`);
     const tfidf = new TfIdf();
     docs.forEach(d => tfidf.addDocument(d));
     const wtok = new WordTokenizer();
@@ -179,7 +177,7 @@ export function summarizeEmails(items: EmailItem[]): EmailProgrammaticSummary {
         stok.tokenize(doc).forEach(sentence => {
             const tokens = wtok.tokenize(sentence.toLowerCase());
             const score = tokens.reduce((sum, t) => sum + tfidf.tfidf(t, idx), 0);
-            allSentences.push({ sentence, score, itemId: relevant[idx].id });
+            allSentences.push({ sentence, score, itemId: items[idx].id });
         });
     });
 
@@ -217,7 +215,6 @@ export function summarizeEmails(items: EmailItem[]): EmailProgrammaticSummary {
         extractive,
         meta: {
             totalItems,
-            relevantItems: 5,
             unreadCount: unread.length,
             highPriorityCount: highPriority.length,
             attachmentCount: withAttachment.length,
@@ -317,37 +314,37 @@ export const emailAISummaryShorter: EmailAISummary = {
 
 export const emailInboxTests: Question[] = [ // GOOD
     {
-      id: "email-inbox_accuracy",
-      text: "Looking at these messages, what action should be the most prioritized?",
-      type: "multipleChoice",
-      options: [
-        "Review and give feedback on the legal team's contract", // Correct because data shows some messages require a response by specific dates
-        "Approve or decline the deadline extension request", // Incorrect because it ignores pending action items
-        "Send the expense report to your colleague", // Incorrect because it’s unrelated to current tasks (made up)
-        "Allocate time for the mandatory compliance training session", // Incorrect because not indicated in the data
-        "None of the above",
-        "I don't know"
-      ],
-      multipleCorrectAnswers: false
+        id: "email-inbox_accuracy",
+        text: "Looking at these messages, what action should be the most prioritized?",
+        type: "multipleChoice",
+        options: [
+            "Review and give feedback on the legal team's contract", // Correct because data shows some messages require a response by specific dates
+            "Approve or decline the deadline extension request", // Incorrect because it ignores pending action items
+            "Send the expense report to your colleague", // Incorrect because it’s unrelated to current tasks (made up)
+            "Allocate time for the mandatory compliance training session", // Incorrect because not indicated in the data
+            "None of the above", // Incorrect
+            "I don't know" // Incorrect
+        ],
+        multipleCorrectAnswers: false
     },
     {
         id: "email-inbox_comprehension", // GOOD
         text: "Which of the following statements are accurate based on your email inbox?",
         type: 'multipleChoice',
         options: [
-            "You have a mandatory training session to attend tomorrow",
-            "Sarah Johnson has requested an extension for a project deadline",
-            "Your expense report has been rejected and needs revision",
-            "You need to provide feedback on a contract by the end of today",
-            "You have an upcoming flight to Boston",
-            "All your emails have been read",
-            "None of the above",
-            "I don't know"
+            "You have a mandatory training session to attend tomorrow", // Correct
+            "Sarah Johnson has requested an extension for a project deadline", // Correct
+            "Your expense report has been rejected and needs revision", // Incorrect
+            "You need to provide feedback on a contract by the end of today", // Correct
+            "You have an upcoming flight to Boston", // Incorrect
+            "All your emails have been read", // Incorrect
+            "None of the above", // Incorrect
+            "I don't know" // Incorrect
         ],
         multipleCorrectAnswers: true,
         // correctAnswerIndices: [0, 1, 3]  // Training, extension request, and contract feedback are accurate
     }
-  ];
+];
 
 export const testSlugTests: Question[] = [
     {

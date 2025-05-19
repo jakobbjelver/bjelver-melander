@@ -201,7 +201,7 @@ function AIComponent({ contentData }: { contentData: TranscriptAISummary }) {
 
 function ProgrammaticComponent({ contentData }: { contentData: TranscriptProgrammaticSummary }) {
   const { summary, extractive, meta } = contentData;
-  const { totalItems, relevantItems, speakerCounts, earliestTime, latestTime } = meta;
+  const { totalItems, speakerCounts, earliestTime, latestTime } = meta;
 
   const barData = Object.entries(speakerCounts).map(([speaker, count], index) => ({
     count: count,
@@ -266,9 +266,9 @@ function ProgrammaticComponent({ contentData }: { contentData: TranscriptProgram
             <Separator />
             <div className="flex justify-between my-2 text-sm">
               <span>Relevant</span>
-              <span>{relevantItems}/{totalItems}</span>
+              <span>{totalItems}/{totalItems}</span>
             </div>
-            <Progress value={(relevantItems / totalItems) * 100} className="h-2" />
+            <Progress value={(totalItems / totalItems) * 100} className="h-2" />
           </CardContent>
         </Card>
         <Card>

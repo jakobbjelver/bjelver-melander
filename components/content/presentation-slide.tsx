@@ -431,7 +431,7 @@ export function ProgrammaticComponent({
               </Badge>
               <Badge className='text-base border h-10 justify-between' variant={'outline'}>
                 Relevant
-                <Badge className='rounded-full' variant={'secondary'}> {meta.relevantSlides}</Badge>
+                <Badge className='rounded-full' variant={'secondary'}> {meta.totalSlides}</Badge>
               </Badge>
               <Badge className='text-base border h-10 justify-between' variant={'outline'}>
                 Charts

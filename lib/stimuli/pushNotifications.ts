@@ -169,19 +169,17 @@ export const pushNotificationsDataLonger: NotificationItem[] = filterStimuliByLe
 
 // Dynamically generated (programmatic) summary based on text extraction
 export function summarizeNotifications(items: NotificationItem[]): NotificationProgrammaticSummary {
-  // Filter out irrelevant notifications - NOPE
-  const relevant = items;
-  const unread = relevant.filter(item => item.unread);
-  const high = relevant.filter(item => item.priority === 'high');
+  const unread = items.filter(item => item.unread);
+  const high = items.filter(item => item.priority === 'high');
 
   // Count by category
   const categories: Record<string, number> = {};
-  relevant.forEach(item => {
+  items.forEach(item => {
     categories[item.category] = (categories[item.category] || 0) + 1;
   });
 
   // Prepare documents for TF-IDF
-  const docs = relevant.map(item => `${item.title}. ${item.message}.`);
+  const docs = items.map(item => `${item.title}. ${item.message}.`);
   const tfidf = new TfIdf();
   docs.forEach(doc => tfidf.addDocument(doc));
 
@@ -197,7 +195,7 @@ export function summarizeNotifications(items: NotificationItem[]): NotificationP
     sentences.forEach(sentence => {
       const tokens = wordTokenizer.tokenize(sentence.toLowerCase());
       const score = tokens.reduce((sum, term) => sum + tfidf.tfidf(term, idx), 0);
-      scoredSentences.push({ sentence, score, itemId: relevant[idx].id });
+      scoredSentences.push({ sentence, score, itemId: items[idx].id });
     });
   });
 
@@ -216,7 +214,7 @@ export function summarizeNotifications(items: NotificationItem[]): NotificationP
   };
 
   // Sort by priority then timestamp
-  const sortedRelevant = [...relevant].sort((a, b) => {
+  const sortedRelevant = [...items].sort((a, b) => {
     const pMap = { high: 2, medium: 1, low: 0 };
     if (pMap[b.priority] !== pMap[a.priority]) {
       return pMap[b.priority] - pMap[a.priority];
@@ -243,7 +241,6 @@ export function summarizeNotifications(items: NotificationItem[]): NotificationP
     extractive,
     meta: {
       totalItems: items.length,
-      relevantItems: relevant.length,
       unreadCount: unread.length,
       highPriorityCount: high.length,
       categories
@@ -257,7 +254,6 @@ export const notificationAISummaryLonger: NotificationAISummary = {
   totalItems: 10,
   unreadCount: 4,
   highPriorityCount: 2,
-  relevantItems: 4,
   categoryBreakdown: {
     message: 1,
     reminder: 1,
@@ -294,7 +290,6 @@ export const notificationAISummaryShorter: NotificationAISummary = {
   totalItems: 5,
   unreadCount: 4,
   highPriorityCount: 2,
-  relevantItems: 4,
   categoryBreakdown: {
     message: 1,
     reminder: 1,
@@ -341,15 +336,14 @@ export const pushNotificationsTests: Question[] = [ // GOOD!
     text: "Which of the following statements are accurate based on your notifications?",
     type: 'multipleChoice',
     options: [
-      "You have an upcoming meeting with a team member named Sarah",
-      "There is a severe weather alert active in your area",
-      "Your order from a clothing store has been delivered",
-      "Your friends wants to plan your birthday",
-      "Your colleague needs your attention",
-      "None of the above",
-      "I don't know"
+      "You have an upcoming meeting with a team member named Sarah", // Correct
+      "There is a severe weather alert active in your area", // Correct
+      "Your order from a clothing store has been delivered", // Incorrect
+      "Your friends wants to plan your birthday", // Incorrect
+      "Your colleague needs your attention", // Incorrect
+      "None of the above", // Incorrect
+      "I don't know" // Incorrect
     ],
     multipleCorrectAnswers: true,
-    // correctAnswerIndices: [0, 1]  // Weather alert, food delivery, and birthday are accurate
   },
 ];

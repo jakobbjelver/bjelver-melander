@@ -42,7 +42,6 @@ export interface EmailProgrammaticSummary {
   extractive: Array<{ sentence: string; score: number; itemId: number }>;
   meta: {
     totalItems: number;
-    relevantItems: number;
     unreadCount: number;
     highPriorityCount: number;
     attachmentCount: number;
@@ -78,7 +77,6 @@ export interface TranscriptProgrammaticSummary {
   extractive: Array<{ sentence: string; score: number; time: string, speaker: string }>;
   meta: {
     totalItems: number;
-    relevantItems: number;
     speakerCounts: { [speaker: string]: number };
     earliestTime: string;
     latestTime: string;
@@ -139,7 +137,6 @@ export interface SlideProgrammaticSummary {
   extractive: Array<{ sentence: string; score: number; title: string }>;
   meta: {
     totalSlides: number;
-    relevantSlides: number;
     slideTypeCounts: { [type: string]: number };
     chartSlides: number;
     averageBulletPoints: number;
@@ -199,7 +196,6 @@ export interface ProductProgrammaticSummary {
   extractive: Array<{ sentence: string; score: number; itemId: number }>;
   meta: {
     totalItems: number;
-    relevantItems: number;
     inStockCount: number;
     freeShippingCount: number;
     averageRating: number;
@@ -213,7 +209,6 @@ export interface NotificationAISummary {
   totalItems: number
   unreadCount: number
   highPriorityCount: number
-  relevantItems: number
   categoryBreakdown: {
     message: number
     reminder: number
@@ -254,7 +249,6 @@ export interface NotificationProgrammaticSummary {
   extractive: Array<{ sentence: string; score: number; itemId: number }>;
   meta: {
     totalItems: number;
-    relevantItems: number;
     unreadCount: number;
     highPriorityCount: number;
     categories: { [category: string]: number };
@@ -303,7 +297,6 @@ export interface SearchProgrammaticSummary {
   extractive: Array<{ sentence: string; score: number; itemId: number }>;
   meta: {
     totalItems: number;
-    relevantItems: number;
     hasVideoCount: number;
     averageCitations: number;
     typeCounts: { [type: string]: number };

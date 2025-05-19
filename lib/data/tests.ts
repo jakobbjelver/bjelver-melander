@@ -63,7 +63,7 @@ export function getTestContent(testSlug: TestSlugs, source: ContentSources, leng
     return stimuli[testSlug][source][length]
 }
 
-export async function getTestQuestions(testSlug: TestSlugs): Promise<Question[]> {
+export function getTestQuestions(testSlug: TestSlugs): Question[] {
 
     const specificQuestions = specificTestQuestions[testSlug];
 
@@ -127,6 +127,6 @@ const specificTestQuestions: { [key in TestSlugs]: Question[] } = {
 
 const commonTestQuestions: Question[] = [
     { id: 'confidence', text: 'How confident are you in your above answers?', type: 'likert7', options: ['Very confident', '', '', '', '', '', 'Very insecure'] },
-    { id: 'satisfaction', text: 'How sufficient did you find the infromation presented in order to answer to the above questions?', type: 'likert7', options: ['Very sufficient', '', '', '', '', '', 'Very insufficient'] },
+    { id: 'satisfaction', text: 'How sufficient did you find the information presented in order to answer to the above questions?', type: 'likert7', options: ['Very sufficient', '', '', '', '', '', 'Very insufficient'] },
     { id: 'effort', text: 'How mentally demanding did you find answering the above questions to be?', type: 'likert7', options: ['Very demanding', '', '', '', '', '', 'Very effortless'] },
 ];
