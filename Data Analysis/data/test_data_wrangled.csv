@@ -1,0 +1,661 @@
+test_slug,participant_id,id,response_value,length,source,reaction_time,question,is_mobile,age
+email-inbox,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1881,Review and give feedback on the legal team's contract,longer,ai,111234,accuracy,False,25
+email-inbox,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1882-1883-1884,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline', 'You need to provide feedback on a contract by the end of today']",longer,ai,111234,comprehension,False,25
+email-inbox,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1885,4,longer,ai,111234,confidence,False,25
+email-inbox,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1887,5,longer,ai,111234,effort,False,25
+email-inbox,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1886,3,longer,ai,111234,satisfaction,False,25
+meeting-transcription,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,2055,Refine and improve existing core user experiences and address known technical problems.,longer,original,232540,accuracy,False,25
+meeting-transcription,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,2056-2057,"['Reviewing current product features.', 'Addressing technical performance.']",longer,original,232540,comprehension,False,25
+meeting-transcription,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,2058,3,longer,original,232540,confidence,False,25
+meeting-transcription,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,2060,5,longer,original,232540,effort,False,25
+meeting-transcription,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,2059,3,longer,original,232540,satisfaction,False,25
+presentation-slide,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,2100,I don't know,longer,original,129922,accuracy,False,25
+presentation-slide,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,2101,Projected revenue growth,longer,original,129922,comprehension,False,25
+presentation-slide,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,2102,5,longer,original,129922,confidence,False,25
+presentation-slide,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,2104,2,longer,original,129922,effort,False,25
+presentation-slide,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,2103,4,longer,original,129922,satisfaction,False,25
+product-listing,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1961,None of the above,longer,ai,122481,accuracy,False,25
+product-listing,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1962,None of the above,longer,ai,122481,comprehension,False,25
+product-listing,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1963,4,longer,ai,122481,confidence,False,25
+product-listing,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1965,3,longer,ai,122481,effort,False,25
+product-listing,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1964,5,longer,ai,122481,satisfaction,False,25
+push-notifications,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1704,Information related to weather alerts.,longer,programmatic,146110,accuracy,False,25
+push-notifications,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1705,There is a severe weather alert active in your area,longer,programmatic,146110,comprehension,False,25
+push-notifications,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1706,2,longer,programmatic,146110,confidence,False,25
+push-notifications,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1708,4,longer,programmatic,146110,effort,False,25
+push-notifications,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1707,4,longer,programmatic,146110,satisfaction,False,25
+search-engine,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1824,Images and infographics,longer,programmatic,168354,accuracy,False,25
+search-engine,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1825,I don't know,longer,programmatic,168354,comprehension,False,25
+search-engine,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1826,5,longer,programmatic,168354,confidence,False,25
+search-engine,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1828,2,longer,programmatic,168354,effort,False,25
+search-engine,144da5ba-b2ef-4861-9e85-7577e9e4ee9a,1827,5,longer,programmatic,168354,satisfaction,False,25
+email-inbox,2a6ffef2-45ce-453a-abaa-4929474caf5b,1435,Approve or decline the deadline extension request,longer,ai,106942,accuracy,False,22
+email-inbox,2a6ffef2-45ce-453a-abaa-4929474caf5b,1436-1437-1438,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline', 'You have an upcoming flight to Boston']",longer,ai,106942,comprehension,False,22
+email-inbox,2a6ffef2-45ce-453a-abaa-4929474caf5b,1439,3,longer,ai,106942,confidence,False,22
+email-inbox,2a6ffef2-45ce-453a-abaa-4929474caf5b,1441,5,longer,ai,106942,effort,False,22
+email-inbox,2a6ffef2-45ce-453a-abaa-4929474caf5b,1440,2,longer,ai,106942,satisfaction,False,22
+meeting-transcription,2a6ffef2-45ce-453a-abaa-4929474caf5b,1511,None of the above,longer,original,117470,accuracy,False,22
+meeting-transcription,2a6ffef2-45ce-453a-abaa-4929474caf5b,1512-1513-1514,"['Evaluating the project timeline.', 'Negotiating vendor contracts.', 'Addressing technical performance.']",longer,original,117470,comprehension,False,22
+meeting-transcription,2a6ffef2-45ce-453a-abaa-4929474caf5b,1515,2,longer,original,117470,confidence,False,22
+meeting-transcription,2a6ffef2-45ce-453a-abaa-4929474caf5b,1517,6,longer,original,117470,effort,False,22
+meeting-transcription,2a6ffef2-45ce-453a-abaa-4929474caf5b,1516,1,longer,original,117470,satisfaction,False,22
+presentation-slide,2a6ffef2-45ce-453a-abaa-4929474caf5b,1560,None of the above,longer,original,107026,accuracy,False,22
+presentation-slide,2a6ffef2-45ce-453a-abaa-4929474caf5b,1561,Projected revenue growth,longer,original,107026,comprehension,False,22
+presentation-slide,2a6ffef2-45ce-453a-abaa-4929474caf5b,1562,3,longer,original,107026,confidence,False,22
+presentation-slide,2a6ffef2-45ce-453a-abaa-4929474caf5b,1564,4,longer,original,107026,effort,False,22
+presentation-slide,2a6ffef2-45ce-453a-abaa-4929474caf5b,1563,2,longer,original,107026,satisfaction,False,22
+product-listing,2a6ffef2-45ce-453a-abaa-4929474caf5b,1471,None of the above,longer,ai,71846,accuracy,False,22
+product-listing,2a6ffef2-45ce-453a-abaa-4929474caf5b,1472,Information about customer satisfaction (ratings) is provided for all audio items.,longer,ai,71846,comprehension,False,22
+product-listing,2a6ffef2-45ce-453a-abaa-4929474caf5b,1473,5,longer,ai,71846,confidence,False,22
+product-listing,2a6ffef2-45ce-453a-abaa-4929474caf5b,1475,3,longer,ai,71846,effort,False,22
+product-listing,2a6ffef2-45ce-453a-abaa-4929474caf5b,1474,5,longer,ai,71846,satisfaction,False,22
+push-notifications,2a6ffef2-45ce-453a-abaa-4929474caf5b,1337,Information about social happenings.,longer,programmatic,106830,accuracy,False,22
+push-notifications,2a6ffef2-45ce-453a-abaa-4929474caf5b,1338,There is a severe weather alert active in your area,longer,programmatic,106830,comprehension,False,22
+push-notifications,2a6ffef2-45ce-453a-abaa-4929474caf5b,1339,5,longer,programmatic,106830,confidence,False,22
+push-notifications,2a6ffef2-45ce-453a-abaa-4929474caf5b,1341,6,longer,programmatic,106830,effort,False,22
+push-notifications,2a6ffef2-45ce-453a-abaa-4929474caf5b,1340,4,longer,programmatic,106830,satisfaction,False,22
+search-engine,2a6ffef2-45ce-453a-abaa-4929474caf5b,1389,Written articles,longer,programmatic,103059,accuracy,False,22
+search-engine,2a6ffef2-45ce-453a-abaa-4929474caf5b,1390,Varied content formats,longer,programmatic,103059,comprehension,False,22
+search-engine,2a6ffef2-45ce-453a-abaa-4929474caf5b,1391,3,longer,programmatic,103059,confidence,False,22
+search-engine,2a6ffef2-45ce-453a-abaa-4929474caf5b,1393,5,longer,programmatic,103059,effort,False,22
+search-engine,2a6ffef2-45ce-453a-abaa-4929474caf5b,1392,3,longer,programmatic,103059,satisfaction,False,22
+email-inbox,346fb2ca-9655-4a93-be9e-802336b1b52b,1442,Approve or decline the deadline extension request,shorter,programmatic,77864,accuracy,False,24
+email-inbox,346fb2ca-9655-4a93-be9e-802336b1b52b,1443-1444,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline']",shorter,programmatic,77864,comprehension,False,24
+email-inbox,346fb2ca-9655-4a93-be9e-802336b1b52b,1445,4,shorter,programmatic,77864,confidence,False,24
+email-inbox,346fb2ca-9655-4a93-be9e-802336b1b52b,1447,5,shorter,programmatic,77864,effort,False,24
+email-inbox,346fb2ca-9655-4a93-be9e-802336b1b52b,1446,5,shorter,programmatic,77864,satisfaction,False,24
+meeting-transcription,346fb2ca-9655-4a93-be9e-802336b1b52b,1506,Prioritize adding new features to the release to respond to customer demands.,shorter,original,80111,accuracy,False,24
+meeting-transcription,346fb2ca-9655-4a93-be9e-802336b1b52b,1507,Evaluating the project timeline.,shorter,original,80111,comprehension,False,24
+meeting-transcription,346fb2ca-9655-4a93-be9e-802336b1b52b,1508,5,shorter,original,80111,confidence,False,24
+meeting-transcription,346fb2ca-9655-4a93-be9e-802336b1b52b,1510,4,shorter,original,80111,effort,False,24
+meeting-transcription,346fb2ca-9655-4a93-be9e-802336b1b52b,1509,4,shorter,original,80111,satisfaction,False,24
+presentation-slide,346fb2ca-9655-4a93-be9e-802336b1b52b,1549,I don't know,shorter,original,83549,accuracy,False,24
+presentation-slide,346fb2ca-9655-4a93-be9e-802336b1b52b,1550,Projected revenue growth,shorter,original,83549,comprehension,False,24
+presentation-slide,346fb2ca-9655-4a93-be9e-802336b1b52b,1551,6,shorter,original,83549,confidence,False,24
+presentation-slide,346fb2ca-9655-4a93-be9e-802336b1b52b,1553,4,shorter,original,83549,effort,False,24
+presentation-slide,346fb2ca-9655-4a93-be9e-802336b1b52b,1552,6,shorter,original,83549,satisfaction,False,24
+product-listing,346fb2ca-9655-4a93-be9e-802336b1b52b,1482,All items are discounted,shorter,programmatic,63038,accuracy,False,24
+product-listing,346fb2ca-9655-4a93-be9e-802336b1b52b,1483-1484-1485-1486,"['All the audio items listed are available to buy right now.', 'Every audio product listed is either headphones, earbuds or speakers.', 'Information about customer satisfaction (ratings) is provided for all audio items.', 'All audio items offer free shipping.']",shorter,programmatic,63038,comprehension,False,24
+product-listing,346fb2ca-9655-4a93-be9e-802336b1b52b,1487,5,shorter,programmatic,63038,confidence,False,24
+product-listing,346fb2ca-9655-4a93-be9e-802336b1b52b,1489,3,shorter,programmatic,63038,effort,False,24
+product-listing,346fb2ca-9655-4a93-be9e-802336b1b52b,1488,5,shorter,programmatic,63038,satisfaction,False,24
+push-notifications,346fb2ca-9655-4a93-be9e-802336b1b52b,1369,Information about social happenings.,shorter,ai,96801,accuracy,False,24
+push-notifications,346fb2ca-9655-4a93-be9e-802336b1b52b,1370,There is a severe weather alert active in your area,shorter,ai,96801,comprehension,False,24
+push-notifications,346fb2ca-9655-4a93-be9e-802336b1b52b,1371,5,shorter,ai,96801,confidence,False,24
+push-notifications,346fb2ca-9655-4a93-be9e-802336b1b52b,1373,4,shorter,ai,96801,effort,False,24
+push-notifications,346fb2ca-9655-4a93-be9e-802336b1b52b,1372,3,shorter,ai,96801,satisfaction,False,24
+search-engine,346fb2ca-9655-4a93-be9e-802336b1b52b,1406,Written articles,shorter,ai,97985,accuracy,False,24
+search-engine,346fb2ca-9655-4a93-be9e-802336b1b52b,1407,I don't know,shorter,ai,97985,comprehension,False,24
+search-engine,346fb2ca-9655-4a93-be9e-802336b1b52b,1408,5,shorter,ai,97985,confidence,False,24
+search-engine,346fb2ca-9655-4a93-be9e-802336b1b52b,1410,4,shorter,ai,97985,effort,False,24
+search-engine,346fb2ca-9655-4a93-be9e-802336b1b52b,1409,4,shorter,ai,97985,satisfaction,False,24
+email-inbox,416ced96-db46-4c29-95dc-864750c655dc,1834,Allocate time for the mandatory compliance training session,longer,programmatic,100369,accuracy,True,23
+email-inbox,416ced96-db46-4c29-95dc-864750c655dc,1835-1836,"['Sarah Johnson has requested an extension for a project deadline', ""I don't know""]",longer,programmatic,100369,comprehension,True,23
+email-inbox,416ced96-db46-4c29-95dc-864750c655dc,1837,5,longer,programmatic,100369,confidence,True,23
+email-inbox,416ced96-db46-4c29-95dc-864750c655dc,1839,3,longer,programmatic,100369,effort,True,23
+email-inbox,416ced96-db46-4c29-95dc-864750c655dc,1838,6,longer,programmatic,100369,satisfaction,True,23
+meeting-transcription,416ced96-db46-4c29-95dc-864750c655dc,1938,Refine and improve existing core user experiences and address known technical problems.,longer,original,112687,accuracy,True,23
+meeting-transcription,416ced96-db46-4c29-95dc-864750c655dc,1939-1940,"['Reviewing current product features.', 'Addressing technical performance.']",longer,original,112687,comprehension,True,23
+meeting-transcription,416ced96-db46-4c29-95dc-864750c655dc,1941,4,longer,original,112687,confidence,True,23
+meeting-transcription,416ced96-db46-4c29-95dc-864750c655dc,1943,2,longer,original,112687,effort,True,23
+meeting-transcription,416ced96-db46-4c29-95dc-864750c655dc,1942,3,longer,original,112687,satisfaction,True,23
+presentation-slide,416ced96-db46-4c29-95dc-864750c655dc,2015,Enhance core technology offerings,longer,original,137841,accuracy,True,23
+presentation-slide,416ced96-db46-4c29-95dc-864750c655dc,2016,Projected revenue growth,longer,original,137841,comprehension,True,23
+presentation-slide,416ced96-db46-4c29-95dc-864750c655dc,2017,5,longer,original,137841,confidence,True,23
+presentation-slide,416ced96-db46-4c29-95dc-864750c655dc,2019,2,longer,original,137841,effort,True,23
+presentation-slide,416ced96-db46-4c29-95dc-864750c655dc,2018,7,longer,original,137841,satisfaction,True,23
+product-listing,416ced96-db46-4c29-95dc-864750c655dc,1858,All items are discounted,longer,programmatic,68434,accuracy,True,23
+product-listing,416ced96-db46-4c29-95dc-864750c655dc,1859-1860,"['All the audio items listed are available to buy right now.', 'Information about customer satisfaction (ratings) is provided for all audio items.']",longer,programmatic,68434,comprehension,True,23
+product-listing,416ced96-db46-4c29-95dc-864750c655dc,1861,3,longer,programmatic,68434,confidence,True,23
+product-listing,416ced96-db46-4c29-95dc-864750c655dc,1863,4,longer,programmatic,68434,effort,True,23
+product-listing,416ced96-db46-4c29-95dc-864750c655dc,1862,3,longer,programmatic,68434,satisfaction,True,23
+push-notifications,416ced96-db46-4c29-95dc-864750c655dc,1709,Information related to weather alerts.,longer,ai,88355,accuracy,True,23
+push-notifications,416ced96-db46-4c29-95dc-864750c655dc,1710,There is a severe weather alert active in your area,longer,ai,88355,comprehension,True,23
+push-notifications,416ced96-db46-4c29-95dc-864750c655dc,1711,4,longer,ai,88355,confidence,True,23
+push-notifications,416ced96-db46-4c29-95dc-864750c655dc,1713,4,longer,ai,88355,effort,True,23
+push-notifications,416ced96-db46-4c29-95dc-864750c655dc,1712,5,longer,ai,88355,satisfaction,True,23
+search-engine,416ced96-db46-4c29-95dc-864750c655dc,1769,Written articles,longer,ai,64631,accuracy,True,23
+search-engine,416ced96-db46-4c29-95dc-864750c655dc,1770,Varied content formats,longer,ai,64631,comprehension,True,23
+search-engine,416ced96-db46-4c29-95dc-864750c655dc,1771,4,longer,ai,64631,confidence,True,23
+search-engine,416ced96-db46-4c29-95dc-864750c655dc,1773,5,longer,ai,64631,effort,True,23
+search-engine,416ced96-db46-4c29-95dc-864750c655dc,1772,4,longer,ai,64631,satisfaction,True,23
+email-inbox,4d423645-09a6-47b6-9bfd-49399beee4c4,2193,Review and give feedback on the legal team's contract,shorter,original,98747,accuracy,False,25
+email-inbox,4d423645-09a6-47b6-9bfd-49399beee4c4,2194-2195-2196,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline', 'You need to provide feedback on a contract by the end of today']",shorter,original,98747,comprehension,False,25
+email-inbox,4d423645-09a6-47b6-9bfd-49399beee4c4,2197,2,shorter,original,98747,confidence,False,25
+email-inbox,4d423645-09a6-47b6-9bfd-49399beee4c4,2199,6,shorter,original,98747,effort,False,25
+email-inbox,4d423645-09a6-47b6-9bfd-49399beee4c4,2198,1,shorter,original,98747,satisfaction,False,25
+meeting-transcription,4d423645-09a6-47b6-9bfd-49399beee4c4,2225,Initiate planning new product lines.,shorter,programmatic,131217,accuracy,False,25
+meeting-transcription,4d423645-09a6-47b6-9bfd-49399beee4c4,2226,Addressing technical performance.,shorter,programmatic,131217,comprehension,False,25
+meeting-transcription,4d423645-09a6-47b6-9bfd-49399beee4c4,2227,4,shorter,programmatic,131217,confidence,False,25
+meeting-transcription,4d423645-09a6-47b6-9bfd-49399beee4c4,2229,4,shorter,programmatic,131217,effort,False,25
+meeting-transcription,4d423645-09a6-47b6-9bfd-49399beee4c4,2228,5,shorter,programmatic,131217,satisfaction,False,25
+presentation-slide,4d423645-09a6-47b6-9bfd-49399beee4c4,2241,Diversify product investments,shorter,programmatic,197785,accuracy,False,25
+presentation-slide,4d423645-09a6-47b6-9bfd-49399beee4c4,2242,I don't know,shorter,programmatic,197785,comprehension,False,25
+presentation-slide,4d423645-09a6-47b6-9bfd-49399beee4c4,2243,6,shorter,programmatic,197785,confidence,False,25
+presentation-slide,4d423645-09a6-47b6-9bfd-49399beee4c4,2245,4,shorter,programmatic,197785,effort,False,25
+presentation-slide,4d423645-09a6-47b6-9bfd-49399beee4c4,2244,4,shorter,programmatic,197785,satisfaction,False,25
+product-listing,4d423645-09a6-47b6-9bfd-49399beee4c4,2206,All items are discounted,shorter,original,90938,accuracy,False,25
+product-listing,4d423645-09a6-47b6-9bfd-49399beee4c4,2207-2208-2209,"['The audio products represent offerings from multiple different brands.', 'Every audio product listed is either headphones, earbuds or speakers.', 'Information about customer satisfaction (ratings) is provided for all audio items.']",shorter,original,90938,comprehension,False,25
+product-listing,4d423645-09a6-47b6-9bfd-49399beee4c4,2210,3,shorter,original,90938,confidence,False,25
+product-listing,4d423645-09a6-47b6-9bfd-49399beee4c4,2212,5,shorter,original,90938,effort,False,25
+product-listing,4d423645-09a6-47b6-9bfd-49399beee4c4,2211,2,shorter,original,90938,satisfaction,False,25
+push-notifications,4d423645-09a6-47b6-9bfd-49399beee4c4,2164,I don't know,shorter,ai,120155,accuracy,False,25
+push-notifications,4d423645-09a6-47b6-9bfd-49399beee4c4,2165-2166,"['You have an upcoming meeting with a team member named Sarah', 'Your colleague needs your attention']",shorter,ai,120155,comprehension,False,25
+push-notifications,4d423645-09a6-47b6-9bfd-49399beee4c4,2167,3,shorter,ai,120155,confidence,False,25
+push-notifications,4d423645-09a6-47b6-9bfd-49399beee4c4,2169,4,shorter,ai,120155,effort,False,25
+push-notifications,4d423645-09a6-47b6-9bfd-49399beee4c4,2168,4,shorter,ai,120155,satisfaction,False,25
+search-engine,4d423645-09a6-47b6-9bfd-49399beee4c4,2176,Video lectures,shorter,ai,102603,accuracy,False,25
+search-engine,4d423645-09a6-47b6-9bfd-49399beee4c4,2177,None of the above,shorter,ai,102603,comprehension,False,25
+search-engine,4d423645-09a6-47b6-9bfd-49399beee4c4,2178,7,shorter,ai,102603,confidence,False,25
+search-engine,4d423645-09a6-47b6-9bfd-49399beee4c4,2180,3,shorter,ai,102603,effort,False,25
+search-engine,4d423645-09a6-47b6-9bfd-49399beee4c4,2179,6,shorter,ai,102603,satisfaction,False,25
+email-inbox,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1458,Review and give feedback on the legal team's contract,longer,ai,112189,accuracy,False,24
+email-inbox,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1459-1460,"['You have a mandatory training session to attend tomorrow', 'You need to provide feedback on a contract by the end of today']",longer,ai,112189,comprehension,False,24
+email-inbox,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1461,4,longer,ai,112189,confidence,False,24
+email-inbox,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1463,5,longer,ai,112189,effort,False,24
+email-inbox,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1462,5,longer,ai,112189,satisfaction,False,24
+meeting-transcription,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1544,I don't know,longer,programmatic,88307,accuracy,False,24
+meeting-transcription,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1545,Evaluating the project timeline.,longer,programmatic,88307,comprehension,False,24
+meeting-transcription,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1546,3,longer,programmatic,88307,confidence,False,24
+meeting-transcription,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1548,5,longer,programmatic,88307,effort,False,24
+meeting-transcription,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1547,5,longer,programmatic,88307,satisfaction,False,24
+presentation-slide,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1576,Enhance core technology offerings,longer,programmatic,78578,accuracy,False,24
+presentation-slide,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1577,Projected revenue growth,longer,programmatic,78578,comprehension,False,24
+presentation-slide,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1578,5,longer,programmatic,78578,confidence,False,24
+presentation-slide,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1580,5,longer,programmatic,78578,effort,False,24
+presentation-slide,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1579,3,longer,programmatic,78578,satisfaction,False,24
+product-listing,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1501,All items are discounted,longer,ai,84680,accuracy,False,24
+product-listing,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1502,Information about customer satisfaction (ratings) is provided for all audio items.,longer,ai,84680,comprehension,False,24
+product-listing,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1503,5,longer,ai,84680,confidence,False,24
+product-listing,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1505,5,longer,ai,84680,effort,False,24
+product-listing,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1504,3,longer,ai,84680,satisfaction,False,24
+push-notifications,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1359,Information about social happenings.,longer,original,78553,accuracy,False,24
+push-notifications,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1360,You have an upcoming meeting with a team member named Sarah,longer,original,78553,comprehension,False,24
+push-notifications,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1361,4,longer,original,78553,confidence,False,24
+push-notifications,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1363,5,longer,original,78553,effort,False,24
+push-notifications,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1362,5,longer,original,78553,satisfaction,False,24
+search-engine,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1411,Written articles,longer,original,126616,accuracy,False,24
+search-engine,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1412,Uniform publisher type,longer,original,126616,comprehension,False,24
+search-engine,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1413,4,longer,original,126616,confidence,False,24
+search-engine,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1415,5,longer,original,126616,effort,False,24
+search-engine,7bb2203d-a0bd-4030-87f9-10d78eb6f043,1414,5,longer,original,126616,satisfaction,False,24
+email-inbox,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1925,Review and give feedback on the legal team's contract,shorter,programmatic,89507,accuracy,True,23
+email-inbox,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1926-1927-1928,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline', 'You need to provide feedback on a contract by the end of today']",shorter,programmatic,89507,comprehension,True,23
+email-inbox,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1929,1,shorter,programmatic,89507,confidence,True,23
+email-inbox,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1931,7,shorter,programmatic,89507,effort,True,23
+email-inbox,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1930,1,shorter,programmatic,89507,satisfaction,True,23
+meeting-transcription,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2080,Prioritize adding new features to the release to respond to customer demands.,shorter,ai,177225,accuracy,True,23
+meeting-transcription,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2081-2082-2083,"['Reviewing current product features.', 'Evaluating the project timeline.', 'Addressing technical performance.']",shorter,ai,177225,comprehension,True,23
+meeting-transcription,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2084,2,shorter,ai,177225,confidence,True,23
+meeting-transcription,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2086,3,shorter,ai,177225,effort,True,23
+meeting-transcription,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2085,2,shorter,ai,177225,satisfaction,True,23
+presentation-slide,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2105,I don't know,shorter,ai,89844,accuracy,True,23
+presentation-slide,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2106,None of the above,shorter,ai,89844,comprehension,True,23
+presentation-slide,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2107,7,shorter,ai,89844,confidence,True,23
+presentation-slide,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2109,7,shorter,ai,89844,effort,True,23
+presentation-slide,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2108,7,shorter,ai,89844,satisfaction,True,23
+product-listing,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2020,I don't know,shorter,programmatic,186763,accuracy,True,23
+product-listing,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2021-2022,"['All the audio items listed are available to buy right now.', 'The audio products represent offerings from multiple different brands.']",shorter,programmatic,186763,comprehension,True,23
+product-listing,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2023,7,shorter,programmatic,186763,confidence,True,23
+product-listing,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2025,5,shorter,programmatic,186763,effort,True,23
+product-listing,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,2024,7,shorter,programmatic,186763,satisfaction,True,23
+push-notifications,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1743,Information about social happenings.,shorter,original,188678,accuracy,True,23
+push-notifications,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1744-1745,"['There is a severe weather alert active in your area', 'Your order from a clothing store has been delivered']",shorter,original,188678,comprehension,True,23
+push-notifications,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1746,2,shorter,original,188678,confidence,True,23
+push-notifications,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1748,5,shorter,original,188678,effort,True,23
+push-notifications,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1747,5,shorter,original,188678,satisfaction,True,23
+search-engine,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1852,Written articles,shorter,original,185285,accuracy,True,23
+search-engine,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1853-1854,"['Varied content formats', 'Different update schedules']",shorter,original,185285,comprehension,True,23
+search-engine,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1855,2,shorter,original,185285,confidence,True,23
+search-engine,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1857,6,shorter,original,185285,effort,True,23
+search-engine,7bc35e9f-ebfa-45a9-8527-2f825cddecd0,1856,1,shorter,original,185285,satisfaction,True,23
+email-inbox,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1906,Review and give feedback on the legal team's contract,shorter,programmatic,117840,accuracy,True,58
+email-inbox,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1907-1908-1909,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline', 'You need to provide feedback on a contract by the end of today']",shorter,programmatic,117840,comprehension,True,58
+email-inbox,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1910,4,shorter,programmatic,117840,confidence,True,58
+email-inbox,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1912,3,shorter,programmatic,117840,effort,True,58
+email-inbox,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1911,3,shorter,programmatic,117840,satisfaction,True,58
+meeting-transcription,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,2061,Prioritize adding new features to the release to respond to customer demands.,shorter,original,204416,accuracy,True,58
+meeting-transcription,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,2062-2063-2064,"['Reviewing current product features.', 'Evaluating the project timeline.', 'Addressing technical performance.']",shorter,original,204416,comprehension,True,58
+meeting-transcription,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,2065,5,shorter,original,204416,confidence,True,58
+meeting-transcription,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,2067,3,shorter,original,204416,effort,True,58
+meeting-transcription,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,2066,3,shorter,original,204416,satisfaction,True,58
+presentation-slide,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,2087,Get rid of non-core assets,shorter,original,72188,accuracy,True,58
+presentation-slide,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,2088-2089,"['Projected revenue growth', 'Targets for operating margin']",shorter,original,72188,comprehension,True,58
+presentation-slide,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,2090,6,shorter,original,72188,confidence,True,58
+presentation-slide,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,2092,3,shorter,original,72188,effort,True,58
+presentation-slide,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,2091,3,shorter,original,72188,satisfaction,True,58
+product-listing,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1980,Free shipping on all items,shorter,programmatic,133729,accuracy,True,58
+product-listing,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1981-1982-1983,"['All the audio items listed are available to buy right now.', 'Information about customer satisfaction (ratings) is provided for all audio items.', 'All audio items offer free shipping.']",shorter,programmatic,133729,comprehension,True,58
+product-listing,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1984,5,shorter,programmatic,133729,confidence,True,58
+product-listing,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1986,3,shorter,programmatic,133729,effort,True,58
+product-listing,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1985,3,shorter,programmatic,133729,satisfaction,True,58
+push-notifications,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1737,Information related to weather alerts.,shorter,ai,87320,accuracy,True,58
+push-notifications,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1738-1739,"['You have an upcoming meeting with a team member named Sarah', 'There is a severe weather alert active in your area']",shorter,ai,87320,comprehension,True,58
+push-notifications,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1740,2,shorter,ai,87320,confidence,True,58
+push-notifications,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1742,5,shorter,ai,87320,effort,True,58
+push-notifications,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1741,2,shorter,ai,87320,satisfaction,True,58
+search-engine,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1813,Written articles,shorter,ai,127597,accuracy,True,58
+search-engine,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1814-1815,"['Varied content formats', 'Different update schedules']",shorter,ai,127597,comprehension,True,58
+search-engine,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1816,4,shorter,ai,127597,confidence,True,58
+search-engine,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1818,3,shorter,ai,127597,effort,True,58
+search-engine,98bdcd75-a1f9-49ed-8cab-8f49ffb0c6ce,1817,4,shorter,ai,127597,satisfaction,True,58
+email-inbox,999e697f-eced-4f04-9cdc-7c6d1138e13f,1974,I don't know,longer,original,112952,accuracy,True,21
+email-inbox,999e697f-eced-4f04-9cdc-7c6d1138e13f,1975-1976,"['Sarah Johnson has requested an extension for a project deadline', 'You need to provide feedback on a contract by the end of today']",longer,original,112952,comprehension,True,21
+email-inbox,999e697f-eced-4f04-9cdc-7c6d1138e13f,1977,5,longer,original,112952,confidence,True,21
+email-inbox,999e697f-eced-4f04-9cdc-7c6d1138e13f,1979,5,longer,original,112952,effort,True,21
+email-inbox,999e697f-eced-4f04-9cdc-7c6d1138e13f,1978,4,longer,original,112952,satisfaction,True,21
+meeting-transcription,999e697f-eced-4f04-9cdc-7c6d1138e13f,2068,Focus on marketing to reach out to potential customers.,longer,ai,156683,accuracy,True,21
+meeting-transcription,999e697f-eced-4f04-9cdc-7c6d1138e13f,2069-2070,"['Reviewing current product features.', 'Evaluating the project timeline.']",longer,ai,156683,comprehension,True,21
+meeting-transcription,999e697f-eced-4f04-9cdc-7c6d1138e13f,2071,5,longer,ai,156683,confidence,True,21
+meeting-transcription,999e697f-eced-4f04-9cdc-7c6d1138e13f,2073,5,longer,ai,156683,effort,True,21
+meeting-transcription,999e697f-eced-4f04-9cdc-7c6d1138e13f,2072,4,longer,ai,156683,satisfaction,True,21
+presentation-slide,999e697f-eced-4f04-9cdc-7c6d1138e13f,2093,Diversify product investments,longer,ai,52656,accuracy,True,21
+presentation-slide,999e697f-eced-4f04-9cdc-7c6d1138e13f,2094-2095-2096,"['Projected revenue growth', 'Targets for operating margin', 'Workforce growth projections']",longer,ai,52656,comprehension,True,21
+presentation-slide,999e697f-eced-4f04-9cdc-7c6d1138e13f,2097,4,longer,ai,52656,confidence,True,21
+presentation-slide,999e697f-eced-4f04-9cdc-7c6d1138e13f,2099,7,longer,ai,52656,effort,True,21
+presentation-slide,999e697f-eced-4f04-9cdc-7c6d1138e13f,2098,3,longer,ai,52656,satisfaction,True,21
+product-listing,999e697f-eced-4f04-9cdc-7c6d1138e13f,2026,All items are discounted,longer,original,86016,accuracy,True,21
+product-listing,999e697f-eced-4f04-9cdc-7c6d1138e13f,2027-2028-2029,"['The audio products represent offerings from multiple different brands.', 'Every audio product listed is either headphones, earbuds or speakers.', 'Information about customer satisfaction (ratings) is provided for all audio items.']",longer,original,86016,comprehension,True,21
+product-listing,999e697f-eced-4f04-9cdc-7c6d1138e13f,2030,3,longer,original,86016,confidence,True,21
+product-listing,999e697f-eced-4f04-9cdc-7c6d1138e13f,2032,5,longer,original,86016,effort,True,21
+product-listing,999e697f-eced-4f04-9cdc-7c6d1138e13f,2031,4,longer,original,86016,satisfaction,True,21
+push-notifications,999e697f-eced-4f04-9cdc-7c6d1138e13f,1819,Information about system status.,longer,programmatic,117352,accuracy,True,21
+push-notifications,999e697f-eced-4f04-9cdc-7c6d1138e13f,1820,There is a severe weather alert active in your area,longer,programmatic,117352,comprehension,True,21
+push-notifications,999e697f-eced-4f04-9cdc-7c6d1138e13f,1821,1,longer,programmatic,117352,confidence,True,21
+push-notifications,999e697f-eced-4f04-9cdc-7c6d1138e13f,1823,6,longer,programmatic,117352,effort,True,21
+push-notifications,999e697f-eced-4f04-9cdc-7c6d1138e13f,1822,3,longer,programmatic,117352,satisfaction,True,21
+search-engine,999e697f-eced-4f04-9cdc-7c6d1138e13f,1913,Written articles,longer,programmatic,106221,accuracy,True,21
+search-engine,999e697f-eced-4f04-9cdc-7c6d1138e13f,1914-1915,"['Varied content formats', 'Uniform publisher type']",longer,programmatic,106221,comprehension,True,21
+search-engine,999e697f-eced-4f04-9cdc-7c6d1138e13f,1916,4,longer,programmatic,106221,confidence,True,21
+search-engine,999e697f-eced-4f04-9cdc-7c6d1138e13f,1918,5,longer,programmatic,106221,effort,True,21
+search-engine,999e697f-eced-4f04-9cdc-7c6d1138e13f,1917,4,longer,programmatic,106221,satisfaction,True,21
+email-inbox,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2170,Approve or decline the deadline extension request,shorter,programmatic,103834,accuracy,False,24
+email-inbox,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2171-2172,"['Sarah Johnson has requested an extension for a project deadline', 'You need to provide feedback on a contract by the end of today']",shorter,programmatic,103834,comprehension,False,24
+email-inbox,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2173,5,shorter,programmatic,103834,confidence,False,24
+email-inbox,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2175,5,shorter,programmatic,103834,effort,False,24
+email-inbox,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2174,3,shorter,programmatic,103834,satisfaction,False,24
+meeting-transcription,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2213,Refine and improve existing core user experiences and address known technical problems.,shorter,original,147880,accuracy,False,24
+meeting-transcription,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2214-2215-2216,"['Reviewing current product features.', 'Evaluating the project timeline.', 'Addressing technical performance.']",shorter,original,147880,comprehension,False,24
+meeting-transcription,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2217,3,shorter,original,147880,confidence,False,24
+meeting-transcription,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2219,5,shorter,original,147880,effort,False,24
+meeting-transcription,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2218,2,shorter,original,147880,satisfaction,False,24
+presentation-slide,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2230,Diversify product investments,shorter,original,106209,accuracy,False,24
+presentation-slide,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2231,Projected revenue growth,shorter,original,106209,comprehension,False,24
+presentation-slide,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2232,3,shorter,original,106209,confidence,False,24
+presentation-slide,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2234,6,shorter,original,106209,effort,False,24
+presentation-slide,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2233,2,shorter,original,106209,satisfaction,False,24
+product-listing,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2186,None of the above,shorter,programmatic,104306,accuracy,False,24
+product-listing,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2187-2188-2189,"['All the audio items listed are available to buy right now.', 'The audio products represent offerings from multiple different brands.', 'Information about customer satisfaction (ratings) is provided for all audio items.']",shorter,programmatic,104306,comprehension,False,24
+product-listing,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2190,4,shorter,programmatic,104306,confidence,False,24
+product-listing,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2192,6,shorter,programmatic,104306,effort,False,24
+product-listing,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2191,2,shorter,programmatic,104306,satisfaction,False,24
+push-notifications,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2139,Information related to weather alerts.,shorter,ai,142398,accuracy,False,24
+push-notifications,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2140-2141,"['You have an upcoming meeting with a team member named Sarah', 'There is a severe weather alert active in your area']",shorter,ai,142398,comprehension,False,24
+push-notifications,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2142,1,shorter,ai,142398,confidence,False,24
+push-notifications,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2144,6,shorter,ai,142398,effort,False,24
+push-notifications,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2143,2,shorter,ai,142398,satisfaction,False,24
+search-engine,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2159,Interactive experiences,shorter,ai,108328,accuracy,False,24
+search-engine,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2160,Varied content formats,shorter,ai,108328,comprehension,False,24
+search-engine,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2161,3,shorter,ai,108328,confidence,False,24
+search-engine,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2163,6,shorter,ai,108328,effort,False,24
+search-engine,9a6274bb-d17c-46b6-bb18-11bc1dd65d97,2162,2,shorter,ai,108328,satisfaction,False,24
+email-inbox,9ad79e66-f08b-4a92-9b73-fe13848408c3,1791,Approve or decline the deadline extension request,longer,ai,81415,accuracy,True,23
+email-inbox,9ad79e66-f08b-4a92-9b73-fe13848408c3,1792,Sarah Johnson has requested an extension for a project deadline,longer,ai,81415,comprehension,True,23
+email-inbox,9ad79e66-f08b-4a92-9b73-fe13848408c3,1793,4,longer,ai,81415,confidence,True,23
+email-inbox,9ad79e66-f08b-4a92-9b73-fe13848408c3,1795,4,longer,ai,81415,effort,True,23
+email-inbox,9ad79e66-f08b-4a92-9b73-fe13848408c3,1794,3,longer,ai,81415,satisfaction,True,23
+meeting-transcription,9ad79e66-f08b-4a92-9b73-fe13848408c3,1956,I don't know,longer,programmatic,116531,accuracy,True,23
+meeting-transcription,9ad79e66-f08b-4a92-9b73-fe13848408c3,1957,Developing a new marketing strategy.,longer,programmatic,116531,comprehension,True,23
+meeting-transcription,9ad79e66-f08b-4a92-9b73-fe13848408c3,1958,6,longer,programmatic,116531,confidence,True,23
+meeting-transcription,9ad79e66-f08b-4a92-9b73-fe13848408c3,1960,4,longer,programmatic,116531,effort,True,23
+meeting-transcription,9ad79e66-f08b-4a92-9b73-fe13848408c3,1959,7,longer,programmatic,116531,satisfaction,True,23
+presentation-slide,9ad79e66-f08b-4a92-9b73-fe13848408c3,2005,None of the above,longer,programmatic,92931,accuracy,True,23
+presentation-slide,9ad79e66-f08b-4a92-9b73-fe13848408c3,2006,None of the above,longer,programmatic,92931,comprehension,True,23
+presentation-slide,9ad79e66-f08b-4a92-9b73-fe13848408c3,2007,5,longer,programmatic,92931,confidence,True,23
+presentation-slide,9ad79e66-f08b-4a92-9b73-fe13848408c3,2009,5,longer,programmatic,92931,effort,True,23
+presentation-slide,9ad79e66-f08b-4a92-9b73-fe13848408c3,2008,7,longer,programmatic,92931,satisfaction,True,23
+product-listing,9ad79e66-f08b-4a92-9b73-fe13848408c3,1876,None of the above,longer,ai,121007,accuracy,True,23
+product-listing,9ad79e66-f08b-4a92-9b73-fe13848408c3,1877,None of the above,longer,ai,121007,comprehension,True,23
+product-listing,9ad79e66-f08b-4a92-9b73-fe13848408c3,1878,5,longer,ai,121007,confidence,True,23
+product-listing,9ad79e66-f08b-4a92-9b73-fe13848408c3,1880,4,longer,ai,121007,effort,True,23
+product-listing,9ad79e66-f08b-4a92-9b73-fe13848408c3,1879,5,longer,ai,121007,satisfaction,True,23
+push-notifications,9ad79e66-f08b-4a92-9b73-fe13848408c3,1694,Information about social happenings.,longer,original,58886,accuracy,True,23
+push-notifications,9ad79e66-f08b-4a92-9b73-fe13848408c3,1695,There is a severe weather alert active in your area,longer,original,58886,comprehension,True,23
+push-notifications,9ad79e66-f08b-4a92-9b73-fe13848408c3,1696,1,longer,original,58886,confidence,True,23
+push-notifications,9ad79e66-f08b-4a92-9b73-fe13848408c3,1698,7,longer,original,58886,effort,True,23
+push-notifications,9ad79e66-f08b-4a92-9b73-fe13848408c3,1697,2,longer,original,58886,satisfaction,True,23
+search-engine,9ad79e66-f08b-4a92-9b73-fe13848408c3,1764,Written articles,longer,original,76557,accuracy,True,23
+search-engine,9ad79e66-f08b-4a92-9b73-fe13848408c3,1765,Varied content formats,longer,original,76557,comprehension,True,23
+search-engine,9ad79e66-f08b-4a92-9b73-fe13848408c3,1766,1,longer,original,76557,confidence,True,23
+search-engine,9ad79e66-f08b-4a92-9b73-fe13848408c3,1768,5,longer,original,76557,effort,True,23
+search-engine,9ad79e66-f08b-4a92-9b73-fe13848408c3,1767,1,longer,original,76557,satisfaction,True,23
+email-inbox,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1490,Allocate time for the mandatory compliance training session,shorter,programmatic,138450,accuracy,False,24
+email-inbox,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1491-1492,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline']",shorter,programmatic,138450,comprehension,False,24
+email-inbox,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1493,3,shorter,programmatic,138450,confidence,False,24
+email-inbox,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1495,2,shorter,programmatic,138450,effort,False,24
+email-inbox,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1494,2,shorter,programmatic,138450,satisfaction,False,24
+meeting-transcription,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1565,Prioritize adding new features to the release to respond to customer demands.,shorter,ai,107823,accuracy,False,24
+meeting-transcription,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1566-1567,"['Reviewing current product features.', 'Developing a new marketing strategy.']",shorter,ai,107823,comprehension,False,24
+meeting-transcription,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1568,5,shorter,ai,107823,confidence,False,24
+meeting-transcription,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1570,2,shorter,ai,107823,effort,False,24
+meeting-transcription,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1569,3,shorter,ai,107823,satisfaction,False,24
+presentation-slide,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1587,I don't know,shorter,ai,68859,accuracy,False,24
+presentation-slide,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1588,Workforce growth projections,shorter,ai,68859,comprehension,False,24
+presentation-slide,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1589,5,shorter,ai,68859,confidence,False,24
+presentation-slide,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1591,2,shorter,ai,68859,effort,False,24
+presentation-slide,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1590,3,shorter,ai,68859,satisfaction,False,24
+product-listing,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1524,All items are discounted,shorter,programmatic,99412,accuracy,False,24
+product-listing,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1525-1526,"['All the audio items listed are available to buy right now.', 'Every audio product listed is either headphones, earbuds or speakers.']",shorter,programmatic,99412,comprehension,False,24
+product-listing,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1527,5,shorter,programmatic,99412,confidence,False,24
+product-listing,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1529,2,shorter,programmatic,99412,effort,False,24
+product-listing,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1528,4,shorter,programmatic,99412,satisfaction,False,24
+push-notifications,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1354,Information related to weather alerts.,shorter,original,106672,accuracy,False,24
+push-notifications,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1355,There is a severe weather alert active in your area,shorter,original,106672,comprehension,False,24
+push-notifications,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1356,2,shorter,original,106672,confidence,False,24
+push-notifications,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1358,3,shorter,original,106672,effort,False,24
+push-notifications,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1357,2,shorter,original,106672,satisfaction,False,24
+search-engine,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1416,Written articles,shorter,original,162706,accuracy,False,24
+search-engine,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1417,Varied content formats,shorter,original,162706,comprehension,False,24
+search-engine,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1418,3,shorter,original,162706,confidence,False,24
+search-engine,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1420,2,shorter,original,162706,effort,False,24
+search-engine,9b158d49-b4c2-447d-8a3d-d5df47ce29d1,1419,2,shorter,original,162706,satisfaction,False,24
+email-inbox,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1374,Approve or decline the deadline extension request,shorter,ai,62262,accuracy,False,25
+email-inbox,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1375,I don't know,shorter,ai,62262,comprehension,False,25
+email-inbox,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1376,7,shorter,ai,62262,confidence,False,25
+email-inbox,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1378,6,shorter,ai,62262,effort,False,25
+email-inbox,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1377,2,shorter,ai,62262,satisfaction,False,25
+meeting-transcription,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1448,I don't know,shorter,programmatic,136518,accuracy,False,25
+meeting-transcription,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1449,I don't know,shorter,programmatic,136518,comprehension,False,25
+meeting-transcription,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1450,7,shorter,programmatic,136518,confidence,False,25
+meeting-transcription,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1452,7,shorter,programmatic,136518,effort,False,25
+meeting-transcription,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1451,1,shorter,programmatic,136518,satisfaction,False,25
+presentation-slide,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1496,Enhance core technology offerings,shorter,programmatic,87134,accuracy,False,25
+presentation-slide,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1497,Projected revenue growth,shorter,programmatic,87134,comprehension,False,25
+presentation-slide,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1498,6,shorter,programmatic,87134,confidence,False,25
+presentation-slide,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1500,6,shorter,programmatic,87134,effort,False,25
+presentation-slide,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1499,1,shorter,programmatic,87134,satisfaction,False,25
+product-listing,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1394,All items are discounted,shorter,ai,52238,accuracy,False,25
+product-listing,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1395,Information about customer satisfaction (ratings) is provided for all audio items.,shorter,ai,52238,comprehension,False,25
+product-listing,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1396,5,shorter,ai,52238,confidence,False,25
+product-listing,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1398,6,shorter,ai,52238,effort,False,25
+product-listing,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1397,2,shorter,ai,52238,satisfaction,False,25
+push-notifications,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1304,Information about system status.,shorter,original,54400,accuracy,False,25
+push-notifications,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1305-1306,"['You have an upcoming meeting with a team member named Sarah', 'There is a severe weather alert active in your area']",shorter,original,54400,comprehension,False,25
+push-notifications,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1307,3,shorter,original,54400,confidence,False,25
+push-notifications,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1309,6,shorter,original,54400,effort,False,25
+push-notifications,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1308,1,shorter,original,54400,satisfaction,False,25
+search-engine,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1342,Written articles,shorter,original,51821,accuracy,False,25
+search-engine,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1343-1344-1345,"['Varied content formats', 'Different update schedules', 'Uniform publisher type']",shorter,original,51821,comprehension,False,25
+search-engine,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1346,5,shorter,original,51821,confidence,False,25
+search-engine,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1348,6,shorter,original,51821,effort,False,25
+search-engine,bee80cba-c6ac-41f1-869c-dd4eaaf2c919,1347,1,shorter,original,51821,satisfaction,False,25
+email-inbox,c8041c5c-38ce-4991-b0f3-a9960672fce1,1840,Review and give feedback on the legal team's contract,longer,original,104860,accuracy,True,21
+email-inbox,c8041c5c-38ce-4991-b0f3-a9960672fce1,1841-1842-1843,"['Sarah Johnson has requested an extension for a project deadline', 'Your expense report has been rejected and needs revision', 'You have an upcoming flight to Boston']",longer,original,104860,comprehension,True,21
+email-inbox,c8041c5c-38ce-4991-b0f3-a9960672fce1,1844,2,longer,original,104860,confidence,True,21
+email-inbox,c8041c5c-38ce-4991-b0f3-a9960672fce1,1846,3,longer,original,104860,effort,True,21
+email-inbox,c8041c5c-38ce-4991-b0f3-a9960672fce1,1845,5,longer,original,104860,satisfaction,True,21
+meeting-transcription,c8041c5c-38ce-4991-b0f3-a9960672fce1,1987,Refine and improve existing core user experiences and address known technical problems.,longer,ai,114790,accuracy,True,21
+meeting-transcription,c8041c5c-38ce-4991-b0f3-a9960672fce1,1988-1989-1990,"['Reviewing current product features.', 'Negotiating vendor contracts.', 'Addressing technical performance.']",longer,ai,114790,comprehension,True,21
+meeting-transcription,c8041c5c-38ce-4991-b0f3-a9960672fce1,1991,2,longer,ai,114790,confidence,True,21
+meeting-transcription,c8041c5c-38ce-4991-b0f3-a9960672fce1,1993,5,longer,ai,114790,effort,True,21
+meeting-transcription,c8041c5c-38ce-4991-b0f3-a9960672fce1,1992,3,longer,ai,114790,satisfaction,True,21
+presentation-slide,c8041c5c-38ce-4991-b0f3-a9960672fce1,2045,Expand geographical reach,longer,ai,119182,accuracy,True,21
+presentation-slide,c8041c5c-38ce-4991-b0f3-a9960672fce1,2046,Projected revenue growth,longer,ai,119182,comprehension,True,21
+presentation-slide,c8041c5c-38ce-4991-b0f3-a9960672fce1,2047,4,longer,ai,119182,confidence,True,21
+presentation-slide,c8041c5c-38ce-4991-b0f3-a9960672fce1,2049,3,longer,ai,119182,effort,True,21
+presentation-slide,c8041c5c-38ce-4991-b0f3-a9960672fce1,2048,5,longer,ai,119182,satisfaction,True,21
+product-listing,c8041c5c-38ce-4991-b0f3-a9960672fce1,1919,All items are discounted,longer,original,118054,accuracy,True,21
+product-listing,c8041c5c-38ce-4991-b0f3-a9960672fce1,1920-1921,"['The audio products represent offerings from multiple different brands.', 'Information about customer satisfaction (ratings) is provided for all audio items.']",longer,original,118054,comprehension,True,21
+product-listing,c8041c5c-38ce-4991-b0f3-a9960672fce1,1922,4,longer,original,118054,confidence,True,21
+product-listing,c8041c5c-38ce-4991-b0f3-a9960672fce1,1924,4,longer,original,118054,effort,True,21
+product-listing,c8041c5c-38ce-4991-b0f3-a9960672fce1,1923,4,longer,original,118054,satisfaction,True,21
+push-notifications,c8041c5c-38ce-4991-b0f3-a9960672fce1,1699,Information about system status.,longer,programmatic,104755,accuracy,True,21
+push-notifications,c8041c5c-38ce-4991-b0f3-a9960672fce1,1700,There is a severe weather alert active in your area,longer,programmatic,104755,comprehension,True,21
+push-notifications,c8041c5c-38ce-4991-b0f3-a9960672fce1,1701,4,longer,programmatic,104755,confidence,True,21
+push-notifications,c8041c5c-38ce-4991-b0f3-a9960672fce1,1703,5,longer,programmatic,104755,effort,True,21
+push-notifications,c8041c5c-38ce-4991-b0f3-a9960672fce1,1702,4,longer,programmatic,104755,satisfaction,True,21
+search-engine,c8041c5c-38ce-4991-b0f3-a9960672fce1,1774,Interactive experiences,longer,programmatic,95369,accuracy,True,21
+search-engine,c8041c5c-38ce-4991-b0f3-a9960672fce1,1775,Varied content formats,longer,programmatic,95369,comprehension,True,21
+search-engine,c8041c5c-38ce-4991-b0f3-a9960672fce1,1776,2,longer,programmatic,95369,confidence,True,21
+search-engine,c8041c5c-38ce-4991-b0f3-a9960672fce1,1778,5,longer,programmatic,95369,effort,True,21
+search-engine,c8041c5c-38ce-4991-b0f3-a9960672fce1,1777,3,longer,programmatic,95369,satisfaction,True,21
+email-inbox,cc61afea-4367-4738-89b9-8c8d8a306d8c,1784,Review and give feedback on the legal team's contract,shorter,programmatic,70467,accuracy,False,30
+email-inbox,cc61afea-4367-4738-89b9-8c8d8a306d8c,1785-1786-1787,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline', 'You need to provide feedback on a contract by the end of today']",shorter,programmatic,70467,comprehension,False,30
+email-inbox,cc61afea-4367-4738-89b9-8c8d8a306d8c,1788,2,shorter,programmatic,70467,confidence,False,30
+email-inbox,cc61afea-4367-4738-89b9-8c8d8a306d8c,1790,4,shorter,programmatic,70467,effort,False,30
+email-inbox,cc61afea-4367-4738-89b9-8c8d8a306d8c,1789,1,shorter,programmatic,70467,satisfaction,False,30
+meeting-transcription,cc61afea-4367-4738-89b9-8c8d8a306d8c,1888,Refine and improve existing core user experiences and address known technical problems.,shorter,original,106199,accuracy,False,30
+meeting-transcription,cc61afea-4367-4738-89b9-8c8d8a306d8c,1889-1890,"['Reviewing current product features.', 'Evaluating the project timeline.']",shorter,original,106199,comprehension,False,30
+meeting-transcription,cc61afea-4367-4738-89b9-8c8d8a306d8c,1891,3,shorter,original,106199,confidence,False,30
+meeting-transcription,cc61afea-4367-4738-89b9-8c8d8a306d8c,1893,3,shorter,original,106199,effort,False,30
+meeting-transcription,cc61afea-4367-4738-89b9-8c8d8a306d8c,1892,1,shorter,original,106199,satisfaction,False,30
+presentation-slide,cc61afea-4367-4738-89b9-8c8d8a306d8c,1951,I don't know,shorter,original,103637,accuracy,False,30
+presentation-slide,cc61afea-4367-4738-89b9-8c8d8a306d8c,1952,I don't know,shorter,original,103637,comprehension,False,30
+presentation-slide,cc61afea-4367-4738-89b9-8c8d8a306d8c,1953,1,shorter,original,103637,confidence,False,30
+presentation-slide,cc61afea-4367-4738-89b9-8c8d8a306d8c,1955,2,shorter,original,103637,effort,False,30
+presentation-slide,cc61afea-4367-4738-89b9-8c8d8a306d8c,1954,1,shorter,original,103637,satisfaction,False,30
+product-listing,cc61afea-4367-4738-89b9-8c8d8a306d8c,1829,I don't know,shorter,programmatic,68128,accuracy,False,30
+product-listing,cc61afea-4367-4738-89b9-8c8d8a306d8c,1830,Information about customer satisfaction (ratings) is provided for all audio items.,shorter,programmatic,68128,comprehension,False,30
+product-listing,cc61afea-4367-4738-89b9-8c8d8a306d8c,1831,4,shorter,programmatic,68128,confidence,False,30
+product-listing,cc61afea-4367-4738-89b9-8c8d8a306d8c,1833,4,shorter,programmatic,68128,effort,False,30
+product-listing,cc61afea-4367-4738-89b9-8c8d8a306d8c,1832,4,shorter,programmatic,68128,satisfaction,False,30
+push-notifications,cc61afea-4367-4738-89b9-8c8d8a306d8c,1680,Information related to weather alerts.,shorter,ai,78734,accuracy,False,30
+push-notifications,cc61afea-4367-4738-89b9-8c8d8a306d8c,1681-1682-1683,"['You have an upcoming meeting with a team member named Sarah', 'There is a severe weather alert active in your area', 'Your colleague needs your attention']",shorter,ai,78734,comprehension,False,30
+push-notifications,cc61afea-4367-4738-89b9-8c8d8a306d8c,1684,4,shorter,ai,78734,confidence,False,30
+push-notifications,cc61afea-4367-4738-89b9-8c8d8a306d8c,1686,4,shorter,ai,78734,effort,False,30
+push-notifications,cc61afea-4367-4738-89b9-8c8d8a306d8c,1685,1,shorter,ai,78734,satisfaction,False,30
+search-engine,cc61afea-4367-4738-89b9-8c8d8a306d8c,1727,I don't know,shorter,ai,82766,accuracy,False,30
+search-engine,cc61afea-4367-4738-89b9-8c8d8a306d8c,1728,I don't know,shorter,ai,82766,comprehension,False,30
+search-engine,cc61afea-4367-4738-89b9-8c8d8a306d8c,1729,1,shorter,ai,82766,confidence,False,30
+search-engine,cc61afea-4367-4738-89b9-8c8d8a306d8c,1731,1,shorter,ai,82766,effort,False,30
+search-engine,cc61afea-4367-4738-89b9-8c8d8a306d8c,1730,4,shorter,ai,82766,satisfaction,False,30
+email-inbox,d35fbd2f-a8ee-4857-ab65-879838215e77,1421,None of the above,shorter,programmatic,105071,accuracy,False,24
+email-inbox,d35fbd2f-a8ee-4857-ab65-879838215e77,1422-1423,"['You have a mandatory training session to attend tomorrow', 'You need to provide feedback on a contract by the end of today']",shorter,programmatic,105071,comprehension,False,24
+email-inbox,d35fbd2f-a8ee-4857-ab65-879838215e77,1424,4,shorter,programmatic,105071,confidence,False,24
+email-inbox,d35fbd2f-a8ee-4857-ab65-879838215e77,1426,5,shorter,programmatic,105071,effort,False,24
+email-inbox,d35fbd2f-a8ee-4857-ab65-879838215e77,1425,5,shorter,programmatic,105071,satisfaction,False,24
+meeting-transcription,d35fbd2f-a8ee-4857-ab65-879838215e77,1538,Refine and improve existing core user experiences and address known technical problems.,shorter,ai,128043,accuracy,False,24
+meeting-transcription,d35fbd2f-a8ee-4857-ab65-879838215e77,1539-1540,"['Reviewing current product features.', 'Addressing technical performance.']",shorter,ai,128043,comprehension,False,24
+meeting-transcription,d35fbd2f-a8ee-4857-ab65-879838215e77,1541,5,shorter,ai,128043,confidence,False,24
+meeting-transcription,d35fbd2f-a8ee-4857-ab65-879838215e77,1543,4,shorter,ai,128043,effort,False,24
+meeting-transcription,d35fbd2f-a8ee-4857-ab65-879838215e77,1542,4,shorter,ai,128043,satisfaction,False,24
+presentation-slide,d35fbd2f-a8ee-4857-ab65-879838215e77,1571,I don't know,shorter,ai,105348,accuracy,False,24
+presentation-slide,d35fbd2f-a8ee-4857-ab65-879838215e77,1572,Targets for operating margin,shorter,ai,105348,comprehension,False,24
+presentation-slide,d35fbd2f-a8ee-4857-ab65-879838215e77,1573,5,shorter,ai,105348,confidence,False,24
+presentation-slide,d35fbd2f-a8ee-4857-ab65-879838215e77,1575,4,shorter,ai,105348,effort,False,24
+presentation-slide,d35fbd2f-a8ee-4857-ab65-879838215e77,1574,4,shorter,ai,105348,satisfaction,False,24
+product-listing,d35fbd2f-a8ee-4857-ab65-879838215e77,1476,All items are discounted,shorter,programmatic,113717,accuracy,False,24
+product-listing,d35fbd2f-a8ee-4857-ab65-879838215e77,1477-1478,"['All the audio items listed are available to buy right now.', 'Every audio product listed is either headphones, earbuds or speakers.']",shorter,programmatic,113717,comprehension,False,24
+product-listing,d35fbd2f-a8ee-4857-ab65-879838215e77,1479,3,shorter,programmatic,113717,confidence,False,24
+product-listing,d35fbd2f-a8ee-4857-ab65-879838215e77,1481,5,shorter,programmatic,113717,effort,False,24
+product-listing,d35fbd2f-a8ee-4857-ab65-879838215e77,1480,3,shorter,programmatic,113717,satisfaction,False,24
+push-notifications,d35fbd2f-a8ee-4857-ab65-879838215e77,1349,Information about social happenings.,shorter,original,90266,accuracy,False,24
+push-notifications,d35fbd2f-a8ee-4857-ab65-879838215e77,1350,Your order from a clothing store has been delivered,shorter,original,90266,comprehension,False,24
+push-notifications,d35fbd2f-a8ee-4857-ab65-879838215e77,1351,5,shorter,original,90266,confidence,False,24
+push-notifications,d35fbd2f-a8ee-4857-ab65-879838215e77,1353,6,shorter,original,90266,effort,False,24
+push-notifications,d35fbd2f-a8ee-4857-ab65-879838215e77,1352,2,shorter,original,90266,satisfaction,False,24
+search-engine,d35fbd2f-a8ee-4857-ab65-879838215e77,1384,Written articles,shorter,original,78385,accuracy,False,24
+search-engine,d35fbd2f-a8ee-4857-ab65-879838215e77,1385,Uniform publisher type,shorter,original,78385,comprehension,False,24
+search-engine,d35fbd2f-a8ee-4857-ab65-879838215e77,1386,5,shorter,original,78385,confidence,False,24
+search-engine,d35fbd2f-a8ee-4857-ab65-879838215e77,1388,5,shorter,original,78385,effort,False,24
+search-engine,d35fbd2f-a8ee-4857-ab65-879838215e77,1387,2,shorter,original,78385,satisfaction,False,24
+email-inbox,d519b933-73b4-4061-b5c3-6d8b7b857c95,1899,Review and give feedback on the legal team's contract,shorter,programmatic,121996,accuracy,False,22
+email-inbox,d519b933-73b4-4061-b5c3-6d8b7b857c95,1900-1901-1902,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline', 'You need to provide feedback on a contract by the end of today']",shorter,programmatic,121996,comprehension,False,22
+email-inbox,d519b933-73b4-4061-b5c3-6d8b7b857c95,1903,1,shorter,programmatic,121996,confidence,False,22
+email-inbox,d519b933-73b4-4061-b5c3-6d8b7b857c95,1905,6,shorter,programmatic,121996,effort,False,22
+email-inbox,d519b933-73b4-4061-b5c3-6d8b7b857c95,1904,1,shorter,programmatic,121996,satisfaction,False,22
+meeting-transcription,d519b933-73b4-4061-b5c3-6d8b7b857c95,2038,Refine and improve existing core user experiences and address known technical problems.,shorter,original,153223,accuracy,False,22
+meeting-transcription,d519b933-73b4-4061-b5c3-6d8b7b857c95,2039-2040-2041,"['Reviewing current product features.', 'Evaluating the project timeline.', 'Addressing technical performance.']",shorter,original,153223,comprehension,False,22
+meeting-transcription,d519b933-73b4-4061-b5c3-6d8b7b857c95,2042,2,shorter,original,153223,confidence,False,22
+meeting-transcription,d519b933-73b4-4061-b5c3-6d8b7b857c95,2044,5,shorter,original,153223,effort,False,22
+meeting-transcription,d519b933-73b4-4061-b5c3-6d8b7b857c95,2043,1,shorter,original,153223,satisfaction,False,22
+presentation-slide,d519b933-73b4-4061-b5c3-6d8b7b857c95,2074,Enhance core technology offerings,shorter,original,116811,accuracy,False,22
+presentation-slide,d519b933-73b4-4061-b5c3-6d8b7b857c95,2075-2076,"['Projected revenue growth', 'Targets for operating margin']",shorter,original,116811,comprehension,False,22
+presentation-slide,d519b933-73b4-4061-b5c3-6d8b7b857c95,2077,3,shorter,original,116811,confidence,False,22
+presentation-slide,d519b933-73b4-4061-b5c3-6d8b7b857c95,2079,3,shorter,original,116811,effort,False,22
+presentation-slide,d519b933-73b4-4061-b5c3-6d8b7b857c95,2078,3,shorter,original,116811,satisfaction,False,22
+product-listing,d519b933-73b4-4061-b5c3-6d8b7b857c95,1966,I don't know,shorter,programmatic,119010,accuracy,False,22
+product-listing,d519b933-73b4-4061-b5c3-6d8b7b857c95,1967-1968-1969-1970,"['All the audio items listed are available to buy right now.', 'The audio products represent offerings from multiple different brands.', 'Every audio product listed is either headphones, earbuds or speakers.', 'Information about customer satisfaction (ratings) is provided for all audio items.']",shorter,programmatic,119010,comprehension,False,22
+product-listing,d519b933-73b4-4061-b5c3-6d8b7b857c95,1971,6,shorter,programmatic,119010,confidence,False,22
+product-listing,d519b933-73b4-4061-b5c3-6d8b7b857c95,1973,2,shorter,programmatic,119010,effort,False,22
+product-listing,d519b933-73b4-4061-b5c3-6d8b7b857c95,1972,3,shorter,programmatic,119010,satisfaction,False,22
+push-notifications,d519b933-73b4-4061-b5c3-6d8b7b857c95,1732,Information about social happenings.,shorter,ai,120085,accuracy,False,22
+push-notifications,d519b933-73b4-4061-b5c3-6d8b7b857c95,1733,There is a severe weather alert active in your area,shorter,ai,120085,comprehension,False,22
+push-notifications,d519b933-73b4-4061-b5c3-6d8b7b857c95,1734,2,shorter,ai,120085,confidence,False,22
+push-notifications,d519b933-73b4-4061-b5c3-6d8b7b857c95,1736,4,shorter,ai,120085,effort,False,22
+push-notifications,d519b933-73b4-4061-b5c3-6d8b7b857c95,1735,2,shorter,ai,120085,satisfaction,False,22
+search-engine,d519b933-73b4-4061-b5c3-6d8b7b857c95,1808,Written articles,shorter,ai,130869,accuracy,False,22
+search-engine,d519b933-73b4-4061-b5c3-6d8b7b857c95,1809,I don't know,shorter,ai,130869,comprehension,False,22
+search-engine,d519b933-73b4-4061-b5c3-6d8b7b857c95,1810,3,shorter,ai,130869,confidence,False,22
+search-engine,d519b933-73b4-4061-b5c3-6d8b7b857c95,1812,3,shorter,ai,130869,effort,False,22
+search-engine,d519b933-73b4-4061-b5c3-6d8b7b857c95,1811,3,shorter,ai,130869,satisfaction,False,22
+email-inbox,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1399,Approve or decline the deadline extension request,longer,programmatic,92690,accuracy,False,24
+email-inbox,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1400-1401-1402,"['You have a mandatory training session to attend tomorrow', 'Your expense report has been rejected and needs revision', 'You need to provide feedback on a contract by the end of today']",longer,programmatic,92690,comprehension,False,24
+email-inbox,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1403,3,longer,programmatic,92690,confidence,False,24
+email-inbox,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1405,5,longer,programmatic,92690,effort,False,24
+email-inbox,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1404,1,longer,programmatic,92690,satisfaction,False,24
+meeting-transcription,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1530,Prioritize adding new features to the release to respond to customer demands.,longer,original,153558,accuracy,False,24
+meeting-transcription,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1531-1532-1533-1534,"['Reviewing current product features.', 'Evaluating the project timeline.', 'Negotiating vendor contracts.', 'Addressing technical performance.']",longer,original,153558,comprehension,False,24
+meeting-transcription,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1535,3,longer,original,153558,confidence,False,24
+meeting-transcription,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1537,3,longer,original,153558,effort,False,24
+meeting-transcription,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1536,1,longer,original,153558,satisfaction,False,24
+presentation-slide,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1581,Expand geographical reach,longer,original,156501,accuracy,False,24
+presentation-slide,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1582-1583,"['Projected revenue growth', 'Targets for operating margin']",longer,original,156501,comprehension,False,24
+presentation-slide,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1584,3,longer,original,156501,confidence,False,24
+presentation-slide,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1586,3,longer,original,156501,effort,False,24
+presentation-slide,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1585,3,longer,original,156501,satisfaction,False,24
+product-listing,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1453,None of the above,longer,programmatic,108161,accuracy,False,24
+product-listing,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1454,None of the above,longer,programmatic,108161,comprehension,False,24
+product-listing,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1455,3,longer,programmatic,108161,confidence,False,24
+product-listing,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1457,5,longer,programmatic,108161,effort,False,24
+product-listing,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1456,2,longer,programmatic,108161,satisfaction,False,24
+push-notifications,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1331,Information related to weather alerts.,longer,ai,94003,accuracy,False,24
+push-notifications,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1332-1333,"['There is a severe weather alert active in your area', 'Your colleague needs your attention']",longer,ai,94003,comprehension,False,24
+push-notifications,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1334,4,longer,ai,94003,confidence,False,24
+push-notifications,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1336,5,longer,ai,94003,effort,False,24
+push-notifications,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1335,2,longer,ai,94003,satisfaction,False,24
+search-engine,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1364,Written articles,longer,ai,76107,accuracy,False,24
+search-engine,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1365,Varied content formats,longer,ai,76107,comprehension,False,24
+search-engine,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1366,1,longer,ai,76107,confidence,False,24
+search-engine,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1368,7,longer,ai,76107,effort,False,24
+search-engine,d6bc2fd2-4b6d-4805-ba46-696ba1a1f1b0,1367,1,longer,ai,76107,satisfaction,False,24
+email-inbox,d7d9c375-530f-43f0-921e-a8cbf47df914,1864,I don't know,shorter,ai,102943,accuracy,False,27
+email-inbox,d7d9c375-530f-43f0-921e-a8cbf47df914,1865-1866-1867,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline', 'You need to provide feedback on a contract by the end of today']",shorter,ai,102943,comprehension,False,27
+email-inbox,d7d9c375-530f-43f0-921e-a8cbf47df914,1868,4,shorter,ai,102943,confidence,False,27
+email-inbox,d7d9c375-530f-43f0-921e-a8cbf47df914,1870,5,shorter,ai,102943,effort,False,27
+email-inbox,d7d9c375-530f-43f0-921e-a8cbf47df914,1869,3,shorter,ai,102943,satisfaction,False,27
+meeting-transcription,d7d9c375-530f-43f0-921e-a8cbf47df914,2010,I don't know,shorter,programmatic,134310,accuracy,False,27
+meeting-transcription,d7d9c375-530f-43f0-921e-a8cbf47df914,2011,I don't know,shorter,programmatic,134310,comprehension,False,27
+meeting-transcription,d7d9c375-530f-43f0-921e-a8cbf47df914,2012,1,shorter,programmatic,134310,confidence,False,27
+meeting-transcription,d7d9c375-530f-43f0-921e-a8cbf47df914,2014,5,shorter,programmatic,134310,effort,False,27
+meeting-transcription,d7d9c375-530f-43f0-921e-a8cbf47df914,2013,4,shorter,programmatic,134310,satisfaction,False,27
+presentation-slide,d7d9c375-530f-43f0-921e-a8cbf47df914,2050,Enhance core technology offerings,shorter,programmatic,77448,accuracy,False,27
+presentation-slide,d7d9c375-530f-43f0-921e-a8cbf47df914,2051,I don't know,shorter,programmatic,77448,comprehension,False,27
+presentation-slide,d7d9c375-530f-43f0-921e-a8cbf47df914,2052,3,shorter,programmatic,77448,confidence,False,27
+presentation-slide,d7d9c375-530f-43f0-921e-a8cbf47df914,2054,5,shorter,programmatic,77448,effort,False,27
+presentation-slide,d7d9c375-530f-43f0-921e-a8cbf47df914,2053,4,shorter,programmatic,77448,satisfaction,False,27
+product-listing,d7d9c375-530f-43f0-921e-a8cbf47df914,1932,None of the above,shorter,ai,105806,accuracy,False,27
+product-listing,d7d9c375-530f-43f0-921e-a8cbf47df914,1933-1934,"['All the audio items listed are available to buy right now.', 'Information about customer satisfaction (ratings) is provided for all audio items.']",shorter,ai,105806,comprehension,False,27
+product-listing,d7d9c375-530f-43f0-921e-a8cbf47df914,1935,5,shorter,ai,105806,confidence,False,27
+product-listing,d7d9c375-530f-43f0-921e-a8cbf47df914,1937,5,shorter,ai,105806,effort,False,27
+product-listing,d7d9c375-530f-43f0-921e-a8cbf47df914,1936,5,shorter,ai,105806,satisfaction,False,27
+push-notifications,d7d9c375-530f-43f0-921e-a8cbf47df914,1720,Information related to weather alerts.,shorter,original,103931,accuracy,False,27
+push-notifications,d7d9c375-530f-43f0-921e-a8cbf47df914,1721-1722-1723,"['You have an upcoming meeting with a team member named Sarah', 'There is a severe weather alert active in your area', 'Your friends wants to plan your birthday']",shorter,original,103931,comprehension,False,27
+push-notifications,d7d9c375-530f-43f0-921e-a8cbf47df914,1724,3,shorter,original,103931,confidence,False,27
+push-notifications,d7d9c375-530f-43f0-921e-a8cbf47df914,1726,5,shorter,original,103931,effort,False,27
+push-notifications,d7d9c375-530f-43f0-921e-a8cbf47df914,1725,3,shorter,original,103931,satisfaction,False,27
+search-engine,d7d9c375-530f-43f0-921e-a8cbf47df914,1796,Images and infographics,shorter,original,108950,accuracy,False,27
+search-engine,d7d9c375-530f-43f0-921e-a8cbf47df914,1797,Varied content formats,shorter,original,108950,comprehension,False,27
+search-engine,d7d9c375-530f-43f0-921e-a8cbf47df914,1798,3,shorter,original,108950,confidence,False,27
+search-engine,d7d9c375-530f-43f0-921e-a8cbf47df914,1800,6,shorter,original,108950,effort,False,27
+search-engine,d7d9c375-530f-43f0-921e-a8cbf47df914,1799,3,shorter,original,108950,satisfaction,False,27
+email-inbox,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1427,Approve or decline the deadline extension request,longer,original,130506,accuracy,False,24
+email-inbox,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1428-1429-1430-1431,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline', 'You need to provide feedback on a contract by the end of today', 'You have an upcoming flight to Boston']",longer,original,130506,comprehension,False,24
+email-inbox,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1432,2,longer,original,130506,confidence,False,24
+email-inbox,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1434,5,longer,original,130506,effort,False,24
+email-inbox,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1433,1,longer,original,130506,satisfaction,False,24
+meeting-transcription,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1518,I don't know,longer,ai,131065,accuracy,False,24
+meeting-transcription,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1519-1520,"['Reviewing current product features.', 'Evaluating the project timeline.']",longer,ai,131065,comprehension,False,24
+meeting-transcription,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1521,5,longer,ai,131065,confidence,False,24
+meeting-transcription,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1523,2,longer,ai,131065,effort,False,24
+meeting-transcription,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1522,5,longer,ai,131065,satisfaction,False,24
+presentation-slide,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1554,I don't know,longer,ai,94584,accuracy,False,24
+presentation-slide,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1555-1556,"['Projected revenue growth', 'Workforce growth projections']",longer,ai,94584,comprehension,False,24
+presentation-slide,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1557,7,longer,ai,94584,confidence,False,24
+presentation-slide,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1559,2,longer,ai,94584,effort,False,24
+presentation-slide,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1558,6,longer,ai,94584,satisfaction,False,24
+product-listing,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1464,All items are discounted,longer,original,84904,accuracy,False,24
+product-listing,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1465-1466-1467,"['All the audio items listed are available to buy right now.', 'The audio products represent offerings from multiple different brands.', 'Every audio product listed is either headphones, earbuds or speakers.']",longer,original,84904,comprehension,False,24
+product-listing,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1468,3,longer,original,84904,confidence,False,24
+product-listing,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1470,2,longer,original,84904,effort,False,24
+product-listing,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1469,4,longer,original,84904,satisfaction,False,24
+push-notifications,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1310,Information related to weather alerts.,longer,programmatic,67750,accuracy,False,24
+push-notifications,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1311,There is a severe weather alert active in your area,longer,programmatic,67750,comprehension,False,24
+push-notifications,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1312,3,longer,programmatic,67750,confidence,False,24
+push-notifications,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1314,3,longer,programmatic,67750,effort,False,24
+push-notifications,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1313,4,longer,programmatic,67750,satisfaction,False,24
+search-engine,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1379,Written articles,longer,programmatic,113908,accuracy,False,24
+search-engine,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1380,Varied content formats,longer,programmatic,113908,comprehension,False,24
+search-engine,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1381,5,longer,programmatic,113908,confidence,False,24
+search-engine,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1383,3,longer,programmatic,113908,effort,False,24
+search-engine,f9e8e30e-6178-4de7-ba7d-cca822f9f989,1382,5,longer,programmatic,113908,satisfaction,False,24
+email-inbox,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1801,I don't know,longer,ai,98753,accuracy,False,23
+email-inbox,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1802-1803-1804,"['Sarah Johnson has requested an extension for a project deadline', 'Your expense report has been rejected and needs revision', 'You need to provide feedback on a contract by the end of today']",longer,ai,98753,comprehension,False,23
+email-inbox,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1805,5,longer,ai,98753,confidence,False,23
+email-inbox,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1807,3,longer,ai,98753,effort,False,23
+email-inbox,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1806,3,longer,ai,98753,satisfaction,False,23
+meeting-transcription,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1944,I don't know,longer,programmatic,120433,accuracy,False,23
+meeting-transcription,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1945-1946-1947,"['Reviewing current product features.', 'Evaluating the project timeline.', 'Developing a new marketing strategy.']",longer,programmatic,120433,comprehension,False,23
+meeting-transcription,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1948,3,longer,programmatic,120433,confidence,False,23
+meeting-transcription,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1950,5,longer,programmatic,120433,effort,False,23
+meeting-transcription,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1949,1,longer,programmatic,120433,satisfaction,False,23
+presentation-slide,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,2000,I don't know,longer,programmatic,85033,accuracy,False,23
+presentation-slide,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,2001,None of the above,longer,programmatic,85033,comprehension,False,23
+presentation-slide,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,2002,2,longer,programmatic,85033,confidence,False,23
+presentation-slide,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,2004,5,longer,programmatic,85033,effort,False,23
+presentation-slide,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,2003,7,longer,programmatic,85033,satisfaction,False,23
+product-listing,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1871,They sell from a wide variety of product categories,longer,ai,111426,accuracy,False,23
+product-listing,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1872,Information about customer satisfaction (ratings) is provided for all audio items.,longer,ai,111426,comprehension,False,23
+product-listing,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1873,6,longer,ai,111426,confidence,False,23
+product-listing,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1875,3,longer,ai,111426,effort,False,23
+product-listing,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1874,7,longer,ai,111426,satisfaction,False,23
+push-notifications,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1687,Information about social happenings.,longer,original,85216,accuracy,False,23
+push-notifications,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1688-1689-1690,"['You have an upcoming meeting with a team member named Sarah', 'There is a severe weather alert active in your area', 'Your order from a clothing store has been delivered']",longer,original,85216,comprehension,False,23
+push-notifications,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1691,3,longer,original,85216,confidence,False,23
+push-notifications,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1693,5,longer,original,85216,effort,False,23
+push-notifications,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1692,2,longer,original,85216,satisfaction,False,23
+search-engine,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1757,Written articles,longer,original,91437,accuracy,False,23
+search-engine,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1758-1759-1760,"['Varied content formats', 'Different update schedules', 'Uniform publisher type']",longer,original,91437,comprehension,False,23
+search-engine,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1761,4,longer,original,91437,confidence,False,23
+search-engine,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1763,4,longer,original,91437,effort,False,23
+search-engine,f9f9f19b-76ec-47c1-8099-f3f01a5d8f6a,1762,3,longer,original,91437,satisfaction,False,23
+email-inbox,fd8b5d9a-df98-4df5-922a-190f9912b135,2200,Approve or decline the deadline extension request,shorter,programmatic,123517,accuracy,False,24
+email-inbox,fd8b5d9a-df98-4df5-922a-190f9912b135,2201-2202,"['You have a mandatory training session to attend tomorrow', 'Sarah Johnson has requested an extension for a project deadline']",shorter,programmatic,123517,comprehension,False,24
+email-inbox,fd8b5d9a-df98-4df5-922a-190f9912b135,2203,1,shorter,programmatic,123517,confidence,False,24
+email-inbox,fd8b5d9a-df98-4df5-922a-190f9912b135,2205,6,shorter,programmatic,123517,effort,False,24
+email-inbox,fd8b5d9a-df98-4df5-922a-190f9912b135,2204,1,shorter,programmatic,123517,satisfaction,False,24
+meeting-transcription,fd8b5d9a-df98-4df5-922a-190f9912b135,2235,Refine and improve existing core user experiences and address known technical problems.,shorter,original,199891,accuracy,False,24
+meeting-transcription,fd8b5d9a-df98-4df5-922a-190f9912b135,2236-2237,"['Reviewing current product features.', 'Evaluating the project timeline.']",shorter,original,199891,comprehension,False,24
+meeting-transcription,fd8b5d9a-df98-4df5-922a-190f9912b135,2238,3,shorter,original,199891,confidence,False,24
+meeting-transcription,fd8b5d9a-df98-4df5-922a-190f9912b135,2240,4,shorter,original,199891,effort,False,24
+meeting-transcription,fd8b5d9a-df98-4df5-922a-190f9912b135,2239,5,shorter,original,199891,satisfaction,False,24
+presentation-slide,fd8b5d9a-df98-4df5-922a-190f9912b135,2246,Expand geographical reach,shorter,original,151165,accuracy,False,24
+presentation-slide,fd8b5d9a-df98-4df5-922a-190f9912b135,2247-2248,"['Projected revenue growth', 'Targets for operating margin']",shorter,original,151165,comprehension,False,24
+presentation-slide,fd8b5d9a-df98-4df5-922a-190f9912b135,2249,1,shorter,original,151165,confidence,False,24
+presentation-slide,fd8b5d9a-df98-4df5-922a-190f9912b135,2251,6,shorter,original,151165,effort,False,24
+presentation-slide,fd8b5d9a-df98-4df5-922a-190f9912b135,2250,1,shorter,original,151165,satisfaction,False,24
+product-listing,fd8b5d9a-df98-4df5-922a-190f9912b135,2220,None of the above,shorter,programmatic,118979,accuracy,False,24
+product-listing,fd8b5d9a-df98-4df5-922a-190f9912b135,2221,None of the above,shorter,programmatic,118979,comprehension,False,24
+product-listing,fd8b5d9a-df98-4df5-922a-190f9912b135,2222,1,shorter,programmatic,118979,confidence,False,24
+product-listing,fd8b5d9a-df98-4df5-922a-190f9912b135,2224,4,shorter,programmatic,118979,effort,False,24
+product-listing,fd8b5d9a-df98-4df5-922a-190f9912b135,2223,7,shorter,programmatic,118979,satisfaction,False,24
+push-notifications,fd8b5d9a-df98-4df5-922a-190f9912b135,2153,Information about social happenings.,shorter,ai,98036,accuracy,False,24
+push-notifications,fd8b5d9a-df98-4df5-922a-190f9912b135,2154-2155,"['You have an upcoming meeting with a team member named Sarah', 'There is a severe weather alert active in your area']",shorter,ai,98036,comprehension,False,24
+push-notifications,fd8b5d9a-df98-4df5-922a-190f9912b135,2156,1,shorter,ai,98036,confidence,False,24
+push-notifications,fd8b5d9a-df98-4df5-922a-190f9912b135,2158,7,shorter,ai,98036,effort,False,24
+push-notifications,fd8b5d9a-df98-4df5-922a-190f9912b135,2157,1,shorter,ai,98036,satisfaction,False,24
+search-engine,fd8b5d9a-df98-4df5-922a-190f9912b135,2181,Written articles,shorter,ai,146889,accuracy,False,24
+search-engine,fd8b5d9a-df98-4df5-922a-190f9912b135,2182,Varied content formats,shorter,ai,146889,comprehension,False,24
+search-engine,fd8b5d9a-df98-4df5-922a-190f9912b135,2183,2,shorter,ai,146889,confidence,False,24
+search-engine,fd8b5d9a-df98-4df5-922a-190f9912b135,2185,7,shorter,ai,146889,effort,False,24
+search-engine,fd8b5d9a-df98-4df5-922a-190f9912b135,2184,3,shorter,ai,146889,satisfaction,False,24
