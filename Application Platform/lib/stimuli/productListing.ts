@@ -316,7 +316,7 @@ export function summarizeProducts(items: ProductItem[]): ProductProgrammaticSumm
   };
 }
 
-export const productListingTests: Question[] = [ // GOOD!
+export const productListingTests: Question[] = [
     {
         id: `product-listing_accuracy`,
         text: "Considering the listed products, what makes this e-commerce store stand out?",
@@ -332,7 +332,7 @@ export const productListingTests: Question[] = [ // GOOD!
         multipleCorrectAnswers: false,
     },
     {
-      id: "product-listing_comprehension", // GOOD
+      id: "product-listing_comprehension",
       text: "Which of the following general statements are accurate descriptions of the listed audio products?",
       type: 'multipleChoice',
       options: [

@@ -80,10 +80,10 @@ export function TestQuestionForm({
               ))}
             </RadioGroup>
           )}
-          {q.type === 'text' && ( // Example: Free text response
+          {q.type === 'text' && ( 
             <Textarea name={q.id} placeholder="Your answer..." required />
           )}
-          {q.type === 'number' && ( // Example: Number input
+          {q.type === 'number' && ( 
             <Input type="number" name={q.id} placeholder="Enter a number" required />
           )}
           {q.type === 'multipleChoice' && q.options && (

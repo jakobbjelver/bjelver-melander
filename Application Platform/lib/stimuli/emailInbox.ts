@@ -312,7 +312,7 @@ export const emailAISummaryShorter: EmailAISummary = {
     irrelevantCount: 1
 }
 
-export const emailInboxTests: Question[] = [ // GOOD
+export const emailInboxTests: Question[] = [
     {
         id: "email-inbox_accuracy",
         text: "Looking at these messages, what action should be the most prioritized?",
@@ -328,7 +328,7 @@ export const emailInboxTests: Question[] = [ // GOOD
         multipleCorrectAnswers: false
     },
     {
-        id: "email-inbox_comprehension", // GOOD
+        id: "email-inbox_comprehension",
         text: "Which of the following statements are accurate based on your email inbox?",
         type: 'multipleChoice',
         options: [
@@ -340,38 +340,6 @@ export const emailInboxTests: Question[] = [ // GOOD
             "All your emails have been read", // Incorrect
             "None of the above", // Incorrect
             "I don't know" // Incorrect
-        ],
-        multipleCorrectAnswers: true,
-        // correctAnswerIndices: [0, 1, 3]  // Training, extension request, and contract feedback are accurate
-    }
-];
-
-export const testSlugTests: Question[] = [
-    {
-        id: "testSlug_accuracy",
-        text: "Question",
-        type: 'multipleChoice',
-        options: [
-            "Option 1",
-            "Option 2", // Incorrect because...
-            "Option 3", // Correct because...
-            "Option 4",
-            "None of the above",
-            "I don't know"
-        ],
-        multipleCorrectAnswers: false,
-    },
-    {
-        id: "testSlug_comprehension",
-        text: "Question?",
-        type: 'multipleChoice',
-        options: [
-            "Option 1",
-            "Option 2", // Incorrect because
-            "Option 3",
-            "Option 4", // Correct because...
-            "None of the above",
-            "I don't know"
         ],
         multipleCorrectAnswers: true,
     }

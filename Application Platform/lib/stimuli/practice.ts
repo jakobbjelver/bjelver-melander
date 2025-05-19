@@ -39,6 +39,5 @@ export const practiceTests: Question[] = [
             "I don't know"
         ],
         multipleCorrectAnswers: true,
-        // correctAnswerIndices: [0, 1, 2, 3, 4]
     }
 ];

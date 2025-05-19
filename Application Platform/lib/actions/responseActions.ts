@@ -33,9 +33,6 @@ export async function saveQuestionnaireResponses(
     if (isNaN(responseValue)) {
       // Handle non-integer responses gracefully
       console.warn(`Invalid integer value for question ${key}: '${value}'`);
-      // Option 1: Return error immediately
-      // return { error: `Invalid response value for question ${key}. Please enter a number.` };
-      // Option 2: Skip this question (might be preferable for robustness)
       continue;
     }
     responsesToInsert.push({
@@ -56,16 +53,12 @@ export async function saveQuestionnaireResponses(
 
 
   try {
-    // --- Drizzle Bulk Insert ---
     if (responsesToInsert.length > 0) {
       await db.insert(QuestionnaireResponsesTable).values(responsesToInsert);
       console.log(`DB Insert Success: ${responsesToInsert.length} ${questionnaireType} responses for participant ${participantId}`);
     } else {
       console.log(`No valid ${questionnaireType} responses to insert for participant ${participantId}`);
-      // Decide if this should be an error or just proceed
-      // return { error: 'No valid responses were provided.' };
     }
-    // --- End Drizzle Bulk Insert ---
 
 
     // Determine next step (same logic as before)
@@ -91,7 +84,7 @@ export type TestResponseAction = (
   formData: FormData,
 ) => Promise<{ error?: string; nextPath?: string }>;
 
-// --- Action 3: Save Test Responses ---
+// --- Save Test Responses ---
 export async function saveTestResponses(
   startTime: number,
   contentSource: ContentSources,
@@ -121,9 +114,6 @@ export async function saveTestResponses(
     // Basic validation: ensure value is a non-empty string
     if (typeof value !== 'string' || value.trim() === '') {
       console.warn(`Missing response value for question ${key} in test ${testSlug}`);
-      // Option 1: Error out
-      // return { error: `Missing response value for question ${key}.` };
-      // Option 2: Skip
       continue;
     }
     responsesToInsert.push({
@@ -146,9 +136,7 @@ export async function saveTestResponses(
 
 
   try {
-    // --- Drizzle Bulk Insert ---
 
-    // ─── Prevent duplicates ──────────────────────────────────────────────────────
     // 1. Fetch already‐saved questionIds for this participant & testSlug
     const existingRows = await db
       .select({ questionId: TestResponsesTable.questionId })
@@ -187,7 +175,6 @@ export async function saveTestResponses(
     const nextPath = nextSlug
       ? `/participant/${participantId}/test/${nextSlug}/intro`
       : `/participant/${participantId}/post`;
-    // --- End Server-Side Data Fetching ---
 
     return { nextPath };
 

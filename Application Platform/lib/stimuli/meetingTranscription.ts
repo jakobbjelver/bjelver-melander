@@ -235,7 +235,7 @@ export function summarizeTranscripts(
 }
 
 
-export const meetingTranscriptTests: Question[] = [ // GOOD!
+export const meetingTranscriptTests: Question[] = [
     {
         id: "meeting-transcription_accuracy",
         text: "Based on the discussion, what was the main strategic decision made regarding the focus for the upcoming product release?",

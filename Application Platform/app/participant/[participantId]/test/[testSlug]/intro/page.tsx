@@ -68,13 +68,6 @@ export default async function IntroPage({ params }: ContentPageProps) {
                     There is no time limit, but please <strong>move at a steady pace</strong>.
                 </AlertDescription>
             </Alert>
-            {/** <Alert variant={'info'}>
-                <Lightbulb className="h-4 w-4" />
-                <AlertTitle>Tip</AlertTitle>
-                <AlertDescription>
-                    You are encouraged to <strong>revisit the content as many times as you want</strong> when answering questions. Simply do so by going back and forth in your web history.
-                </AlertDescription>
-            </Alert> */}
             <Alert variant={'destructive'}>
                 <AlertCircle className="h-4 w-4" />
                 <AlertTitle>Warning</AlertTitle>

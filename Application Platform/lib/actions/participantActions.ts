@@ -45,7 +45,6 @@ export async function createParticipant(age: number, controlledCode: string, pil
 
     const {sourceOrder: assignedSourceOrder, contentLength: assignedLength} = assignContentLengthAndSourceOrder()
 
-    // --- Drizzle Insert ---
     await db.insert(ParticipantsTable).values({
       id: participantId,
       assignedLength,
@@ -56,27 +55,23 @@ export async function createParticipant(age: number, controlledCode: string, pil
       ...participant
       // createdAt will be handled by defaultNow() in the schema
     });
-    // --- End Drizzle Insert ---
 
     // Set the cookie
     cookieStore.set('participantId', participantId);
 
     console.log(`DB Insert Success: id=${participantId}, sourceOrder=${assignedSourceOrder}, length=${assignedLength}`);
 
-    // Return ID for client-side redirect (more flexible than server-side redirect here)
+    // Return ID for client-side redirect
     return { participantId: participantId };
 
   } catch (error) {
     console.error("Error creating participant:", error);
     return { error: 'Failed to initialize participant session.' };
   }
-  // Server-side redirect (alternative)
-  // redirect(`/participant/${participantId}/pre`);
 }
 
 export async function getParticipantAction(participantId: string): Promise<Participant | null> {
   try {
-    // --- Drizzle DB Fetch Logic using your schema ---
     const participants = await db
       .select() // Select only the assignedLength column
       .from(ParticipantsTable)
@@ -92,7 +87,6 @@ export async function getParticipantAction(participantId: string): Promise<Parti
 
   } catch (error) {
     console.error(`Database error fetching participant group for ${participantId}:`, error);
-    // Depending on how you handle errors, you might re-throw or return null/specific error object
     return null;
   }
 }

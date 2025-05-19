@@ -316,7 +316,7 @@ export const notificationAISummaryShorter: NotificationAISummary = {
   summaryText: "You have 5 notifications, 4 of which are unread and 2 marked as high priority. Upcoming events include a team sync in 15 minutes and Alex’s birthday tomorrow. A flash flood warning is active until 8 PM. Don’t forget to confirm your meeting time with Sarah."
 };
 
-export const pushNotificationsTests: Question[] = [ // GOOD!
+export const pushNotificationsTests: Question[] = [
   {
     id: "push-notifications_accuracy",
     text: "Based on the types of items shown, what category of information is the most important to consider first?",
@@ -332,7 +332,7 @@ export const pushNotificationsTests: Question[] = [ // GOOD!
     multipleCorrectAnswers: false,
   },
   {
-    id: `push-notifications_comprehension`, // GOOD
+    id: `push-notifications_comprehension`,
     text: "Which of the following statements are accurate based on your notifications?",
     type: 'multipleChoice',
     options: [

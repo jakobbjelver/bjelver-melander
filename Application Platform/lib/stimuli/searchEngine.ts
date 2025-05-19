@@ -197,6 +197,8 @@ export function summarizeSearchResults(
   };
 }
 
+// Pre-generated and statically delivered
+// Model: OpenAI o4-mini (standard parameters + low reasoning effort)
 export const searchResultsAISummaryLonger: SearchAISummary = {
   topic: "Comprehensive Climate Change Resources",
   overview: "This collection offers a multifaceted view of climate change, covering scientific fundamentals, interactive data visualizations, policy and mitigation strategies, and cultural perspectives from travel guides to climate fiction.",
@@ -234,8 +236,6 @@ export const searchResultsAISummaryLonger: SearchAISummary = {
   multimediaIncluded: true
 };
 
-// Pre-generated and statically delivered
-// Model: OpenAI o4-mini (standard parameters + low reasoning effort)
 export const searchResultsAISummaryShorter: SearchAISummary = {
   topic: "Climate Change",
   overview: "A concise synthesis of authoritative resources covering the science, impacts, mitigation strategies, policy implications, and myth‑busting explanations of climate change, presented through articles, data visualizations, official reports, and expert lectures.",
@@ -268,7 +268,7 @@ export const searchResultsAISummaryShorter: SearchAISummary = {
   multimediaIncluded: true
 };
 
-export const searchEngineTests: Question[] = [ // GOOD!
+export const searchEngineTests: Question[] = [
   {
     id: "search-engine_accuracy",
     text: "To get the most out of this search result, which medium should you prioritize consuming?",
@@ -284,7 +284,7 @@ export const searchEngineTests: Question[] = [ // GOOD!
     multipleCorrectAnswers: false,
   },
   {
-    id: "search-engine_comprehension", // GOOD
+    id: "search-engine_comprehension",
     text: "Which of these characteristics accurately describe this collection of resources?",
     type: 'multipleChoice',
     options: [

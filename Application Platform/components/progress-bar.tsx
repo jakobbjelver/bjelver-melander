@@ -1,11 +1,10 @@
 'use client'
 
-// 1) at the top of the file, import the hook:
 import { useParams, usePathname, useSearchParams } from 'next/navigation'
 import { TestSlugs } from '@/types/test';
 import { Progress } from './ui/progress';
 
-// 2) define your slugs & total steps:
+// 2) define slugs & total steps
 const TEST_SEQUENCE = Object.values(TestSlugs);
 
 const TOTAL_STEPS = 2 + (TEST_SEQUENCE.length * 3) + 2  // consent, pre, 7×3, post, complete

@@ -18,7 +18,7 @@ const allTestSlugs = Object.values(TestSlugs).filter(ts => ts !== TestSlugs.PRAC
 const N = allTestSlugs.length;
 if (N === 0 || N % 3 !== 0) {
     console.error("Warning: Ensure allTestSlugss is populated and its length is divisible by 3 for proper set division.");
-    // Basic division - adjust indices if N is not perfectly divisible
+    // Basic division
 }
 
 const itemsPerSet = Math.floor(N / 3);

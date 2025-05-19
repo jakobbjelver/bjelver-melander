@@ -320,7 +320,7 @@ export function summarizeSlides(
     };
 }
 
-export const presentationSlideTests: Question[] = [ // GOOD!
+export const presentationSlideTests: Question[] = [
   {
     id: "presentation-slide_accuracy",
     text: "Based on the company’s overall performance and future outlook, which decision best supports continuing its growth trajectory?",
@@ -336,7 +336,7 @@ export const presentationSlideTests: Question[] = [ // GOOD!
     multipleCorrectAnswers: false,
   },
   {
-    id: "presentation-slide_comprehension", // GOOD
+    id: "presentation-slide_comprehension",
     text: "Which forward-looking elements were included in the overview?",
     type: 'multipleChoice',
     options: [

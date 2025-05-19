@@ -19,7 +19,6 @@ export default async function PostQuestionnairePage({ params }: PostQuestionnair
       <h1 className="text-2xl font-bold">Post-Experiment Questionnaire</h1>
       <p>Please answer the following questions reflecting on the tasks you just completed.</p>
 
-      {/* Reuse the same form component */}
       <QuestionnaireForm
         questions={questions}
         participantId={participantId}

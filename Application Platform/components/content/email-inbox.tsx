@@ -1,6 +1,5 @@
 import { EmailAISummary, EmailInbox, EmailItem, EmailProgrammaticSummary } from '@/types/stimuli';
 
-// Add or merge these imports at the top of your file
 import {
   Card,
   CardHeader,
@@ -112,7 +111,7 @@ function EmailInboxAIComponent({ contentData }: { contentData: EmailAISummary })
     irrelevantCount,
   } = contentData
 
-  // pull out pending requests and status updates (limit to 3 each if you like)
+  // pull out pending requests and status updates (limit to 3)
   const topRequests = pendingRequests.items.slice(0, 3)
   const topStatuses = statusUpdates.slice(0, 3)
 

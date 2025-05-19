@@ -12,7 +12,6 @@ interface PreQuestionnairePageProps {
 
 export default async function PreQuestionnairePage({ params }: PreQuestionnairePageProps) {
   const { participantId } = await params;
-  // TODO: Fetch actual questions for the pre-questionnaire
   const questions = getPreQuestionnaireQuestions();
 
   return (

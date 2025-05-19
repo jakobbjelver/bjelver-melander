@@ -39,7 +39,7 @@ export function filterStimuliByLength(
         // Find the index of the first irrelevant item
         const irrelevantIndex = items.findIndex(item => item.irrelevant);
 
-        // For 'Longer' content, the requirement is to remove *an* irrelevant item.
+        // For 'Longer' content, the requirement is to remove an irrelevant item.
         // If none exists, we cannot fulfill the requirement.
         if (irrelevantIndex === -1) {
             // Throw an error because the input data does not meet the function's

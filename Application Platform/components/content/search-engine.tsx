@@ -15,20 +15,19 @@ interface SearchEngineComponentProps {
 }
 
 export function SearchEngineComponent({ source, contentData }: SearchEngineComponentProps) {
-  // 1) define your query state
 
   let component: JSX.Element | null = null;
 
   switch (source) {
     case ContentSources.AI:
       component = <AIComponent contentData={contentData as SearchAISummary} />;
-      break;                                  // ← add this
+      break;                                 
     case ContentSources.Original:
       component = <OriginalComponent contentData={contentData as SearchResultItem[]} />;
-      break;                                  // ← and this
+      break;                                  
     case ContentSources.Programmatic:
       component = <ProgrammaticComponent contentData={contentData as SearchProgrammaticSummary} />;
-      break;                                  // ← and this
+      break;                                  
     default:
       component = null;
   }

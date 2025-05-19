@@ -2,9 +2,6 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 
-// Optional: Fetch debriefing info if stored dynamically
-// import { getDebriefInfo } from '@/lib/debrief';
-
 interface CompletePageProps {
   params: Promise<{
     participantId: string;
@@ -12,7 +9,6 @@ interface CompletePageProps {
 }
 
 export default async function CompletePage({ params }: CompletePageProps) {
-  // const debrief = await getDebriefInfo(); // Optional
   const { participantId } = await params;
 
   console.log("PARTICIPANT ID: ", participantId)
