@@ -1,0 +1,1 @@
+Research experiment platform used by Bjelvér & Melander (2025) in _[AI-Generated Summaries Affecting Decision Quality in Microcontent Interactions](https://lup.lub.lu.se/student-papers/search/publication/9202096)_.
